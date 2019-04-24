@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -16,10 +17,17 @@ import android.widget.CalendarView;
 import android.widget.ListView;
 
 import com.example.iexpens.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 
@@ -36,6 +44,9 @@ public class NotificationFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    ArrayAdapter adapter;
+    ArrayList listItems = new ArrayList();
+    ArrayList listKeys = new ArrayList();
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -92,16 +103,36 @@ public class NotificationFragment extends Fragment {
         Log.d("Year",Integer.toString(year));
         Log.d("month",Integer.toString(month));
         Log.d("day",Integer.toString(dayOfMonth));
+        String querydate = year+"-"+month+"-"+dayOfMonth;
         ListView itemList = getView().findViewById(R.id.billListView);
         ArrayList<String> items = new ArrayList<String>();
-        String itemText = "";
-        for (int i=0;i<10;i++){
-            itemText = (dayOfMonth + i) + "-"+month+"-"+year;
-            items.add(itemText);
-        }
         //ArrayAdapter<String> itemAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,items);
-        ArrayAdapter adp = new ArrayAdapter(this.getContext(),android.R.layout.simple_list_item_1,items);
-        itemList.setAdapter(adp);
+        adapter = new ArrayAdapter(this.getContext(),android.R.layout.simple_list_item_1,items);
+        String userid = "user1";
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("Bill_"+userid);
+        Query query = dbRef.orderByChild("strDueDate").equalTo(querydate);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Iterable<DataSnapshot> snapshotIterator = dataSnapshot.getChildren();
+                Iterator<DataSnapshot> iterator = snapshotIterator.iterator();
+                adapter.clear();
+                listKeys.clear();
+                while (iterator.hasNext()) {
+                    DataSnapshot next = (DataSnapshot) iterator.next();
+
+                    String match = (String) next.child("strBillName").getValue();
+                    String key = next.getKey();
+                    listKeys.add(key);
+                    adapter.add(match);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        itemList.setAdapter(adapter);
     }
 
     // TODO: Rename method, update argument and hook method into UI event

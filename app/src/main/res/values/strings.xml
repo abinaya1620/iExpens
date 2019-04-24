@@ -4,7 +4,10 @@
     <string name="title_notifications">Notifications</string>
     <string name="title_overview">Overview</string>
     <string name="title_wallet">Wallet</string>
-
+    <string name="BillNameNotAvailable">Bill Name is Empty. Please enter name for the Bill</string>
+    <string name="BillAmountNotAvailable">Bill Amount is Empty. Please enter Bill Amount</string>
+    <string name="BillDueDateNotAvailable">Bill Due Date is Empty. Please enter Bill Due Date</string>
+    <string name="BillSavedSuccesfully">Bill Saved Succesfully to the account</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->
@@ -51,5 +54,4 @@
     <string name="new_category">New Category</string>
     <string name="switch_view">Switch view</string>
     <string name="category_name">Category Name</string>
-
 </resources>

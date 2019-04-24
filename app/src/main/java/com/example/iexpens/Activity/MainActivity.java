@@ -1,7 +1,5 @@
 package com.example.iexpens.Activity;
 
-import android.content.Intent;
-
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 
@@ -16,12 +14,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Switch;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -100,28 +101,6 @@ public class MainActivity extends AppCompatActivity {
             });
         }*/
     }
-    public void saveBill(View view) {
-        Log.d("Saving","Saving Bills");
-        Spinner accountValue = findViewById(R.id.AccountValue);
-        EditText amountValue= findViewById(R.id.AmountValue);
-        EditText dueDateValue= findViewById(R.id.DueDateValue);
-        String strAcoountType = accountValue.getSelectedItem().toString();
-        String strAmount = amountValue.getText().toString();
-        String strdueDate = dueDateValue.getText().toString();
-
-        saveBillToDatabase(strAcoountType,strAmount,strdueDate);
-    }
-
-    private void saveBillToDatabase(String strAcoountType, String strAmount, String strdueDate) {
-        Log.d("Account Type",strAcoountType);
-        Log.d("Amount",strAmount);
-        Log.d("Due Date",strdueDate);
-    }
-
-    public void discardBill(View view) {
-        Log.d("Discard","Discarding new bill");
-    }
-
     public void addBill(View view) {
         Log.d("Add","Adding new bill");
         Fragment AddBills = new Bills();

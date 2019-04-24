@@ -10,15 +10,24 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.Switch;
+import android.widget.Toast;
 
+import com.example.iexpens.Activity.BillData;
 import com.example.iexpens.R;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -79,31 +88,29 @@ public class Bills extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View BillsView = inflater.inflate(R.layout.fragment_bills, container, false);
-        final FragmentManager fm = ((AppCompatActivity)getActivity()).getSupportFragmentManager();
-
-        final Calendar myCalendar = Calendar.getInstance();
-
-        final EditText edittext= (EditText) BillsView.findViewById(R.id.DueDateValue);
-
-        /*DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+        final View BillsView = inflater.inflate(R.layout.fragment_bills, container, false);
+        Button addButton = (Button) BillsView.findViewById(R.id.billAdd);
+        addButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                // TODO Auto-generated method stub
-                myCalendar.set(Calendar.YEAR, year);
-                myCalendar.set(Calendar.MONTH, monthOfYear);
-                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                updateLabel(edittext,myCalendar);
-                Log.d("Print", "Date is clicked");
+            public void onClick(View v) {
+                saveBill(BillsView);
             }
-        };*/
+        });
+        Button canceldButton = (Button) BillsView.findViewById(R.id.billCancel);
+        canceldButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cancelBill(BillsView);
+            }
+        });
+
+        final FragmentManager fm = ((AppCompatActivity)getActivity()).getSupportFragmentManager();
+        final Calendar myCalendar = Calendar.getInstance();
+        final EditText edittext= (EditText) BillsView.findViewById(R.id.billDueDate);
         edittext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-                //DialogFragment newFragment = new DatePickerFragment();
-                //newFragment.show(getFragmentManager(), "datePicker");
-                //new DatePickerDialog(Bills.this, date, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),myCalendar.get(Calendar.DAY_OF_MONTH)).show();
                 final Calendar calendar = Calendar.getInstance();
                 int yy = calendar.get(Calendar.YEAR);
                 int mm = calendar.get(Calendar.MONTH);
@@ -120,7 +127,7 @@ public class Bills extends Fragment {
             }
         });
 
-        EditText eText = (EditText) BillsView.findViewById(R.id.DueDateValue);
+        EditText eText = (EditText) BillsView.findViewById(R.id.billDueDate);
         eText.setHint("Add Due Date");
         return BillsView;
     }
@@ -169,6 +176,88 @@ public class Bills extends Fragment {
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
         Log.d("text value",myCalendar.getTime().toString());
         edittext.setText(sdf.format(myCalendar.getTime()));
+    }
+
+    public void saveBill(View view) {
+        Log.d("Saving","Saving Bills");
+        EditText billName= view.findViewById(R.id.billName);
+        if(billName==null)
+            Log.d("Bill Name","It is null" + view.getClass().getName());
+        Spinner billAccount = view.findViewById(R.id.billAccount);
+        EditText billAmount= view.findViewById(R.id.billAmount);
+        Spinner billCategory = view.findViewById(R.id.billCategory);
+        EditText billDueDate= view.findViewById(R.id.billDueDate);
+        Spinner billReminder = view.findViewById(R.id.billReminder);
+        Switch billAutoPay = view.findViewById(R.id.billAutoPay);
+        EditText billNotes= view.findViewById(R.id.billNote);
+
+        if(TextUtils.isEmpty(billName.getText())){
+            Toast.makeText(getActivity(), getString(R.string.BillNameNotAvailable), Toast.LENGTH_LONG).show();
+            return;
+        }else if(TextUtils.isEmpty(billAmount.getText())){
+            Toast.makeText(getActivity(), getString(R.string.BillAmountNotAvailable), Toast.LENGTH_LONG).show();
+            return;
+        }else if(TextUtils.isEmpty(billDueDate.getText())){
+            Toast.makeText(getActivity(), getString(R.string.BillDueDateNotAvailable), Toast.LENGTH_LONG).show();
+            return;
+        }
+        String billNameValue = billName.getText().toString();
+        String billAccountValue = billAccount.getSelectedItem().toString();
+        String billAmountValue = billAmount.getText().toString();
+        String billCategoryValue = billCategory.getSelectedItem().toString();
+        String billDueDateValue = billDueDate.getText().toString();
+        String billReminderValue = billReminder.getSelectedItem().toString();
+        String billAutoPayValue =  Boolean.toString(billAutoPay.isChecked());
+        String billNotesValue = "";
+        if(!TextUtils.isEmpty(billNotes.getText())) {
+            billNotesValue = billNotes.getText().toString();
+        }
+
+        if(TextUtils.isEmpty(billNameValue)){
+            Toast.makeText(getActivity(), getString(R.string.account_name), Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        saveBillToDatabase(billNameValue,
+                billAccountValue,
+                billAmountValue,
+                billCategoryValue,
+                billDueDateValue,
+                billReminderValue,
+                billAutoPayValue,
+                billNotesValue);
+    }
+
+    private void saveBillToDatabase(String billNameValue,
+                                    String billAccountValue,
+                                    String billAmountValue,
+                                    String billCategoryValue,
+                                    String billDueDateValue,
+                                    String billReminderValue,
+                                    String billAutoPayValue,
+                                    String billNotesValue) {
+        String userid = "user1";
+        BillData Bill = new BillData(billNameValue,
+                billAccountValue,
+                billAmountValue,
+                billCategoryValue,
+                billDueDateValue,
+                billReminderValue,
+                billAutoPayValue,
+                billNotesValue);
+        DatabaseReference firebaseDb = FirebaseDatabase.getInstance().getReference("Bill_"+userid);
+        String id = firebaseDb.push().getKey();
+        firebaseDb.child(id).setValue(Bill);
+        Toast.makeText(getActivity(), getString(R.string.BillSavedSuccesfully), Toast.LENGTH_LONG).show();
+        FragmentTransaction fr = getFragmentManager().beginTransaction();
+        fr.replace(R.id.fragment_container, new NotificationFragment());
+        fr.commit();
+    }
+
+    public void cancelBill(View view) {
+        FragmentTransaction fr = getFragmentManager().beginTransaction();
+        fr.replace(R.id.fragment_container, new NotificationFragment());
+        fr.commit();
     }
 
     public static class DatePickerFragment extends DialogFragment

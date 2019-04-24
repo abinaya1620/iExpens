@@ -137,7 +137,4 @@
         android:text="Clear"
         android:onClick="button_acc_clear_onClick"/>
 
-
-
-
 </RelativeLayout>
