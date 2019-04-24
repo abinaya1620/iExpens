@@ -9,31 +9,31 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <CalendarView
-                android:id="@+id/expenseCalendar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
-            <ListView
-                android:id="@+id/billListView"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <CalendarView
+                    android:id="@+id/expenseCalendar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/colorPrimary" >
-            </ListView>
+                android:orientation="horizontal">
+                <ListView
+                    android:id="@+id/billListView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorPrimary" >
+                </ListView>
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/floatingActionButton4"
             android:layout_width="wrap_content"
@@ -43,13 +43,12 @@
             android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginBottom="70dp"
-            app:backgroundTint="@color/colorfloatingbutton"
             android:clickable="true"
             android:focusable="true"
-            android:onClick="addBill"
             android:src="@android:drawable/ic_input_add"
             android:visibility="visible"
             app:fabSize="auto"
-            tools:visibility="visible" />
+            tools:visibility="visible"
+            android:onClick="addBill"/>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </FrameLayout>

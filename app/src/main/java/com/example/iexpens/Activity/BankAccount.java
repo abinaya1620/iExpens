@@ -9,6 +9,7 @@ public class BankAccount {
 
     }
 
+
     public BankAccount(String bankId, String acc_no, String acc_name, String acc_amount, String banks, String acc_type) {
         this.bankId = bankId;
         this.acc_no = acc_no;

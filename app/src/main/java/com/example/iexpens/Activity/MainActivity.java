@@ -1,6 +1,7 @@
 package com.example.iexpens.Activity;
 
 import android.content.Intent;
+
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 
@@ -33,11 +34,10 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            Fragment selectedFragment=null;
+            Fragment selectedFragment;
             Log.d(TAG,"inside bottom navigation listener" );
             Log.d(TAG,"Item" + item);
             switch (item.getItemId()) {
-
                 case R.id.navigation_home:
                     selectedFragment = new HomeFragment();
                     break;
@@ -50,6 +50,9 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.navigation_wallet:
                     selectedFragment = new WalletFragment();
                 break;
+                default:
+                    selectedFragment = new HomeFragment();
+                    break;
             }
             Log.d(TAG,"selectedFragment "+ selectedFragment);
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
@@ -99,9 +102,9 @@ public class MainActivity extends AppCompatActivity {
     }
     public void saveBill(View view) {
         Log.d("Saving","Saving Bills");
-        Spinner accountValue = (Spinner) findViewById(R.id.AccountValue);
-        EditText amountValue= (EditText) findViewById(R.id.AmountValue);
-        EditText dueDateValue= (EditText) findViewById(R.id.DueDateValue);
+        Spinner accountValue = findViewById(R.id.AccountValue);
+        EditText amountValue= findViewById(R.id.AmountValue);
+        EditText dueDateValue= findViewById(R.id.DueDateValue);
         String strAcoountType = accountValue.getSelectedItem().toString();
         String strAmount = amountValue.getText().toString();
         String strdueDate = dueDateValue.getText().toString();
@@ -127,4 +130,5 @@ public class MainActivity extends AppCompatActivity {
         transaction.addToBackStack(null);
         transaction.commit();
     }
+
 }

@@ -4,10 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import technolifestyle.com.imageslider.FlipperLayout;
 import technolifestyle.com.imageslider.FlipperView;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
 import android.os.Bundle;
 import android.widget.Toast;
 

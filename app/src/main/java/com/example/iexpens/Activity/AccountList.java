@@ -40,8 +40,8 @@ public class AccountList extends ArrayAdapter<BankAccount> {
         BankAccount bankAccount = accountList.get(position);
 
         text_accno.setText(bankAccount.getAcc_no());
-        text_accamount.setText(bankAccount.getAcc_amount());
-        text_accbank.setText(bankAccount.getBanks() + " Kr" );
+        text_accamount.setText(bankAccount.getAcc_amount() + " Kr" );
+        text_accbank.setText(bankAccount.getBanks());
 
         return listviewItem;
     }

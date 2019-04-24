@@ -30,12 +30,12 @@ public class OverviewFragment extends Fragment {
     }
 
     /**
-     * Use this factory method to create a new instance of
+     * Use this factory method to create a new_category instance of
      * this fragment using the provided parameters.
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment OverviewFragment.
+     * @return A new_category instance of fragment OverviewFragment.
      */
     // TODO: Rename and change types and number of parameters
     public static OverviewFragment newInstance(String param1, String param2) {
