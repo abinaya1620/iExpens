@@ -17,6 +17,8 @@ import android.widget.Toast;
 import com.example.iexpens.fragments.WalletFragment;
 import com.example.iexpens.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -29,16 +31,22 @@ public class AccountScreenActivity extends AppCompatActivity {
 
     private TextView acc_bal;
     private TextView acc_no;
-    FloatingActionButton update_acc_amount;
-    Button button_del_acc;
-    DatabaseReference databaseTransactions;
-    Button button_add_accexp;
-    Button button_acc_trans;
+    private FloatingActionButton update_acc_amount;
+    private Button button_del_acc;
+    private DatabaseReference databaseTransactions;
+    private DatabaseReference databaseReference;
+    private Button button_add_accexp;
+    private Button button_acc_trans;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_screen);
+
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser();
+        String user_Id = user.getUid();
 
         update_acc_amount = (FloatingActionButton) findViewById(R.id.update_acc_amount);
         update_acc_amount.setOnClickListener(new View.OnClickListener() {
@@ -48,7 +56,7 @@ public class AccountScreenActivity extends AppCompatActivity {
             }
         });
 
-        button_del_acc = (Button)findViewById(R.id.button_del_acc);
+        button_del_acc = (Button) findViewById(R.id.button_del_acc);
         button_del_acc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,7 +64,7 @@ public class AccountScreenActivity extends AppCompatActivity {
             }
         });
 
-        button_add_accexp = (Button)findViewById(R.id.button_add_accexp);
+        button_add_accexp = (Button) findViewById(R.id.button_add_accexp);
         button_add_accexp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,7 +72,7 @@ public class AccountScreenActivity extends AppCompatActivity {
             }
         });
 
-        button_acc_trans = (Button)findViewById(R.id.button_acc_trans);
+        button_acc_trans = (Button) findViewById(R.id.button_acc_trans);
         button_acc_trans.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -81,9 +89,11 @@ public class AccountScreenActivity extends AppCompatActivity {
         acc_bal.setText(amount + " Kr");
         String accno = intent.getStringExtra(WalletFragment.BANK_NO);
         acc_no.setText(accno);
+        String bankId = intent.getStringExtra(WalletFragment.BANK_ID);
 
+        databaseTransactions = FirebaseDatabase.getInstance().getReference().child(user_Id).child("Bank Accounts").child(bankId).child("Bank Transactions");
+        databaseReference = FirebaseDatabase.getInstance().getReference().child(user_Id).child("Bank Accounts").child(bankId);
     }
-
 
     private void add_accexp_onClick(View v) {
 /*        Intent intent = new Intent(AccountScreenActivity.this, AddExpenseActivity.class);
@@ -121,19 +131,23 @@ public class AccountScreenActivity extends AppCompatActivity {
 
     public boolean deleteAccount(String bankId) {
 
-        DatabaseReference drAccount = FirebaseDatabase.getInstance().getReference("Bank Accounts").child(bankId);
-        DatabaseReference drtransactions = FirebaseDatabase.getInstance().getReference("Bank Transactions").child(bankId);
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser();
+        String user_Id = user.getUid();
+
+
+        DatabaseReference drAccount = FirebaseDatabase.getInstance().getReference().child(user_Id).child("Bank Accounts").child(bankId);
+        DatabaseReference drtransactions = FirebaseDatabase.getInstance().getReference().child(user_Id).child("Bank Accounts").child(bankId).child("Bank Transactions");
 
         drAccount.removeValue();
         drtransactions.removeValue();
 
-        Toast.makeText(this, "Account deleted successfully", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, getString(R.string.acc_del_msg), Toast.LENGTH_LONG).show();
 
         Intent intent = new Intent(AccountScreenActivity.this, MainActivity.class);
         startActivity(intent);
         return true;
     }
-
 
     private void showUpdateDialog() {
         AlertDialog.Builder dialogBuiler = new AlertDialog.Builder(this);
@@ -163,11 +177,11 @@ public class AccountScreenActivity extends AppCompatActivity {
                 accamt = "" + value;
 
                 if (TextUtils.isEmpty(accamount)) {
-                    update_acc_amount.setError("Enter Amount");
+                    update_acc_amount.setError(getString(R.string.enter_amount_err));
                     return;
                 }
                 update_amount(id, accno, accname, accamt, bank, bank_type);
-                update_transaction(id, accamount);
+                update_transaction(accamount);
                 alertDialog.dismiss();
                 acc_bal.setText(accamt + " Kr");
 
@@ -176,33 +190,25 @@ public class AccountScreenActivity extends AppCompatActivity {
     }
 
     public boolean update_amount(String bankId, String acc_no, String acc_name, String acc_amount, String banks, String acc_type) {
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Bank Accounts").child(bankId);
 
         BankAccount bankAccount = new BankAccount(bankId, acc_no, acc_name, acc_amount, banks, acc_type);
         databaseReference.setValue(bankAccount);
 
-        Toast.makeText(this, "Amount Added Successfully into the account " + acc_no, Toast.LENGTH_LONG).show();
+        Toast.makeText(this, getString(R.string.amount_added_msg) + "" +acc_no, Toast.LENGTH_LONG).show();
         return true;
     }
 
-    private void update_transaction(String bankId, String acc_amt) {
-        databaseTransactions = FirebaseDatabase.getInstance().getReference("Bank Transactions").child(bankId);
+    private void update_transaction(String acc_amt) {
         String trans_id = databaseTransactions.push().getKey();
 
         SimpleDateFormat ISO_8601_FORMAT = new SimpleDateFormat("dd-MM-yyyy' T 'HH:mm:sss");
 
         String current_date = ISO_8601_FORMAT.format(new Date());
-        String trans_type = "Credit";
+        String trans_type = getString(R.string.trans_credit);
         String amt = acc_amt;
-
-        Log.d("Print", trans_id);
-        Log.d("Print", current_date);
-        Log.d("Print", trans_type);
-        Log.d("Print", amt);
 
         Transactions transactions = new Transactions(trans_id, current_date, trans_type, amt);
         databaseTransactions.child(trans_id).setValue(transactions);
-
     }
 
 }

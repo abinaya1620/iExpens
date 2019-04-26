@@ -19,6 +19,8 @@ import android.widget.Toast;
 
 import com.example.iexpens.activity.BankAccount;
 import com.example.iexpens.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -37,9 +39,11 @@ public class AddAccountFragment extends Fragment {
     private Button button_add_acc;
     private Button button_acc_clear;
     private Activity activity;
+    private FirebaseAuth mAuth;
 
 
     DatabaseReference databaseAccounts;
+
 
     public AddAccountFragment() {
         // Required empty public constructor
@@ -56,7 +60,11 @@ public class AddAccountFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_add_account, container, false);
 
-        databaseAccounts = FirebaseDatabase.getInstance().getReference("Bank Accounts");
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser();
+        String userId = user.getUid();
+
+        databaseAccounts = FirebaseDatabase.getInstance().getReference().child(userId).child("Bank Accounts");
 
         ip_acc_no = (EditText)view.findViewById(R.id.ip_acc_no);
         ip_acc_name = (EditText)view.findViewById(R.id.ip_acc_name);
@@ -107,7 +115,6 @@ public class AddAccountFragment extends Fragment {
 
 
         if(!TextUtils.isEmpty(acc_no)){
-
             String id = databaseAccounts.push().getKey();
             BankAccount bankAccount = new BankAccount(id, acc_no, acc_name, acc_amount, bank, acc_type);
             databaseAccounts.child(id).setValue(bankAccount);

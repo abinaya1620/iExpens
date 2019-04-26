@@ -17,9 +17,7 @@
     <string name="amount">Amount</string>
     <string name="add_bills">Add Bills</string>
     <string name="wallet">Wallet</string>
-    <string name="overview">overview</string>
-
-
+    <string name="expenses">Expenses</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
@@ -54,11 +52,14 @@
     <string name="new_category">New Category</string>
     <string name="switch_view">Switch view</string>
     <string name="category_name">Category Name</string>
-
+    <string name="acc_del_msg">Account deleted successfully</string>
+    <string name="enter_amount_err">Enter Amount</string>
+    <string name="amount_added_msg">Amount Added Successfully into the account</string>
+    <string name="trans_credit">Credit</string>
+    <string name="amount_added_msg_wallet">Amount Added Successfully into the Wallet</string>
     <string name="input_category_name">Input Category name.</string>
     <string name="delete_category">Delete</string>
     <string name="search_category">search</string>
-
     <string name="choose_category_hint">Choose Category</string>
     <string name="price_hint">Price</string>
     <string name="description_hint">Description</string>
@@ -83,6 +84,5 @@
         <item>Utilities</item>
         <item>Education</item>
         <item>Miscellaneous</item>
-
     </array>
 </resources>
