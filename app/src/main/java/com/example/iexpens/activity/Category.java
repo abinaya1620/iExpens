@@ -5,6 +5,7 @@ import com.example.iexpens.adapter.ListViewAdapter;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -138,6 +139,15 @@ AdapterView.OnItemClickListener onItemClick = new AdapterView.OnItemClickListene
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
        //Action after clicking item
+        // Getting listview click value into String variable.
+        String TempListViewClickedValue =categoryList.get(position).getTitle();
+
+        Intent intent = new Intent(Category.this, AddExpenseActivity.class);
+
+        // Sending value to another activity using intent.
+        intent.putExtra("ListViewClickedValue", TempListViewClickedValue);
+
+        startActivity(intent);
         Toast.makeText(getApplicationContext(), categoryList.get(position).getTitle(), Toast.LENGTH_SHORT).show();
     }
 };

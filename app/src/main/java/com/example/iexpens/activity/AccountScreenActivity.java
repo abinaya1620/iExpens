@@ -113,6 +113,9 @@ public class AccountScreenActivity extends AppCompatActivity {
         intent.putExtra(bank_type, WalletFragment.BANK_TYPE);
 
         startActivity(intent);*/
+
+        Intent intent = new Intent(AccountScreenActivity.this, AddExpenseActivity.class);
+        startActivity(intent);
     }
 
 
@@ -210,5 +213,6 @@ public class AccountScreenActivity extends AppCompatActivity {
         Transactions transactions = new Transactions(trans_id, current_date, trans_type, amt);
         databaseTransactions.child(trans_id).setValue(transactions);
     }
+
 
 }

@@ -65,6 +65,15 @@
     <string name="description_hint">Description</string>
     <string name="expense_date_hint">Date</string>
     <string name="insert_expense">Add Expense</string>
+    <string name="category_expense">Category</string>
+    <string name="pick_date_expense">Pick Date</string>
+    <string name="category_expensetitle">Category</string>
+    <string name="price_expense">Price</string>
+    <string name="click_an_image">Click an Image</string>
+    <string name="view_expense">View Expense</string>
+    <string name="description">Description</string>
+    <string name="select_category">Select Category</string>
+
 
     <array name="category">
         <item>Rent</item>
