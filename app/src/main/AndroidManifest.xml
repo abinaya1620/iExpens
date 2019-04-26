@@ -17,7 +17,6 @@
         android:supportsRtl="true"
         tools:ignore="GoogleAppIndexingWarning"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.AddCashActivity"/>
         <activity android:name=".activity.CashWalletScreen" />
         <activity android:name=".activity.AccountScreenActivity" />
         <activity android:name=".activity.MainActivity" />

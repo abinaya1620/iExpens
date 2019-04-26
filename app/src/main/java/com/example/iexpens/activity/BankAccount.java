@@ -5,10 +5,9 @@ public class BankAccount {
 
     String acc_no, acc_name, acc_amount, banks, acc_type;
 
-    public BankAccount(){
+    public BankAccount() {
 
     }
-
 
     public BankAccount(String bankId, String acc_no, String acc_name, String acc_amount, String banks, String acc_type) {
         this.bankId = bankId;

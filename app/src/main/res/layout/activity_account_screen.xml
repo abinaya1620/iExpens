@@ -8,7 +8,6 @@
     tools:context=".activity.AccountScreenActivity">
 
 
-
     <TextView
         android:id="@+id/acc_no"
         android:layout_width="240dp"
@@ -43,27 +42,27 @@
         android:id="@+id/button_add_accexp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="300dp"
         android:layout_marginStart="50dp"
-        android:text="@string/add_expense"
-        android:onClick="add_accexp_onClick"/>
+        android:layout_marginTop="300dp"
+        android:onClick="add_accexp_onClick"
+        android:text="@string/add_expense" />
 
 
     <Button
         android:id="@+id/button_del_acc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="300dp"
         android:layout_marginStart="220dp"
-        android:text="@string/delete_account"
-        android:onClick="del_acc_onClick"/>
+        android:layout_marginTop="300dp"
+        android:onClick="del_acc_onClick"
+        android:text="@string/delete_account" />
 
     <Button
         android:id="@+id/button_acc_trans"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="400dp"
         android:layout_marginStart="130dp"
+        android:layout_marginTop="400dp"
         android:text="View Transactions" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -77,10 +76,10 @@
         android:layout_marginBottom="70dp"
         android:clickable="true"
         android:focusable="true"
+        android:onClick="update_acc_amount_onClick"
         android:src="@android:drawable/ic_input_add"
         android:visibility="visible"
-        tools:visibility="visible"
-        android:onClick="update_acc_amount_onClick"/>
+        tools:visibility="visible" />
 
 
 </RelativeLayout>
