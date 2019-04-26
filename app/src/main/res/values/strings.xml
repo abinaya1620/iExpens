@@ -4,6 +4,7 @@
     <string name="title_notifications">Notifications</string>
     <string name="title_overview">Overview</string>
     <string name="title_wallet">Wallet</string>
+
     <string name="BillNameNotAvailable">Bill Name is Empty. Please enter name for the Bill</string>
     <string name="BillAmountNotAvailable">Bill Amount is Empty. Please enter Bill Amount</string>
     <string name="BillDueDateNotAvailable">Bill Due Date is Empty. Please enter Bill Due Date</string>
@@ -56,5 +57,32 @@
     <string name="amount_added_msg">Amount Added Successfully into the account</string>
     <string name="trans_credit">Credit</string>
     <string name="amount_added_msg_wallet">Amount Added Successfully into the Wallet</string>
+    <string name="input_category_name">Input Category name.</string>
+    <string name="delete_category">Delete</string>
+    <string name="search_category">search</string>
+    <string name="choose_category_hint">Choose Category</string>
+    <string name="price_hint">Price</string>
+    <string name="description_hint">Description</string>
+    <string name="expense_date_hint">Date</string>
+    <string name="insert_expense">Add Expense</string>
 
+    <array name="category">
+        <item>Rent</item>
+        <item>Transport</item>
+        <item>ChildCare</item>
+        <item>Dining</item>
+        <item>Entertainment</item>
+        <item>Gifts</item>
+        <item>Health</item>
+        <item>Personal Care</item>
+        <item>Maintenance</item>
+        <item>Insurance</item>
+        <item>Loan</item>
+        <item>Medical</item>
+        <item>Tax</item>
+        <item>Shopping</item>
+        <item>Utilities</item>
+        <item>Education</item>
+        <item>Miscellaneous</item>
+    </array>
 </resources>
