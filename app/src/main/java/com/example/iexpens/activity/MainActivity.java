@@ -146,4 +146,8 @@ public class MainActivity extends AppCompatActivity {
         super.onBackPressed();
     }
 
+    public void showCategory(View view) {
+        Intent intent = new Intent(this, Category.class);
+        startActivity(intent);
+    }
 }

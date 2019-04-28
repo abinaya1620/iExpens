@@ -114,7 +114,8 @@
                 android:lineSpacingExtra="14sp"
                 android:text="Category"
                 android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:onClick="showCategory"/>
 
             <Spinner
                 android:id="@+id/billCategory"
