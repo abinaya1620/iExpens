@@ -52,7 +52,6 @@
             android:src="@android:drawable/ic_input_add"
             android:visibility="visible"
             app:fabSize="auto"
-            tools:visibility="visible"
-            android:onClick="addBill"/>
+            tools:visibility="visible" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </FrameLayout>

@@ -50,6 +50,15 @@ public class Bills extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    String strIntialDuedate = "";
+
+    public String getStrIntialDuedate() {
+        return strIntialDuedate;
+    }
+
+    public void setStrIntialDuedate(String strIntialDuedate) {
+        this.strIntialDuedate = strIntialDuedate;
+    }
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -117,13 +126,8 @@ public class Bills extends Fragment {
                 cancelBill(BillsView);
             }
         });
-        Bundle bdl = getArguments();
         String strSelectedDuedate = "";
-        if(bdl == null){
-            Log.d("null", "Bundle is null");
-        }else{
-            strSelectedDuedate = bdl.getString("SelectedDate");
-        }
+        strSelectedDuedate=getStrIntialDuedate();
         final FragmentManager fm = ((AppCompatActivity)getActivity()).getSupportFragmentManager();
         final Calendar myCalendar = Calendar.getInstance();
         final EditText edittext= (EditText) BillsView.findViewById(R.id.billDueDate);
@@ -146,7 +150,7 @@ public class Bills extends Fragment {
                 datePicker.show();
             }
         });
-
+        Log.d("Recieved due date",strSelectedDuedate);
         EditText eText = (EditText) BillsView.findViewById(R.id.billDueDate);
         eText.setText(strSelectedDuedate);
         eText.setHint("Add Due Date");

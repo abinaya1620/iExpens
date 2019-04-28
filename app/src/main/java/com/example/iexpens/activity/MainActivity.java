@@ -15,6 +15,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -114,14 +115,14 @@ public class MainActivity extends AppCompatActivity {
         }*/
     }
 
-    public void addBill(View view) {
-        Log.d("Add", "Adding new bill");
+    /*public void addBill(View view) {
+        Log.d("Add", "Adding new bill - MainActivity");
         Fragment AddBills = new Bills();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container, AddBills);
         transaction.addToBackStack(null);
         transaction.commit();
-    }
+    }*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -153,6 +154,16 @@ public class MainActivity extends AppCompatActivity {
 
     public void showCategory(View view) {
         Intent intent = new Intent(this, Category.class);
-        startActivity(intent);
+        //startActivity(intent);
+        startActivityForResult(intent,1001);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 1001){
+            String val = data.getExtras().getString("ListViewClickedValue");
+            Log.d("val",val);
+        }
     }
 }

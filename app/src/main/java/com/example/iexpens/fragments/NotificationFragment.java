@@ -17,6 +17,7 @@ import android.widget.ListView;
 
 import com.example.iexpens.R;
 import com.example.iexpens.activity.BillData;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -55,6 +56,14 @@ public class NotificationFragment extends Fragment {
     private String mUserId;
 
     private OnFragmentInteractionListener mListener;
+    FloatingActionButton floatingActionButton;
+    public String getSelectedDate() {
+        return selectedDate;
+    }
+
+    public void setSelectedDate(String selectedDate) {
+        this.selectedDate = selectedDate;
+    }
 
     public NotificationFragment() {
         // Required empty public constructor
@@ -95,6 +104,11 @@ public class NotificationFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_notification, container, false);
         CalendarView expenseCalendar = view.findViewById(R.id.expenseCalendar);
+        Calendar calendar = Calendar.getInstance();
+        int yy = calendar.get(Calendar.YEAR);
+        int mm = calendar.get(Calendar.MONTH);
+        int dd = calendar.get(Calendar.DAY_OF_MONTH);
+        setSelectedDate(String.valueOf(yy) +"-"+String.valueOf(mm+1)+"-"+String.valueOf(dd));
         expenseCalendar.setOnDateChangeListener( new CalendarView.OnDateChangeListener() {
             public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
                 Log.d("print","Print");
@@ -102,6 +116,21 @@ public class NotificationFragment extends Fragment {
                 showItemsByDate( year, month+1, dayOfMonth );
             }
         });
+        floatingActionButton = view.findViewById(R.id.floatingActionButton4);
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("Add","Adding new bill notification Fragment");
+                Fragment AddBills = new com.example.iexpens.fragments.Bills();
+                Log.d("Sent due date",selectedDate);
+                ((Bills) AddBills).setStrIntialDuedate(selectedDate);
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.fragment_container,AddBills);
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
+
         return view;
     }
 
@@ -110,6 +139,7 @@ public class NotificationFragment extends Fragment {
         Log.d("month",Integer.toString(month));
         Log.d("day",Integer.toString(dayOfMonth));
         String querydate = year+"-"+month+"-"+dayOfMonth;
+        setSelectedDate(querydate);
         ListView itemList = getView().findViewById(R.id.billListView);
         ArrayList<String> items = new ArrayList<String>();
         //ArrayAdapter<String> itemAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,items);
@@ -168,17 +198,16 @@ public class NotificationFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
-    public void addBill(View view) {
-        Log.d("Add","Adding new bill");
+    /*public void addBill(View view) {
+        Log.d("Add","Adding new bill notification Fragment");
         Fragment AddBills = new com.example.iexpens.fragments.Bills();
-        Bundle bundle = new Bundle();
-        bundle.putString("SelectedDate",selectedDate);
+        Log.d("Sent due date",selectedDate);
+        ((Bills) AddBills).setStrIntialDuedate(selectedDate);
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-        AddBills.setArguments(bundle);
         transaction.replace(R.id.fragment_container,AddBills);
         transaction.addToBackStack(null);
         transaction.commit();
-    }
+    }*/
 
     public void onStart() {
         super.onStart();
