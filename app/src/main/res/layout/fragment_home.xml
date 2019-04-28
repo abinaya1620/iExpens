@@ -1,23 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/colorPrimaryDark">
+    android:background="@color/colorPrimaryDark"
+    android:orientation="vertical">
 
-
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:orientation="horizontal"
-        android:background="#fafafa">
+        android:layout_height="250dp"
+        android:background="#fafafa"
+        android:orientation="vertical"
+        android:weightSum="2">
 
+        <ListView
+            android:id="@+id/listViewCash_home"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="60dp"
+            android:layout_weight="1" />
 
-
-    </LinearLayout>
+        <ListView
+            android:id="@+id/listViewAccounts_home"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="70dp"
+            android:layout_marginBottom="5dp"
+            android:layout_weight="1" />
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -30,18 +43,13 @@
             android:id="@+id/chart"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="center"/>
-
+            android:layout_gravity="center" />
     </LinearLayout>
-
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:background="#9874a7">
-
-    </LinearLayout>
-
+        android:background="#9874a7"></LinearLayout>
 
 </LinearLayout>
 

@@ -28,7 +28,7 @@ public class RegistrationActivity extends AppCompatActivity {
     private Button btnSignUp;
 
     private FirebaseDatabase mDatabase;
-    private DatabaseReference mCashKeyReference;
+    private DatabaseReference databaseWallet;
 
     private FirebaseAuth mAuth;
 
@@ -43,9 +43,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
         mDatabase = FirebaseDatabase.getInstance();
 
-
-
-        if(mAuth.getCurrentUser() != null){
+        if (mAuth.getCurrentUser() != null) {
             Intent intent = new Intent(this, MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
@@ -76,44 +74,43 @@ public class RegistrationActivity extends AppCompatActivity {
 
                 boolean emailAndPasswordNotEmpty = true;
 
-                if(TextUtils.isEmpty(email)){
+                if (TextUtils.isEmpty(email)) {
                     etEmail.setError("Required Field..");
                     emailAndPasswordNotEmpty = false;
                 }
-                if(TextUtils.isEmpty(password)){
+                if (TextUtils.isEmpty(password)) {
                     etPassword.setError("Required Field..");
                     emailAndPasswordNotEmpty = false;
                 }
 
 
-
-                if(emailAndPasswordNotEmpty){
+                if (emailAndPasswordNotEmpty) {
 
                     mDialog.setMessage("Processing..");
                     mDialog.show();
 
-                    mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(
+                    mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(
                             new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     mDialog.dismiss();
-                                    if(task.isSuccessful()){
-                                        // wallet creation
-
-                                       // FirebaseUser user = mAuth.getCurrentUser();
-                                       // String userId = user.getUid();
-
-
-                                      //  mCashKeyReference = mDatabase.getReference().child(userId).child("cash2");
-
+                                    if (task.isSuccessful()) {
+                                        // Wallet creation
+                                        FirebaseUser user = mAuth.getCurrentUser();
+                                        String userId = user.getUid();
+                                        databaseWallet = mDatabase.getReference().child(userId).child("WALLET");
+                                        String wallet_id = databaseWallet.push().getKey();
+                                        String title = "WALLET";
+                                        String wallet_amount = "0";
+                                        CashWallet cashWallet = new CashWallet(wallet_id, title, wallet_amount);
+                                        databaseWallet.child(wallet_id).setValue(cashWallet);
 
                                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                         startActivity(intent);
 
                                         Toast.makeText(getApplicationContext(), "Registration Complete", Toast.LENGTH_SHORT).show();
-                                    }
-                                    else{
+                                    } else {
                                         Toast.makeText(getApplicationContext(), "Please, try again", Toast.LENGTH_SHORT).show();
                                     }
                                 }

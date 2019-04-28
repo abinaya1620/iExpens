@@ -18,7 +18,7 @@ public class CashList extends ArrayAdapter<CashWallet> {
     private Activity context;
     private List<CashWallet> cashList;
 
-    public CashList(Activity context, List<CashWallet> cashList){
+    public CashList(Activity context, List<CashWallet> cashList) {
         super(context, R.layout.list_cash, cashList);
         this.context = context;
         this.cashList = cashList;
@@ -29,7 +29,7 @@ public class CashList extends ArrayAdapter<CashWallet> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         LayoutInflater inflater = context.getLayoutInflater();
 
-        View listviewItem = inflater.inflate(R.layout.list_cash,null,true);
+        View listviewItem = inflater.inflate(R.layout.list_cash, null, true);
 
         TextView text_cash = (TextView) listviewItem.findViewById(R.id.text_cash);
         TextView text_cashamount = (TextView) listviewItem.findViewById(R.id.text_cashamount);
@@ -37,7 +37,7 @@ public class CashList extends ArrayAdapter<CashWallet> {
         CashWallet cashWallet = cashList.get(position);
 
         text_cash.setText(cashWallet.getCashTitle());
-        text_cashamount.setText(cashWallet.getCash() + " Kr" );
+        text_cashamount.setText(cashWallet.getCash() + " Kr");
 
         return listviewItem;
     }
