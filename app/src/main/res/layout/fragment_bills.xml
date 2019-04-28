@@ -117,14 +117,22 @@
                 android:textStyle="bold"
                 android:onClick="showCategory"/>
 
-            <Spinner
+            <!--<Spinner
                 android:id="@+id/billCategory"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:entries="@array/Account_Types"
                 android:popupBackground="@color/colorPrimaryDark"
-                android:spinnerMode="dialog" />
+                android:spinnerMode="dialog" />-->
+            <TextView
+                android:id="@+id/CategoryChooser"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:textAlignment="textEnd"
+                android:text="Select Category >>"
+                android:textSize="18dp"/>
 
         </LinearLayout>
 
@@ -184,7 +192,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:entries="@array/Account_Types"
+                android:entries="@array/RemindOptions"
                 android:popupBackground="@color/colorPrimaryDark"
                 android:spinnerMode="dialog" />
 

@@ -24,6 +24,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CalendarView;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -152,18 +153,14 @@ public class MainActivity extends AppCompatActivity {
         super.onBackPressed();
     }
 
-    public void showCategory(View view) {
-        Intent intent = new Intent(this, Category.class);
-        //startActivity(intent);
-        startActivityForResult(intent,1001);
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == 1001){
             String val = data.getExtras().getString("ListViewClickedValue");
-            Log.d("val",val);
+            Log.d("val MainActivity",val);
+            TextView categoryChooser = findViewById(R.id.CategoryChooser);
+            categoryChooser.setText(val);
         }
     }
 }

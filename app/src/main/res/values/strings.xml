@@ -26,6 +26,11 @@
         <item>Current</item>
         <item>Cash</item>
     </string-array>
+    <string-array name="RemindOptions">
+        <item>2 Hours Before</item>
+        <item>1 Day Before</item>
+        <item>3 Day Before</item>
+    </string-array>
     <string name="create_a_new_account">CREATE A NEW ACCOUNT</string>
     <string name="login">LOGIN</string>
     <string name="iexpens">IExpens</string>

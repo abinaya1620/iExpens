@@ -1,12 +1,17 @@
 package com.example.iexpens.fragments;
 
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
@@ -18,11 +23,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.iexpens.activity.BillData;
@@ -30,11 +37,16 @@ import com.example.iexpens.R;
 import com.example.iexpens.activity.Category;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Iterator;
 import java.util.Locale;
 
 /**
@@ -51,6 +63,7 @@ public class Bills extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     String strIntialDuedate = "";
+    ArrayAdapter adapter;
 
     public String getStrIntialDuedate() {
         return strIntialDuedate;
@@ -130,6 +143,38 @@ public class Bills extends Fragment {
         strSelectedDuedate=getStrIntialDuedate();
         final FragmentManager fm = ((AppCompatActivity)getActivity()).getSupportFragmentManager();
         final Calendar myCalendar = Calendar.getInstance();
+        Spinner accoutChooser = BillsView.findViewById(R.id.billAccount);
+        ArrayList<String> items = new ArrayList<String>();
+        adapter = new ArrayAdapter(this.getContext(),android.R.layout.simple_list_item_1,items);
+        DatabaseReference firebaseDb = FirebaseDatabase.getInstance().getReference(mUserId).child("Bank Accounts");
+        firebaseDb.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Iterable<DataSnapshot> snapshotIterator = dataSnapshot.getChildren();
+                Iterator<DataSnapshot> iterator = snapshotIterator.iterator();
+                adapter.clear();
+                while(iterator.hasNext()){
+                    DataSnapshot next = (DataSnapshot) iterator.next();
+                    String strAccountName = (String) next.child("acc_name").getValue();
+                    String strAccountNumber = (String) next.child("acc_no").getValue();
+                    adapter.add(strAccountName);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        accoutChooser.setAdapter(adapter);
+        TextView categoryChooser = BillsView.findViewById(R.id.CategoryChooser);
+        categoryChooser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showCategory(v);
+            }
+        });
         final EditText edittext= (EditText) BillsView.findViewById(R.id.billDueDate);
         edittext.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -210,7 +255,7 @@ public class Bills extends Fragment {
             Log.d("Bill Name","It is null" + view.getClass().getName());
         Spinner billAccount = view.findViewById(R.id.billAccount);
         EditText billAmount= view.findViewById(R.id.billAmount);
-        Spinner billCategory = view.findViewById(R.id.billCategory);
+        TextView billCategory = view.findViewById(R.id.CategoryChooser);
         EditText billDueDate= view.findViewById(R.id.billDueDate);
         Spinner billReminder = view.findViewById(R.id.billReminder);
         Switch billAutoPay = view.findViewById(R.id.billAutoPay);
@@ -229,7 +274,7 @@ public class Bills extends Fragment {
         String billNameValue = billName.getText().toString();
         String billAccountValue = billAccount.getSelectedItem().toString();
         String billAmountValue = billAmount.getText().toString();
-        String billCategoryValue = billCategory.getSelectedItem().toString();
+        String billCategoryValue = billCategory.getText().toString();
         String billDueDateValue = billDueDate.getText().toString();
         String billReminderValue = billReminder.getSelectedItem().toString();
         String billAutoPayValue =  Boolean.toString(billAutoPay.isChecked());
@@ -278,12 +323,23 @@ public class Bills extends Fragment {
         FragmentTransaction fr = getFragmentManager().beginTransaction();
         fr.replace(R.id.fragment_container, new NotificationFragment());
         fr.commit();
+        setAlert(Bill);
     }
 
     public void cancelBill(View view) {
         FragmentTransaction fr = getFragmentManager().beginTransaction();
         fr.replace(R.id.fragment_container, new NotificationFragment());
         fr.commit();
+    }
+
+
+    public void setAlert(BillData bill){
+        Intent intent = new Intent(getActivity(), BillReminder.class);
+        Calendar cal = Calendar.getInstance();
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity().getApplicationContext(), 234324243, intent, 0);
+        AlarmManager alarmManager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis()+10000, pendingIntent);
+        Toast.makeText(getActivity(), "Alarm set",Toast.LENGTH_LONG).show();
     }
 
     public static class DatePickerFragment extends DialogFragment
@@ -304,5 +360,12 @@ public class Bills extends Fragment {
         public void onDateSet(DatePicker view, int year, int month, int day) {
             // Do something with the date chosen by the user
         }
+    }
+
+    public void showCategory(View view) {
+        Intent intent = new Intent(getActivity() ,Category.class);
+        //startActivity(intent);
+        getActivity().startActivityForResult(intent,1001);
+        //startActivityForResult(intent,1001);
     }
 }
