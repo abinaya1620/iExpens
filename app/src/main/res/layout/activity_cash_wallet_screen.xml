@@ -4,22 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.CashWalletScreen">
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/update_cash_amount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_marginLeft="350dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="70dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:src="@android:drawable/ic_input_add"
-        android:visibility="visible"
-        tools:visibility="visible" />
+    tools:context=".activity.CashWalletScreen">
 
 
     <TextView
@@ -38,19 +23,35 @@
         android:textStyle="bold" />
 
     <Button
-        android:id="@+id/button_add_cash"
+        android:id="@+id/button_cash_expense"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="300dp"
         android:layout_marginStart="150dp"
+        android:layout_marginTop="300dp"
         android:text="@string/add_expense" />
 
+    <Button
+        android:id="@+id/button_cash_trans"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="400dp"
+        android:layout_marginStart="130dp"
+        android:text="View Transactions" />
 
-    <ListView
-        android:id="@+id/listViewCashTrans"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="400dp" />
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/update_cash_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginLeft="350dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="70dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@android:drawable/ic_input_add"
+        android:visibility="visible"
+        tools:visibility="visible" />
 
 
 </RelativeLayout>
