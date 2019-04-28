@@ -1,4 +1,4 @@
-package com.example.iexpens.Activity;
+package com.example.iexpens.activity;
 
 public class BillData {
 
@@ -109,7 +109,7 @@ public class BillData {
 
     public String toString(){
         String strReturn = "";
-        strReturn += getStrBillName() + "¤";
+        /*strReturn += getStrBillName() + "¤";
         strReturn += getStrAccountName() + "¤";
         strReturn += getStrAmount() + "¤";
         strReturn += getStrCategory() + "¤";
@@ -117,7 +117,12 @@ public class BillData {
         strReturn += getStrReminder() + "¤";
         strReturn += getStrAutoPay() + "¤";
         strReturn += getStrBillPaid() + "¤";
-        strReturn += getStrNote();
+        strReturn += getStrNote();*/
+        String BillName = getStrBillName();
+        String BillAmount = getStrAmount();
+        String BillCategory = getStrCategory();
+        strReturn += BillName + "\n";
+        strReturn += "Amount : "+BillAmount;
         return strReturn;
     }
 }

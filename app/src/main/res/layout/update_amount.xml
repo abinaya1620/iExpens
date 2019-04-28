@@ -10,10 +10,10 @@
         android:layout_height="wrap_content"
         android:hint="Enter Amount"
         android:ems="10"
-        android:inputType="textPersonName"
+        android:inputType="numberDecimal"
         android:layout_marginTop="30dp"
         android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"/>
+        android:layout_marginEnd="8dp" />
     
     <Button
         android:id="@+id/button_update_amount"

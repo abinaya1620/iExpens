@@ -1,8 +1,9 @@
-package com.example.iexpens.Fragments;
+package com.example.iexpens.fragments;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.icu.text.LocaleDisplayNames;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -24,8 +25,10 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.Toast;
 
-import com.example.iexpens.Activity.BillData;
+import com.example.iexpens.activity.BillData;
 import com.example.iexpens.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -50,6 +53,10 @@ public class Bills extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private FirebaseAuth mAuth;
+    private FirebaseUser mUser;
+    private String mUserId;
 
     private OnFragmentInteractionListener mListener;
 
@@ -78,6 +85,12 @@ public class Bills extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mAuth = FirebaseAuth.getInstance();
+        mUser = mAuth.getCurrentUser();
+        mUserId = mUser.getUid();
+
+        // mUserId = FirebaseAuth.getInstance().getInstance().getCurrentUser().getUid();
+
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -96,14 +109,20 @@ public class Bills extends Fragment {
                 saveBill(BillsView);
             }
         });
-        Button canceldButton = (Button) BillsView.findViewById(R.id.billCancel);
-        canceldButton.setOnClickListener(new View.OnClickListener() {
+        Button canceledButton = (Button) BillsView.findViewById(R.id.billCancel);
+        canceledButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 cancelBill(BillsView);
             }
         });
-
+        Bundle bdl = getArguments();
+        String strSelectedDuedate = "";
+        if(bdl == null){
+            Log.d("null", "Bundle is null");
+        }else{
+            strSelectedDuedate = bdl.getString("SelectedDate");
+        }
         final FragmentManager fm = ((AppCompatActivity)getActivity()).getSupportFragmentManager();
         final Calendar myCalendar = Calendar.getInstance();
         final EditText edittext= (EditText) BillsView.findViewById(R.id.billDueDate);
@@ -128,6 +147,7 @@ public class Bills extends Fragment {
         });
 
         EditText eText = (EditText) BillsView.findViewById(R.id.billDueDate);
+        eText.setText(strSelectedDuedate);
         eText.setHint("Add Due Date");
         return BillsView;
     }
@@ -245,7 +265,8 @@ public class Bills extends Fragment {
                 billReminderValue,
                 billAutoPayValue,
                 billNotesValue);
-        DatabaseReference firebaseDb = FirebaseDatabase.getInstance().getReference("Bill_"+userid);
+        //DatabaseReference firebaseDb = FirebaseDatabase.getInstance().getReference("Bill_"+userid);
+        DatabaseReference firebaseDb = FirebaseDatabase.getInstance().getReference(mUserId).child("bills");
         String id = firebaseDb.push().getKey();
         firebaseDb.child(id).setValue(Bill);
         Toast.makeText(getActivity(), getString(R.string.BillSavedSuccesfully), Toast.LENGTH_LONG).show();

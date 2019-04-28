@@ -1,45 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:weightSum="2">
 
-    <LinearLayout
+    <ListView
+        android:id="@+id/listViewCash"
         android:layout_width="match_parent"
-        android:layout_height="800dp"
+        android:layout_height="100dp"
         android:layout_weight="1"
-        android:background="#8e8e8e"
-        android:orientation="horizontal">
-
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/wallet_heading"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/design_default_color_secondary_variant"
-        android:padding="10dp"
-        android:text="Wallet"
-        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
-        android:textColor="@android:color/white"
-        android:textStyle="bold" />
-
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="650dp" />
 
     <ListView
         android:id="@+id/listViewAccounts"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="70dp"
-        android:layout_marginBottom="200dp" />
+        android:layout_weight="1"
+        android:layout_marginTop="80dp"
+        android:layout_marginBottom="240dp" />
 
     <Button
         android:id="@+id/button_add_account"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="0dp"
+        android:layout_marginTop="500dp"
         android:onClick="button_add_account_onClick"
         android:text="Add New Account" />
 
-
-</LinearLayout>
+</RelativeLayout>

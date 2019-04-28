@@ -1,4 +1,4 @@
-package com.example.iexpens.Fragments;
+package com.example.iexpens.fragments;
 
 import android.graphics.Color;
 import android.os.Bundle;

@@ -1,4 +1,4 @@
-package com.example.iexpens.Adapter;
+package com.example.iexpens.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,16 +8,17 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.iexpens.Activity.Product;
+import com.example.iexpens.activity.Product;
 import com.example.iexpens.R;
 
 import java.util.List;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
-public class ListViewAdapter extends ArrayAdapter<Product> {
-    public ListViewAdapter(Context context, int resource, List<Product> objects) {
+
+public class GridViewAdapater extends ArrayAdapter<Product> {
+
+    public GridViewAdapater( Context context, int resource,  List<Product> objects) {
         super(context, resource, objects);
     }
 
@@ -29,7 +30,7 @@ public class ListViewAdapter extends ArrayAdapter<Product> {
 
         if (null == v) {
             LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            v = inflater.inflate(R.layout.list_item, null);
+            v = inflater.inflate(R.layout.grid_item, null);
         }
         Product product = getItem(position);
         ImageView img = v.findViewById(R.id.imageView4);
@@ -42,6 +43,7 @@ public class ListViewAdapter extends ArrayAdapter<Product> {
 
 
     }
-}
 
+
+}
 

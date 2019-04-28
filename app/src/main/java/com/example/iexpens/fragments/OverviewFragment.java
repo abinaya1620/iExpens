@@ -1,6 +1,5 @@
-package com.example.iexpens.Fragments;
+package com.example.iexpens.fragments;
 
-import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 

@@ -1,4 +1,4 @@
-package com.example.iexpens.Activity;
+package com.example.iexpens.activity;
 
 public class Product {
     private int imageId;

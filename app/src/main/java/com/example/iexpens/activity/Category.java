@@ -1,22 +1,18 @@
-package com.example.iexpens.Activity;
+package com.example.iexpens.activity;
 
-import com.example.iexpens.Adapter.GridViewAdapater;
-import com.example.iexpens.Adapter.ListViewAdapter;
+import com.example.iexpens.adapter.GridViewAdapater;
+import com.example.iexpens.adapter.ListViewAdapter;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewStub;
 import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -24,10 +20,7 @@ import android.widget.Toast;
 
 
 import com.example.iexpens.R;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 

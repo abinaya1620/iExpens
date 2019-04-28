@@ -1,5 +1,6 @@
-package com.example.iexpens.Fragments;
+package com.example.iexpens.fragments;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -12,16 +13,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 
 import android.widget.ListView;
-import android.widget.TextView;
 
-import com.example.iexpens.Activity.AccountList;
-import com.example.iexpens.Activity.BankAccount;
-import com.example.iexpens.Activity.AccountScreenActivity;
+import com.example.iexpens.activity.AccountList;
+import com.example.iexpens.activity.BankAccount;
+import com.example.iexpens.activity.AccountScreenActivity;
 
+import com.example.iexpens.activity.CashList;
+import com.example.iexpens.activity.CashWallet;
+import com.example.iexpens.activity.CashWalletScreen;
 import com.example.iexpens.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -32,37 +34,26 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
  * {@link WalletFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link WalletFragment#newInstance} factory method to
- * create an instance of this fragment.
  */
 
-public class WalletFragment extends Fragment{
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+public class WalletFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
     private Button button_add_account;
+    private Button button_add_cash;
 
     private ListView listViewAccounts;
+    private ListView listViewCash;
     private DatabaseReference databaseAccounts;
     private DatabaseReference databaseCash;
     private List<BankAccount> accountList;
-    private ArrayAdapter<AccountList> adapter;
-    private TextView op_cash;
-    private TextView text_cash;
+    private List<CashWallet> cashList;
+    private Activity activity;
 
     public static final String BANK_AMOUNT = "bankamount";
     public static final String BANK_ID = "bankid";
@@ -71,26 +62,12 @@ public class WalletFragment extends Fragment{
     public static final String BANK_BANKS = "bankaccounts";
     public static final String BANK_TYPE = "bankaccounttype";
 
+    public static final String CASH_ID = "cashid";
+    public static final String CASH_TITLE = "cashtitle";
+    public static final String CASH_AMOUNT = "cashamount";
+
     public WalletFragment() {
         // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment WalletFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static WalletFragment newInstance(String param1, String param2) {
-        WalletFragment fragment = new WalletFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
     }
 
     @Override
@@ -103,20 +80,14 @@ public class WalletFragment extends Fragment{
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_wallet, container, false);
-        listViewAccounts = (ListView)view.findViewById(R.id.listViewAccounts);
+        listViewAccounts = (ListView) view.findViewById(R.id.listViewAccounts);
+        listViewCash = (ListView) view.findViewById(R.id.listViewCash);
         databaseAccounts = FirebaseDatabase.getInstance().getReference("Bank Accounts");
         databaseCash = FirebaseDatabase.getInstance().getReference("Cash");
         accountList = new ArrayList<>();
-      /*  op_cash = (TextView)view.findViewById(R.id.op_cash);
-        text_cash = (TextView)view.findViewById(R.id.text_cash);
-        text_cash.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                text_cash_onClick(v);
-            }
-        });*/
+        cashList = new ArrayList<>();
 
-        button_add_account = (Button)view.findViewById(R.id.button_add_account);
+        button_add_account = (Button) view.findViewById(R.id.button_add_account);
         button_add_account.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -129,24 +100,32 @@ public class WalletFragment extends Fragment{
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 BankAccount bankAccount = accountList.get(position);
-
-
                 Intent intent = new Intent(getActivity(), AccountScreenActivity.class);
-                intent.putExtra(BANK_ID,bankAccount.getBankId());
-                intent.putExtra(BANK_AMOUNT,bankAccount.getAcc_amount());
-                intent.putExtra(BANK_NO,bankAccount.getAcc_no());
-                intent.putExtra(BANK_NAME,bankAccount.getAcc_name());
-                intent.putExtra(BANK_BANKS,bankAccount.getBanks());
-                intent.putExtra(BANK_TYPE,bankAccount.getAcc_type());
-
+                intent.putExtra(BANK_ID, bankAccount.getBankId());
+                intent.putExtra(BANK_AMOUNT, bankAccount.getAcc_amount());
+                intent.putExtra(BANK_NO, bankAccount.getAcc_no());
+                intent.putExtra(BANK_NAME, bankAccount.getAcc_name());
+                intent.putExtra(BANK_BANKS, bankAccount.getBanks());
+                intent.putExtra(BANK_TYPE, bankAccount.getAcc_type());
                 startActivity(intent);
+            }
+        });
 
+        listViewCash.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                CashWallet cashWallet = cashList.get(position);
+                Intent intent = new Intent(getActivity(), CashWalletScreen.class);
+                intent.putExtra(CASH_ID, cashWallet.getCashId());
+                intent.putExtra(CASH_TITLE, cashWallet.getCashTitle());
+                intent.putExtra(CASH_AMOUNT, cashWallet.getCash());
+                startActivity(intent);
             }
         });
         return view;
 
     }
-
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -171,48 +150,58 @@ public class WalletFragment extends Fragment{
     }
 
     public void button_add_account_onClick(View view) {
-
-        //Intent intent = new Intent(getActivity(), AddAccountActivity.class);
-        //startActivity(intent);
         FragmentTransaction fr = getFragmentManager().beginTransaction();
         fr.replace(R.id.fragment_container, new AddAccountFragment());
         fr.commit();
     }
 
-   /* public void text_cash_onClick(View view){
-        Intent intent = new Intent(getActivity(), CashWalletScreen.class);
-        startActivity(intent);
-    }*/
-
-    public void onStart(){
+    public void onStart() {
         super.onStart();
 
-        databaseAccounts.addValueEventListener(new ValueEventListener() {
-
+        databaseCash.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                accountList.clear();
-
-                for(DataSnapshot accountSnapshot: dataSnapshot.getChildren()){
-                    BankAccount bankAccount = accountSnapshot.getValue(BankAccount.class);
-
-                    accountList.add(bankAccount);
+                cashList.clear();
+                for (DataSnapshot cashSnapshot : dataSnapshot.getChildren()) {
+                    CashWallet cashWallet = cashSnapshot.getValue(CashWallet.class);
+                    cashList.add(cashWallet);
                 }
-              AccountList adapter = new AccountList(getActivity(), accountList);
-              listViewAccounts.setAdapter(adapter);
-
+                CashList adapter1 = new CashList(activity, cashList);
+                listViewCash.setAdapter(adapter1);
             }
 
-
-                @Override
+            @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });
 
-       // FragmentTransaction fr = getFragmentManager().beginTransaction();
-        //fr.replace(R.id.fragment_container,new AddAccountFragment());
-        //fr.commit();
+        databaseAccounts.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                accountList.clear();
+
+                for (DataSnapshot accountSnapshot : dataSnapshot.getChildren()) {
+                    BankAccount bankAccount = accountSnapshot.getValue(BankAccount.class);
+
+                    accountList.add(bankAccount);
+                }
+                AccountList adapter = new AccountList(activity, accountList);
+                listViewAccounts.setAdapter(adapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+     @Override
+    public void onAttach(Activity activity){
+        this.activity = activity;
+        super.onAttach(activity);
     }
 }

@@ -1,6 +1,5 @@
-package com.example.iexpens.Fragments;
+package com.example.iexpens.fragments;
 
-import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -17,6 +16,11 @@ import android.widget.CalendarView;
 import android.widget.ListView;
 
 import com.example.iexpens.R;
+import com.example.iexpens.activity.AccountList;
+import com.example.iexpens.activity.BankAccount;
+import com.example.iexpens.activity.BillData;
+import com.example.iexpens.activity.CashList;
+import com.example.iexpens.activity.CashWallet;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -24,12 +28,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-
 
 /**
  * A simple {@link Fragment} subclass.
@@ -44,6 +47,7 @@ public class NotificationFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    String selectedDate="";
     ArrayAdapter adapter;
     ArrayList listItems = new ArrayList();
     ArrayList listKeys = new ArrayList();
@@ -93,6 +97,7 @@ public class NotificationFragment extends Fragment {
         expenseCalendar.setOnDateChangeListener( new CalendarView.OnDateChangeListener() {
             public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
                 Log.d("print","Print");
+                selectedDate = year+"-"+(month+1)+"-"+dayOfMonth;
                 showItemsByDate( year, month+1, dayOfMonth );
             }
         });
@@ -120,11 +125,13 @@ public class NotificationFragment extends Fragment {
                 listKeys.clear();
                 while (iterator.hasNext()) {
                     DataSnapshot next = (DataSnapshot) iterator.next();
-
-                    String match = (String) next.child("strBillName").getValue();
+                    String billName = (String) next.child("strBillName").getValue();
+                    String amount = (String) next.child("strAmount").getValue();
+                    BillData bill = next.getValue(BillData.class);
                     String key = next.getKey();
                     listKeys.add(key);
-                    adapter.add(match);
+                    //adapter.add("Bill: "+billName +" - Amount: " + amount);
+                    adapter.add(bill);
                 }
             }
             @Override
@@ -162,9 +169,55 @@ public class NotificationFragment extends Fragment {
     public void addBill(View view) {
         Log.d("Add","Adding new bill");
         Fragment AddBills = new Bills();
+        Bundle bundle = new Bundle();
+        bundle.putString("SelectedDate",selectedDate);
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+        AddBills.setArguments(bundle);
         transaction.replace(R.id.fragment_container,AddBills);
         transaction.addToBackStack(null);
         transaction.commit();
+    }
+
+    public void onStart() {
+        super.onStart();
+        String userid = "user1";
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("Bill_"+userid);
+        Date date = new Date(); // your date
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        ListView itemList = getView().findViewById(R.id.billListView);
+        ArrayList<String> items = new ArrayList<String>();
+        adapter = new ArrayAdapter(this.getContext(),android.R.layout.simple_list_item_1,items);
+        int year = cal.get(Calendar.YEAR);
+        int month = cal.get(Calendar.MONTH)+1;
+        int day = cal.get(Calendar.DAY_OF_MONTH);
+        String querydate = year+"-"+month+"-"+day;
+        Log.d("query date", querydate);
+        Query query = dbRef.orderByChild("strDueDate").equalTo(querydate);
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Iterable<DataSnapshot> snapshotIterator = dataSnapshot.getChildren();
+                Iterator<DataSnapshot> iterator = snapshotIterator.iterator();
+                adapter.clear();
+                listKeys.clear();
+                while (iterator.hasNext()) {
+                    DataSnapshot next = (DataSnapshot) iterator.next();
+                    String billName = (String) next.child("strBillName").getValue();
+                    String amount = (String) next.child("strAmount").getValue();
+                    BillData bill = next.getValue(BillData.class);
+                    String key = next.getKey();
+                    listKeys.add(key);
+                    //adapter.add("Bill: "+billName +" - Amount: " + amount);
+                    adapter.add(bill);
+                    }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        itemList.setAdapter(adapter);
     }
 }
