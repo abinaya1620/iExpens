@@ -16,11 +16,9 @@ import android.widget.CalendarView;
 import android.widget.ListView;
 
 import com.example.iexpens.R;
-import com.example.iexpens.activity.AccountList;
-import com.example.iexpens.activity.BankAccount;
 import com.example.iexpens.activity.BillData;
-import com.example.iexpens.activity.CashList;
-import com.example.iexpens.activity.CashWallet;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -32,7 +30,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -51,10 +48,11 @@ public class NotificationFragment extends Fragment {
     ArrayAdapter adapter;
     ArrayList listItems = new ArrayList();
     ArrayList listKeys = new ArrayList();
-
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private FirebaseAuth mAuth;
+    private FirebaseUser mUser;
+    private String mUserId;
 
     private OnFragmentInteractionListener mListener;
 
@@ -83,6 +81,9 @@ public class NotificationFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mAuth = FirebaseAuth.getInstance();
+        mUser = mAuth.getCurrentUser();
+        mUserId = mUser.getUid();
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -114,7 +115,8 @@ public class NotificationFragment extends Fragment {
         //ArrayAdapter<String> itemAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,items);
         adapter = new ArrayAdapter(this.getContext(),android.R.layout.simple_list_item_1,items);
         String userid = "user1";
-        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("Bill_"+userid);
+        //DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("Bill_"+userid);
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference(mUserId).child("bills");
         Query query = dbRef.orderByChild("strDueDate").equalTo(querydate);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -168,7 +170,7 @@ public class NotificationFragment extends Fragment {
     }
     public void addBill(View view) {
         Log.d("Add","Adding new bill");
-        Fragment AddBills = new Bills();
+        Fragment AddBills = new com.example.iexpens.fragments.Bills();
         Bundle bundle = new Bundle();
         bundle.putString("SelectedDate",selectedDate);
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
@@ -181,7 +183,8 @@ public class NotificationFragment extends Fragment {
     public void onStart() {
         super.onStart();
         String userid = "user1";
-        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("Bill_"+userid);
+        //DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("Bill_"+userid);
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference(mUserId).child("bills");
         Date date = new Date(); // your date
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);

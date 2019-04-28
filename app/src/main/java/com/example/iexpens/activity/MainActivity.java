@@ -5,8 +5,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 
 import com.example.iexpens.fragments.Bills;
-import com.example.iexpens.fragments.HomeFragment;
 import com.example.iexpens.fragments.NotificationFragment;
+import com.example.iexpens.fragments.HomeFragment;
 import com.example.iexpens.fragments.OverviewFragment;
 import com.example.iexpens.fragments.WalletFragment;
 import com.example.iexpens.R;
@@ -16,17 +16,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CalendarView;
-import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.Switch;
-import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 

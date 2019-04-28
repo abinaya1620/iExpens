@@ -3,7 +3,6 @@ package com.example.iexpens.fragments;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
-import android.icu.text.LocaleDisplayNames;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -42,7 +41,7 @@ import java.util.Locale;
  * {@link Bills.OnFragmentInteractionListener} interface
  * to handle interaction events.
  * Use the {@link Bills#newInstance} factory method to
- * create an instance of this fragment.
+ * create an instance of this fragment.s
  */
 public class Bills extends Fragment {
     // TODO: Rename parameter arguments, choose names that match

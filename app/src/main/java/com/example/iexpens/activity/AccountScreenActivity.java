@@ -20,8 +20,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.text.DateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 
@@ -178,7 +176,7 @@ public class AccountScreenActivity extends AppCompatActivity {
     public boolean update_amount(String bankId, String acc_no, String acc_name, String acc_amount, String banks, String acc_type) {
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Bank Accounts").child(bankId);
 
-        BankAccount bankAccount = new BankAccount(bankId, acc_no, acc_name, acc_amount, banks, acc_type);
+        com.example.iexpens.activity.BankAccount bankAccount = new com.example.iexpens.activity.BankAccount(bankId, acc_no, acc_name, acc_amount, banks, acc_type);
         databaseReference.setValue(bankAccount);
 
         Toast.makeText(this, "Amount Added Successfully into the account " + acc_no, Toast.LENGTH_LONG).show();
@@ -200,7 +198,7 @@ public class AccountScreenActivity extends AppCompatActivity {
         Log.d("Print", trans_type);
         Log.d("Print", amt);
 
-        Transactions transactions = new Transactions(trans_id, current_date, trans_type, amt);
+        com.example.iexpens.activity.Transactions transactions = new com.example.iexpens.activity.Transactions(trans_id, current_date, trans_type, amt);
         databaseTransactions.child(trans_id).setValue(transactions);
 
     }
