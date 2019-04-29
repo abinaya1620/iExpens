@@ -67,8 +67,6 @@ public class BillReminder extends BroadcastReceiver {
         mNotifyManager.notify(NOTIFICATION_ID, notifyBuilder.build());
     }
 
-
-
     private NotificationCompat.Builder getNotificationBuilder(Context context) {
         Intent notificationIntent = new Intent(context, MainActivity.class);
         PendingIntent notificationPendingIntent = PendingIntent.getActivity(context, NOTIFICATION_ID, notificationIntent,PendingIntent.FLAG_UPDATE_CURRENT);

@@ -46,6 +46,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.Locale;
 
@@ -270,6 +271,9 @@ public class Bills extends Fragment {
         }else if(TextUtils.isEmpty(billDueDate.getText())){
             Toast.makeText(getActivity(), getString(R.string.BillDueDateNotAvailable), Toast.LENGTH_LONG).show();
             return;
+        }else if(TextUtils.isEmpty(billCategory.getText()) || (billCategory.getText().equals("Select Category >>")) ){
+            Toast.makeText(getActivity(), getString(R.string.BillCategoryNotAvailable), Toast.LENGTH_LONG).show();
+            return;
         }
         String billNameValue = billName.getText().toString();
         String billAccountValue = billAccount.getSelectedItem().toString();
@@ -335,10 +339,52 @@ public class Bills extends Fragment {
 
     public void setAlert(BillData bill){
         Intent intent = new Intent(getActivity(), BillReminder.class);
-        Calendar cal = Calendar.getInstance();
+        Calendar calendar = Calendar.getInstance();
         PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity().getApplicationContext(), 234324243, intent, 0);
         AlarmManager alarmManager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
-        alarmManager.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis()+10000, pendingIntent);
+        String RemiderOption = bill.getStrReminder();
+        String billDueDate = bill.getStrDueDate();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = new Date();
+        try{
+            date = format.parse(billDueDate);
+        }catch(Exception e){
+
+        }
+        long reminderTime = calendar.getTimeInMillis();
+        switch (RemiderOption){
+            case "10 sec Later":
+                reminderTime = reminderTime + 10000;
+                break;
+            case "1 Day Before":
+                calendar.setTime(date);
+                calendar.add(Calendar.DATE,-1);
+                calendar.set(Calendar.SECOND, 0);
+                calendar.set(Calendar.MINUTE, 00);
+                calendar.set(Calendar.HOUR, 7);
+                calendar.set(Calendar.AM_PM, Calendar.AM);
+                reminderTime = calendar.getTimeInMillis();
+                break;
+            case "2 Days Before":
+                calendar.setTime(date);
+                calendar.add(Calendar.DATE,-2);
+                calendar.set(Calendar.SECOND, 0);
+                calendar.set(Calendar.MINUTE, 00);
+                calendar.set(Calendar.HOUR, 7);
+                calendar.set(Calendar.AM_PM, Calendar.AM);
+                reminderTime = calendar.getTimeInMillis();
+                break;
+            case "3 Days Before":
+                calendar.setTime(date);
+                calendar.add(Calendar.DATE,-3);
+                calendar.set(Calendar.SECOND, 0);
+                calendar.set(Calendar.MINUTE, 00);
+                calendar.set(Calendar.HOUR, 7);
+                calendar.set(Calendar.AM_PM, Calendar.AM);
+                reminderTime = calendar.getTimeInMillis();
+                break;
+        }
+        alarmManager.set(AlarmManager.RTC_WAKEUP, reminderTime, pendingIntent);
         Toast.makeText(getActivity(), "Alarm set",Toast.LENGTH_LONG).show();
     }
 
