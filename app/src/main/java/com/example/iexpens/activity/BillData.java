@@ -8,7 +8,6 @@ public class BillData {
     String strCategory;
     String strDueDate;
     String strReminder;
-    String strAutoPay;
     String strNote;
 
     public String getStrBillPaid() {
@@ -69,14 +68,6 @@ public class BillData {
         this.strReminder = strReminder;
     }
 
-    public String getStrAutoPay() {
-        return strAutoPay;
-    }
-
-    public void setStrAutoPay(String strAutoPay) {
-        this.strAutoPay = strAutoPay;
-    }
-
     public String getStrNote() {
         return strNote;
     }
@@ -94,7 +85,6 @@ public class BillData {
                  String strCategory,
                  String strDueDate,
                  String strReminder,
-                 String strAutoPay,
                  String strNote){
         setStrBillName(strBillName);
         setStrAccountName(strAccountName);
@@ -102,22 +92,12 @@ public class BillData {
         setStrCategory(strCategory);
         setStrDueDate(strDueDate);
         setStrReminder(strReminder);
-        setStrAutoPay(strAutoPay);
         setStrNote(strNote);
         setStrBillPaid("False");
     }
 
     public String toString(){
         String strReturn = "";
-        /*strReturn += getStrBillName() + "¤";
-        strReturn += getStrAccountName() + "¤";
-        strReturn += getStrAmount() + "¤";
-        strReturn += getStrCategory() + "¤";
-        strReturn += getStrDueDate() + "¤";
-        strReturn += getStrReminder() + "¤";
-        strReturn += getStrAutoPay() + "¤";
-        strReturn += getStrBillPaid() + "¤";
-        strReturn += getStrNote();*/
         String BillName = getStrBillName();
         String BillAmount = getStrAmount();
         String BillCategory = getStrCategory();

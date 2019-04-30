@@ -64,8 +64,6 @@ public class Category extends AppCompatActivity {
         //get list of category
         getCategoryList();
 
-
-
         //get current view mode in shared references
         SharedPreferences sharedPreferences = getSharedPreferences("ViewMode",MODE_PRIVATE);
         currentViewMode = sharedPreferences.getInt("currentViewMode",VIEW_MODE_LISTVIEW); //Default is viw listView
