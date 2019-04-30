@@ -142,12 +142,17 @@ AdapterView.OnItemClickListener onItemClick = new AdapterView.OnItemClickListene
         // Getting listview click value into String variable.
         String TempListViewClickedValue =categoryList.get(position).getTitle();
 
-        Intent intent = new Intent(Category.this, AddExpenseActivity.class);
-
+        //Intent intent = new Intent(Category.this, AddExpenseActivity.class);
         // Sending value to another activity using intent.
-        intent.putExtra("ListViewClickedValue", TempListViewClickedValue);
+        //intent.putExtra("ListViewClickedValue", TempListViewClickedValue);
+        //startActivity(intent);
 
-        startActivity(intent);
+        //startActivity(intent);
+        //Toast.makeText(getApplicationContext(), categoryList.get(position).getTitle(), Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent();
+        intent.putExtra("ListViewClickedValue", TempListViewClickedValue);
+        setResult(RESULT_OK,intent);
+        finish();
     }
 };
 

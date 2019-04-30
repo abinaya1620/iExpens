@@ -6,8 +6,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 
 import com.example.iexpens.fragments.Bills;
-import com.example.iexpens.fragments.HomeFragment;
 import com.example.iexpens.fragments.NotificationFragment;
+import com.example.iexpens.fragments.HomeFragment;
 import com.example.iexpens.fragments.OverviewFragment;
 import com.example.iexpens.fragments.WalletFragment;
 import com.example.iexpens.R;
@@ -15,20 +15,16 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CalendarView;
-import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.Switch;
-import android.widget.Toast;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -120,14 +116,14 @@ public class MainActivity extends AppCompatActivity {
         }*/
     }
 
-    public void addBill(View view) {
-        Log.d("Add", "Adding new bill");
+    /*public void addBill(View view) {
+        Log.d("Add", "Adding new bill - MainActivity");
         Fragment AddBills = new Bills();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container, AddBills);
         transaction.addToBackStack(null);
         transaction.commit();
-    }
+    }*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -157,4 +153,14 @@ public class MainActivity extends AppCompatActivity {
         super.onBackPressed();
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 1001){
+            String val = data.getExtras().getString("ListViewClickedValue");
+            Log.d("val MainActivity",val);
+            TextView categoryChooser = findViewById(R.id.CategoryChooser);
+            categoryChooser.setText(val);
+        }
+    }
 }
