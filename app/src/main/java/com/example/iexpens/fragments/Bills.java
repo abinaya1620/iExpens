@@ -56,7 +56,7 @@ import java.util.Locale;
  * {@link Bills.OnFragmentInteractionListener} interface
  * to handle interaction events.
  * Use the {@link Bills#newInstance} factory method to
- * create an instance of this fragment.s
+ * create an instance of this fragment.
  */
 public class Bills extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
@@ -109,12 +109,10 @@ public class Bills extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
         mUserId = mUser.getUid();
-
-        // mUserId = FirebaseAuth.getInstance().getInstance().getCurrentUser().getUid();
-
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -413,5 +411,11 @@ public class Bills extends Fragment {
         //startActivity(intent);
         getActivity().startActivityForResult(intent,1001);
         //startActivityForResult(intent,1001);
+    }
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        MenuItem item=menu.findItem(R.id.item_menu1);
+        if(item!=null)
+            item.setVisible(false);
     }
 }

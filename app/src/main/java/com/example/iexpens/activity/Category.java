@@ -145,6 +145,7 @@ AdapterView.OnItemClickListener onItemClick = new AdapterView.OnItemClickListene
         //Intent intent = new Intent(Category.this, AddExpenseActivity.class);
         // Sending value to another activity using intent.
         //intent.putExtra("ListViewClickedValue", TempListViewClickedValue);
+        //startActivity(intent);
 
         //startActivity(intent);
         //Toast.makeText(getApplicationContext(), categoryList.get(position).getTitle(), Toast.LENGTH_SHORT).show();
