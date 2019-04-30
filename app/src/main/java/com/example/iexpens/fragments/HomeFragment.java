@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
@@ -48,6 +50,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
 
     }
 
@@ -134,5 +137,18 @@ public class HomeFragment extends Fragment {
         this.activity = activity;
         super.onAttach(activity);
     }
+
+    /**
+     * The method onPrepareOptionsMenu is used to hide the menu option in fragment
+     * @param menu
+     */
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        MenuItem item=menu.findItem(R.id.item_menu1);
+        if(item!=null)
+            item.setVisible(false);
+    }
+
 
 }

@@ -175,4 +175,12 @@ public class CashWalletScreen extends AppCompatActivity {
 
     }
 
+    /**
+     * Thr method selectCategoryForExpense is used to move to category page
+     * @param view
+     */
+    public void selectCategoryForExpense(View view) {
+        Intent intent = new Intent(CashWalletScreen.this, Category.class);
+        startActivity(intent);
+    }
 }

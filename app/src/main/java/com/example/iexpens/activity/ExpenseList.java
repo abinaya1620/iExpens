@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.iexpens.R;
@@ -14,6 +15,7 @@ import java.util.List;
 
 public class ExpenseList extends ArrayAdapter {
     private Activity context;
+    private ImageView retrievedCameraImage;
     private List<Expense> expenseList;
 
     public ExpenseList(Activity context, List<Expense> expenseList){
@@ -30,6 +32,7 @@ public class ExpenseList extends ArrayAdapter {
 
         TextView textViewCaterogy = (TextView) listViewItem.findViewById(R.id.textViewCaterogy);
         TextView textViewPrice = (TextView) listViewItem.findViewById(R.id.textViewPrice);
+        ImageView retrievedCameraImage = (ImageView)listViewItem.findViewById(R.id.camera_image);
 
         Expense expense = expenseList.get(position);
         textViewCaterogy.setText(expense.getExpenseCategory());

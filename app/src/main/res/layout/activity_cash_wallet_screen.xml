@@ -28,7 +28,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="150dp"
         android:layout_marginTop="300dp"
-        android:text="@string/add_expense" />
+        android:text="@string/add_expense"
+        android:onClick="selectCategoryForExpense"
+        />
 
     <Button
         android:id="@+id/button_cash_trans"
