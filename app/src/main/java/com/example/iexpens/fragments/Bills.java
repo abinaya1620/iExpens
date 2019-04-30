@@ -410,6 +410,7 @@ public class Bills extends Fragment {
 
     public void showCategory(View view) {
         Intent intent = new Intent(getActivity() ,Category.class);
+        intent.putExtra("CallingFunction","AddBillPage");
         //startActivity(intent);
         getActivity().startActivityForResult(intent,1001);
         //startActivityForResult(intent,1001);
