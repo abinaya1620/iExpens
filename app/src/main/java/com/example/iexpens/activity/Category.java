@@ -41,9 +41,6 @@ public class Category extends AppCompatActivity {
 
     private static final String TAG = "Category";
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.d(TAG,"Inside on create of Category");
