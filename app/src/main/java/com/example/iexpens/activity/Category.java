@@ -29,8 +29,6 @@ public class Category extends AppCompatActivity {
     private ViewStub stubList;
     private ListView listView;
     private GridView gridView;
-    private ListViewAdapter listViewAdapter;
-    private GridViewAdapater gridViewAdapater;
     private List<Product> categoryList;
     private int currentViewMode=0;
 
@@ -38,9 +36,6 @@ public class Category extends AppCompatActivity {
     static final int VIEW_MODE_GRIDVIEW =1;
 
     private static final String TAG = "Category";
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,15 +94,14 @@ public class Category extends AppCompatActivity {
     private void setAdapters() {
         if (VIEW_MODE_LISTVIEW == currentViewMode)
         {
-            listViewAdapter= new ListViewAdapter(this,R.layout.list_item,categoryList);
+            ListViewAdapter listViewAdapter = new ListViewAdapter(this, R.layout.list_item, categoryList);
             listView.setAdapter(listViewAdapter);
 
         }else{
-            gridViewAdapater = new GridViewAdapater(this,R.layout.grid_item,categoryList);
+            GridViewAdapater gridViewAdapater = new GridViewAdapater(this, R.layout.grid_item, categoryList);
             gridView.setAdapter(gridViewAdapater);
         }
     }
-
 
     /**
      * The method getCategoryList is used to get the list of category

@@ -3,85 +3,91 @@ package com.example.iexpens.fragments;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import com.example.iexpens.R;
+import com.example.iexpens.activity.AddExpenseActivity;
+import com.example.iexpens.activity.Expense;
+import com.example.iexpens.activity.ExpenseList;
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.utils.ColorTemplate;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
-public class OverviewFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+public class
+OverviewFragment extends Fragment {
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    BarChart barChart;
+    private List<ExpenseList> expenseList;
 
-    private OnFragmentInteractionListener mListener;
-
-    public OverviewFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new_category instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new_category instance of fragment OverviewFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static OverviewFragment newInstance(String param1, String param2) {
-        OverviewFragment fragment = new OverviewFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_overview, container, false);
-    }
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View mainview = inflater.inflate(R.layout.fragment_overview, container, false);
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
+        BarChart barChart = mainview.findViewById(R.id.barChart);
+
+        ArrayList<BarEntry> entries = new ArrayList<>();
+        entries.add(new BarEntry(8f, 0));
+        entries.add(new BarEntry(2f, 1));
+        entries.add(new BarEntry(5f, 2));
+        entries.add(new BarEntry(20f, 3));
+        entries.add(new BarEntry(15f, 4));
+        entries.add(new BarEntry(19f, 5));
+        entries.add(new BarEntry(8f, 6));
+        entries.add(new BarEntry(2f, 7));
+        entries.add(new BarEntry(5f, 8));
+        entries.add(new BarEntry(20f, 9));
+        entries.add(new BarEntry(15f, 10));
+        entries.add(new BarEntry(19f, 11));
+
+        BarDataSet bardataset = new BarDataSet(entries, "Cells");
+
+        ArrayList<String> labels = new ArrayList<>();
+        labels.add("Dec");
+        labels.add("Nov");
+        labels.add("Oct");
+        labels.add("Sep");
+        labels.add("Aug");
+        labels.add("Jul");
+        labels.add("Jun");
+        labels.add("May");
+        labels.add("Apr");
+        labels.add("Mar");
+        labels.add("Feb");
+        labels.add("Jan");
+
+        BarData data = new BarData(labels, bardataset);
+        barChart.setData(data); // setting the data and list of lables into chart
+
+        barChart.setDescription(""); // the description
+
+        bardataset.setColors(ColorTemplate.LIBERTY_COLORS);
+        barChart.animateY(5000);
+
+        //Need input for the list
 
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+
+        return mainview;
     }
 }

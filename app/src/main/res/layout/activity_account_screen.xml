@@ -7,8 +7,6 @@
     android:orientation="vertical"
     tools:context=".activity.AccountScreenActivity">
 
-
-
     <TextView
         android:id="@+id/acc_no"
         android:layout_width="240dp"
@@ -48,7 +46,6 @@
         android:text="@string/add_expense"
         android:onClick="add_accexp_onClick"/>
 
-
     <Button
         android:id="@+id/button_del_acc"
         android:layout_width="wrap_content"
@@ -81,6 +78,5 @@
         android:visibility="visible"
         tools:visibility="visible"
         android:onClick="update_acc_amount_onClick"/>
-
 
 </RelativeLayout>
