@@ -259,7 +259,6 @@ public class Bills extends Fragment {
         TextView billCategory = view.findViewById(R.id.CategoryChooser);
         EditText billDueDate= view.findViewById(R.id.billDueDate);
         Spinner billReminder = view.findViewById(R.id.billReminder);
-        Switch billAutoPay = view.findViewById(R.id.billAutoPay);
         EditText billNotes= view.findViewById(R.id.billNote);
 
         if(TextUtils.isEmpty(billName.getText())){
@@ -281,7 +280,6 @@ public class Bills extends Fragment {
         String billCategoryValue = billCategory.getText().toString();
         String billDueDateValue = billDueDate.getText().toString();
         String billReminderValue = billReminder.getSelectedItem().toString();
-        String billAutoPayValue =  Boolean.toString(billAutoPay.isChecked());
         String billNotesValue = "";
         if(!TextUtils.isEmpty(billNotes.getText())) {
             billNotesValue = billNotes.getText().toString();
@@ -298,7 +296,6 @@ public class Bills extends Fragment {
                 billCategoryValue,
                 billDueDateValue,
                 billReminderValue,
-                billAutoPayValue,
                 billNotesValue);
     }
 
@@ -308,7 +305,6 @@ public class Bills extends Fragment {
                                     String billCategoryValue,
                                     String billDueDateValue,
                                     String billReminderValue,
-                                    String billAutoPayValue,
                                     String billNotesValue) {
         String userid = "user1";
         BillData Bill = new BillData(billNameValue,
@@ -317,7 +313,6 @@ public class Bills extends Fragment {
                 billCategoryValue,
                 billDueDateValue,
                 billReminderValue,
-                billAutoPayValue,
                 billNotesValue);
         //DatabaseReference firebaseDb = FirebaseDatabase.getInstance().getReference("Bill_"+userid);
         DatabaseReference firebaseDb = FirebaseDatabase.getInstance().getReference(mUserId).child("bills");
