@@ -21,6 +21,8 @@ import androidx.fragment.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -109,11 +111,14 @@ public class Bills extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
         mUserId = mUser.getUid();
 
         // mUserId = FirebaseAuth.getInstance().getInstance().getCurrentUser().getUid();
+
+        setHasOptionsMenu(true);
 
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
@@ -414,4 +419,12 @@ public class Bills extends Fragment {
         getActivity().startActivityForResult(intent,1001);
         //startActivityForResult(intent,1001);
     }
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        MenuItem item=menu.findItem(R.id.item_menu1);
+        if(item!=null)
+            item.setVisible(false);
+    }
+
 }

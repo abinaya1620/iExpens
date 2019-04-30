@@ -135,25 +135,21 @@ public class Category extends AppCompatActivity {
         return  categoryList;
     }
 
-AdapterView.OnItemClickListener onItemClick = new AdapterView.OnItemClickListener() {
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-       //Action after clicking item
-        // Getting listview click value into String variable.
-        String TempListViewClickedValue =categoryList.get(position).getTitle();
+    AdapterView.OnItemClickListener onItemClick = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            //Action after clicking item
+            // Getting listview click value into String variable.
+            String TempListViewClickedValue =categoryList.get(position).getTitle();
 
-        //Intent intent = new Intent(Category.this, AddExpenseActivity.class);
-        // Sending value to another activity using intent.
-        //intent.putExtra("ListViewClickedValue", TempListViewClickedValue);
+            Intent intent = new Intent(Category.this, AddExpenseActivity.class);
 
-        //startActivity(intent);
-        //Toast.makeText(getApplicationContext(), categoryList.get(position).getTitle(), Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent();
-        intent.putExtra("ListViewClickedValue", TempListViewClickedValue);
-        setResult(RESULT_OK,intent);
-        finish();
-    }
-};
+            // Sending value to another activity using intent.
+            intent.putExtra("ListViewClickedValue", TempListViewClickedValue);
+
+            startActivity(intent);
+        }
+    };
 
 
 
