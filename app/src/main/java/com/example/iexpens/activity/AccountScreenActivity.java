@@ -39,6 +39,7 @@ public class AccountScreenActivity extends AppCompatActivity {
     private Button button_acc_trans;
     private FirebaseAuth mAuth;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

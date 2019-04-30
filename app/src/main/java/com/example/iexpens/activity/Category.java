@@ -148,7 +148,6 @@ AdapterView.OnItemClickListener onItemClick = new AdapterView.OnItemClickListene
         intent.putExtra("ListViewClickedValue", TempListViewClickedValue);
 
         startActivity(intent);
-        Toast.makeText(getApplicationContext(), categoryList.get(position).getTitle(), Toast.LENGTH_SHORT).show();
     }
 };
 
