@@ -24,13 +24,12 @@ public class AccountList extends ArrayAdapter<BankAccount> {
         this.accountList = accountList;
     }
 
-
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         LayoutInflater inflater = context.getLayoutInflater();
 
-        View listviewItem = inflater.inflate(R.layout.list_accounts,null,true);
+        View listviewItem = inflater.inflate(R.layout.list_accounts, null, true);
 
         TextView text_accno = (TextView) listviewItem.findViewById(R.id.text_accno);
         TextView text_accamount = (TextView) listviewItem.findViewById(R.id.text_accamount);
@@ -39,12 +38,11 @@ public class AccountList extends ArrayAdapter<BankAccount> {
         BankAccount bankAccount = accountList.get(position);
 
         text_accno.setText(bankAccount.getAcc_no());
-        text_accamount.setText(bankAccount.getAcc_amount() + " Kr" );
+        text_accamount.setText(bankAccount.getAcc_amount() + " Kr");
         text_accbank.setText(bankAccount.getBanks());
 
         return listviewItem;
     }
-
 
 }
 

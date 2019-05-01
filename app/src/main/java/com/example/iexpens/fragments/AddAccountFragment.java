@@ -10,6 +10,8 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -19,6 +21,8 @@ import android.widget.Toast;
 
 import com.example.iexpens.activity.BankAccount;
 import com.example.iexpens.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -37,9 +41,11 @@ public class AddAccountFragment extends Fragment {
     private Button button_add_acc;
     private Button button_acc_clear;
     private Activity activity;
+    private FirebaseAuth mAuth;
 
 
     DatabaseReference databaseAccounts;
+
 
     public AddAccountFragment() {
         // Required empty public constructor
@@ -47,7 +53,9 @@ public class AddAccountFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -56,7 +64,11 @@ public class AddAccountFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_add_account, container, false);
 
-        databaseAccounts = FirebaseDatabase.getInstance().getReference("Bank Accounts");
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser();
+        String userId = user.getUid();
+
+        databaseAccounts = FirebaseDatabase.getInstance().getReference().child(userId).child("Bank Accounts");
 
         ip_acc_no = (EditText)view.findViewById(R.id.ip_acc_no);
         ip_acc_name = (EditText)view.findViewById(R.id.ip_acc_name);
@@ -107,7 +119,6 @@ public class AddAccountFragment extends Fragment {
 
 
         if(!TextUtils.isEmpty(acc_no)){
-
             String id = databaseAccounts.push().getKey();
             BankAccount bankAccount = new BankAccount(id, acc_no, acc_name, acc_amount, bank, acc_type);
             databaseAccounts.child(id).setValue(bankAccount);
@@ -128,5 +139,11 @@ public class AddAccountFragment extends Fragment {
         ip_acc_amount.setText("");
     }
 
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        MenuItem item=menu.findItem(R.id.item_menu1);
+        if(item!=null)
+            item.setVisible(false);
+    }
 
 }

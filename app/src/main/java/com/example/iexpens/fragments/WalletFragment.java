@@ -9,7 +9,10 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -25,6 +28,10 @@ import com.example.iexpens.activity.CashList;
 import com.example.iexpens.activity.CashWallet;
 import com.example.iexpens.activity.CashWalletScreen;
 import com.example.iexpens.R;
+import com.example.iexpens.activity.MainActivity;
+import com.example.iexpens.activity.RegistrationActivity;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -33,6 +40,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -45,12 +53,10 @@ public class WalletFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
     private Button button_add_account;
-    private Button button_add_cash;
-
     private ListView listViewAccounts;
     private ListView listViewCash;
     private DatabaseReference databaseAccounts;
-    private DatabaseReference databaseCash;
+    private DatabaseReference databaseWallet;
     private List<BankAccount> accountList;
     private List<CashWallet> cashList;
     private Activity activity;
@@ -65,6 +71,8 @@ public class WalletFragment extends Fragment {
     public static final String CASH_ID = "cashid";
     public static final String CASH_TITLE = "cashtitle";
     public static final String CASH_AMOUNT = "cashamount";
+    private FirebaseAuth mAuth;
+
 
     public WalletFragment() {
         // Required empty public constructor
@@ -72,7 +80,9 @@ public class WalletFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -80,10 +90,18 @@ public class WalletFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_wallet, container, false);
+
         listViewAccounts = (ListView) view.findViewById(R.id.listViewAccounts);
         listViewCash = (ListView) view.findViewById(R.id.listViewCash);
-        databaseAccounts = FirebaseDatabase.getInstance().getReference("Bank Accounts");
-        databaseCash = FirebaseDatabase.getInstance().getReference("Cash");
+
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser();
+        String user_Id = user.getUid();
+
+        Log.d("Print", user_Id);
+
+        databaseAccounts = FirebaseDatabase.getInstance().getReference().child(user_Id).child("Bank Accounts");
+        databaseWallet = FirebaseDatabase.getInstance().getReference().child(user_Id).child("WALLET");
         accountList = new ArrayList<>();
         cashList = new ArrayList<>();
 
@@ -158,7 +176,7 @@ public class WalletFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
-        databaseCash.addValueEventListener(new ValueEventListener() {
+        databaseWallet.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 cashList.clear();
@@ -199,9 +217,18 @@ public class WalletFragment extends Fragment {
 
     }
 
-     @Override
-    public void onAttach(Activity activity){
+    @Override
+    public void onAttach(Activity activity) {
         this.activity = activity;
         super.onAttach(activity);
     }
+
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        MenuItem item=menu.findItem(R.id.item_menu1);
+        if(item!=null)
+            item.setVisible(false);
+    }
+
 }
