@@ -30,8 +30,6 @@ public class Category extends AppCompatActivity {
     private ViewStub stubList;
     private ListView listView;
     private GridView gridView;
-    private ListViewAdapter listViewAdapter;
-    private GridViewAdapater gridViewAdapater;
     private List<Product> categoryList;
     private int currentViewMode=0;
     private  String strCallingFunction = "";
@@ -100,15 +98,14 @@ public class Category extends AppCompatActivity {
     private void setAdapters() {
         if (VIEW_MODE_LISTVIEW == currentViewMode)
         {
-            listViewAdapter= new ListViewAdapter(this,R.layout.list_item,categoryList);
+            ListViewAdapter listViewAdapter = new ListViewAdapter(this, R.layout.list_item, categoryList);
             listView.setAdapter(listViewAdapter);
 
         }else{
-            gridViewAdapater = new GridViewAdapater(this,R.layout.grid_item,categoryList);
+            GridViewAdapater gridViewAdapater = new GridViewAdapater(this, R.layout.grid_item, categoryList);
             gridView.setAdapter(gridViewAdapater);
         }
     }
-
 
     /**
      * The method getCategoryList is used to get the list of category
@@ -135,12 +132,13 @@ public class Category extends AppCompatActivity {
         return  categoryList;
     }
 
-        AdapterView.OnItemClickListener onItemClick = new AdapterView.OnItemClickListener() {
+    AdapterView.OnItemClickListener onItemClick = new AdapterView.OnItemClickListener() {
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
        //Action after clicking item
         // Getting listview click value into String variable.
         String TempListViewClickedValue =categoryList.get(position).getTitle();
+
         if(!strCallingFunction.equals("AddBillPage")){
             Intent intent = new Intent(Category.this, AddExpenseActivity.class);
             // Sending value to another activity using intent.
@@ -154,6 +152,13 @@ public class Category extends AppCompatActivity {
             setResult(RESULT_OK,intent);
             finish();
         }
+
+        Intent intent = new Intent(Category.this, AddExpenseActivity.class);
+
+        // Sending value to another activity using intent.
+        intent.putExtra("ListViewClickedValue", TempListViewClickedValue);
+
+        startActivity(intent);
     }
 };
 
