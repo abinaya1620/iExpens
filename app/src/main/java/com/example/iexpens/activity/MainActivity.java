@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
             }
             Log.d(TAG, "selectedFragment " + selectedFragment);
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
-            return false;
+            return true;
         }
     };
 
