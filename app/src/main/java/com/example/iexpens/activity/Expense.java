@@ -14,6 +14,15 @@ public class Expense {
     }
 
 
+    public Expense(String expenseId, String expenseCategory, String price,String date, String description){
+        this.expenseId = expenseId;
+        this.expenseCategory = expenseCategory;
+        this.price = price;
+        this.date = date;
+        this.description = description;
+
+    }
+
 
     public Expense(String expenseId, String expenseCategory, String price, String date, String description,String imageAddress) {
         this.expenseId = expenseId;

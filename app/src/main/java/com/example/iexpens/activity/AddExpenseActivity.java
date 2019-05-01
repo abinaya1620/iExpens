@@ -6,16 +6,12 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
-
-
 import com.example.iexpens.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.Manifest;
 import android.app.DatePickerDialog;
 import android.os.Build;
@@ -27,12 +23,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,6 +48,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import org.w3c.dom.Text;
+
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -62,7 +62,7 @@ import java.util.UUID;
 
 public class AddExpenseActivity extends AppCompatActivity {
 
-
+    private String[] category;
     private TextView selectCategory;
     private EditText textPrice;
     private  EditText textDescription;
@@ -87,6 +87,7 @@ public class AddExpenseActivity extends AppCompatActivity {
 
 
 
+
     private FirebaseAuth mAuth;
     private String mUserId;
 
@@ -97,8 +98,6 @@ public class AddExpenseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_expense);
-
-
 
         if(Build.VERSION.SDK_INT >= 23)
         {
@@ -161,6 +160,7 @@ public class AddExpenseActivity extends AppCompatActivity {
         });
 
 
+
         listViewExpenses = (ListView) findViewById(R.id.listViewExpense);
         expenseList = new ArrayList<>();
 
@@ -173,13 +173,16 @@ public class AddExpenseActivity extends AppCompatActivity {
             }
         });
 
+
+
+
         listViewExpenses.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
                 Expense expense = expenseList.get(position);
-
                 showUpdateDialog(expense.getExpenseId(),expense.getExpenseCategory());
+
                 return false;
             }
         });
@@ -302,20 +305,41 @@ public class AddExpenseActivity extends AppCompatActivity {
     }
 
     private void showUpdateDialog(final String expenseId, final String expenseCategory){
-
         final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-
         LayoutInflater layoutInflater = getLayoutInflater();
-
-        final View dialogView = layoutInflater.inflate(R.layout.update_expense_dialog, null);
-
+        final View dialogView = layoutInflater.inflate(R.layout.update_expense_dialog, null,true);
         dialogBuilder.setView(dialogView);
-
-        final TextView spinnerCategory1 = (TextView) dialogView.findViewById(R.id.textView1);
+        final TextView textView1 = (TextView) dialogView.findViewById(R.id.textView1_update);
+        final Spinner spinnerCategory1 = (Spinner) dialogView.findViewById(R.id.spinnerCategory1);
         final EditText editTextPrice = (EditText) dialogView.findViewById(R.id.editTextPrice);
-        final EditText editTextDate = (EditText) dialogView.findViewById(R.id.editTextDate);
+        final EditText editTextDate = dialogView.findViewById(R.id.textDate_update);
         final EditText editTextDescription = (EditText) dialogView.findViewById(R.id.editTextDescription);
         final Button buttonUpdateExpense = (Button) dialogView.findViewById(R.id.buttonUpdateExpense);
+
+
+
+        category = getResources().getStringArray(R.array.category);
+
+
+// Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.category, android.R.layout.simple_spinner_item);
+// Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+// Apply the adapter to the spinner
+        spinnerCategory1.setAdapter(adapter);
+        spinnerCategory1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                Toast.makeText(getApplicationContext(), category[i], Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
 
         dialogBuilder.setTitle("Updating Expense " + expenseCategory);
 
@@ -325,16 +349,16 @@ public class AddExpenseActivity extends AppCompatActivity {
         buttonUpdateExpense.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String category = spinnerCategory1.getText().toString();
+                String category = spinnerCategory1.getSelectedItem().toString();
                 String price = editTextPrice.getText().toString();
-                String date = editTextDate.getText().toString();
+               String date = editTextDate.getText().toString();
                 String description = editTextDescription.getText().toString();
 
-                if(TextUtils.isEmpty(price)||TextUtils.isEmpty(category)||TextUtils.isEmpty(date)||TextUtils.isEmpty(description)){
+                if(TextUtils.isEmpty(price)||TextUtils.isEmpty(category)||TextUtils.isEmpty(description)){
                     editTextPrice.setError("Fields are Mandatory!!");
                     return;
                 }
-                updateExpense(expenseId, category, price, date, description);
+                updateExpense(expenseId, category, price,date,description);
 
                 alertDialog.dismiss();
 
@@ -342,10 +366,10 @@ public class AddExpenseActivity extends AppCompatActivity {
         });
     }
 
-    private boolean updateExpense(String id, String category, String price, String date, String description){
+    private boolean updateExpense(String id, String category, String price, String date,String description){
 
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("expenses").child(id);
-        Expense expense = new Expense(id, category, price, date, description,uploadeRef.toString());
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference(mUserId).child("expenses").child(id);
+        Expense expense = new Expense(id, category, price,date,description);
 
         databaseReference.setValue(expense);
 
