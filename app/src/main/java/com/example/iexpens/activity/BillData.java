@@ -1,6 +1,8 @@
 package com.example.iexpens.activity;
 
-public class BillData {
+import java.io.Serializable;
+
+public class BillData implements Serializable {
 
     String strBillName;
     String strAccountName;
@@ -9,6 +11,7 @@ public class BillData {
     String strDueDate;
     String strReminder;
     String strNote;
+    String strBillId;
 
     public String getStrBillPaid() {
         return strBillPaid;
@@ -75,6 +78,10 @@ public class BillData {
     public void setStrNote(String strNote) {
         this.strNote = strNote;
     }
+
+    public String getStrBillId() { return strBillId;}
+
+    public void setStrBillId(String strBillId) {this.strBillId = strBillId;}
 
     public BillData(){
     }
