@@ -88,7 +88,7 @@ public class CashWalletScreen extends AppCompatActivity {
         String user_Id = user.getUid();
 
         databaseReference = FirebaseDatabase.getInstance().getReference().child(user_Id).child("WALLET").child(cashId);
-        databaseTransactions = FirebaseDatabase.getInstance().getReference().child(user_Id).child("WALLET").child(cashId).child("Wallet Transactions");
+        databaseTransactions = FirebaseDatabase.getInstance().getReference(user_Id).child("Wallet Transactions").child("WALLET").child(cashId);
 
     }
 
