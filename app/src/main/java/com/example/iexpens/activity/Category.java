@@ -153,12 +153,6 @@ public class Category extends AppCompatActivity {
             finish();
         }
 
-        Intent intent = new Intent(Category.this, AddExpenseActivity.class);
-
-        // Sending value to another activity using intent.
-        intent.putExtra("ListViewClickedValue", TempListViewClickedValue);
-
-        startActivity(intent);
     }
 };
 
