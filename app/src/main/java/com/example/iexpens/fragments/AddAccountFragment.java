@@ -76,6 +76,9 @@ public class AddAccountFragment extends Fragment {
         spinner_banks = (Spinner) view.findViewById(R.id.spinner_banks);
         spinner_acctype = (Spinner)view.findViewById(R.id.spinner_acctype);
 
+        // Bundle bundle = getArguments();
+        //spinner_banks = bundle.getString("");
+
         button_add_acc = (Button)view.findViewById(R.id.button_add_acc);
         button_add_acc.setOnClickListener(new View.OnClickListener() {
             @Override

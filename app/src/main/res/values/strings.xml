@@ -81,5 +81,24 @@
     <string name="description">Description</string>
     <string name="select_category">Select Category</string>
 
+    <string-array name="category">
+        <item>Rent</item>
+        <item>ChildCare</item>
+        <item>Dining</item>
+        <item>Entertainment</item>
+        <item>Gifts</item>
+        <item>Health</item>
+        <item>Personal Care</item>
+        <item>Maintenance</item>
+        <item>Insurance</item>
+        <item>Loan</item>
+        <item>Medical</item>
+        <item>Tax</item>
+        <item>Shopping</item>
+        <item>Utilities</item>
+        <item>Education</item>
+        <item>Miscellaneous</item>
+    </string-array>
+
 
 </resources>

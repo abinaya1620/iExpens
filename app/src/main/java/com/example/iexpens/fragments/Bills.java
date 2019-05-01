@@ -112,9 +112,11 @@ public class Bills extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
         mUserId = mUser.getUid();
+
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -410,6 +412,7 @@ public class Bills extends Fragment {
         getActivity().startActivityForResult(intent,1001);
         //startActivityForResult(intent,1001);
     }
+
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
         MenuItem item=menu.findItem(R.id.item_menu1);
