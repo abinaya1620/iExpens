@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CalendarView;
 import android.widget.ListView;
@@ -135,6 +136,7 @@ public class NotificationFragment extends Fragment {
             }
         });
 
+
         return view;
     }
 
@@ -145,7 +147,20 @@ public class NotificationFragment extends Fragment {
         String querydate = year+"-"+month+"-"+dayOfMonth;
         setSelectedDate(querydate);
         ListView itemList = getView().findViewById(R.id.billListView);
-        ArrayList<String> items = new ArrayList<String>();
+        final ArrayList<String> items = new ArrayList<String>();
+        final ArrayList<BillData> bill_data = new ArrayList<BillData>();
+        itemList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+               BillData data = (BillData)bill_data.get(position);
+               String billKey = (String)listKeys.get(position);
+               Fragment BillDetailFragment = new BillDetailsFragment(data,billKey);
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.fragment_container,BillDetailFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
         //ArrayAdapter<String> itemAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,items);
         adapter = new ArrayAdapter(this.getContext(),android.R.layout.simple_list_item_1,items);
         String userid = "user1";
@@ -159,11 +174,13 @@ public class NotificationFragment extends Fragment {
                 Iterator<DataSnapshot> iterator = snapshotIterator.iterator();
                 adapter.clear();
                 listKeys.clear();
+                bill_data.clear();
                 while (iterator.hasNext()) {
                     DataSnapshot next = (DataSnapshot) iterator.next();
                     String billName = (String) next.child("strBillName").getValue();
                     String amount = (String) next.child("strAmount").getValue();
                     BillData bill = next.getValue(BillData.class);
+                    bill_data.add(bill);
                     String key = next.getKey();
                     listKeys.add(key);
                     //adapter.add("Bill: "+billName +" - Amount: " + amount);
@@ -223,6 +240,7 @@ public class NotificationFragment extends Fragment {
         cal.setTime(date);
         ListView itemList = getView().findViewById(R.id.billListView);
         ArrayList<String> items = new ArrayList<String>();
+        final ArrayList<BillData> bill_data = new ArrayList<BillData>();
         adapter = new ArrayAdapter(this.getContext(),android.R.layout.simple_list_item_1,items);
         int year = cal.get(Calendar.YEAR);
         int month = cal.get(Calendar.MONTH)+1;
@@ -246,6 +264,7 @@ public class NotificationFragment extends Fragment {
                     listKeys.add(key);
                     //adapter.add("Bill: "+billName +" - Amount: " + amount);
                     adapter.add(bill);
+                    bill_data.add(bill);
                     }
             }
 
@@ -255,6 +274,18 @@ public class NotificationFragment extends Fragment {
             }
         });
         itemList.setAdapter(adapter);
+        itemList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                BillData data = (BillData)bill_data.get(position);
+                String billKey = (String)listKeys.get(position);
+                Fragment BillDetailFragment = new BillDetailsFragment(data,billKey);
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.fragment_container,BillDetailFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
     }
 
     @Override
