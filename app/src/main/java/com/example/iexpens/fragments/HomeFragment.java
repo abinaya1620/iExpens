@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.example.iexpens.R;
+import com.github.mikephil.charting.charts.BarChart;
 import com.example.iexpens.activity.AccountList;
 import com.example.iexpens.activity.BankAccount;
 import com.example.iexpens.activity.CashList;
@@ -37,6 +38,7 @@ import lecho.lib.hellocharts.view.PieChartView;
 public class HomeFragment extends Fragment {
 
     PieChartView pieChartView;
+    BarChart barChart;
 
     private ListView listViewAccounts_home;
     private ListView listViewCash_home;
@@ -46,6 +48,7 @@ public class HomeFragment extends Fragment {
     private List<CashWallet> cashList;
     private Activity activity;
     private FirebaseAuth mAuth;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -65,12 +68,12 @@ public class HomeFragment extends Fragment {
         List<SliceValue> pieData = new ArrayList<SliceValue>();
         pieData.add(new SliceValue(15, Color.BLUE).setLabel("Q1: $10"));
         pieData.add(new SliceValue(25, Color.GRAY).setLabel("Q2: $4"));
-        pieData.add(new SliceValue(10, Color.RED).setLabel("Q3: $18"));
+        pieData.add(new SliceValue(10, Color.GREEN).setLabel("Q3: $18"));
         pieData.add(new SliceValue(60, Color.LTGRAY).setLabel("Q4: $28"));
 
         PieChartData pieChartData = new PieChartData(pieData);
         pieChartData.setHasLabels(true).setValueLabelTextSize(14);
-        pieChartData.setHasCenterCircle(true).setCenterText1("This many").setCenterText1FontSize(15).setCenterText1Color(Color.parseColor("#080808"));
+        pieChartData.setHasCenterCircle(true).setCenterText1("Expenses").setCenterText1FontSize(15).setCenterText1Color(Color.parseColor("#080808"));
         pieChartView.setPieChartData(pieChartData);
 
         // Wallet and Accounts
