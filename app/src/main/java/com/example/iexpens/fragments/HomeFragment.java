@@ -3,6 +3,7 @@ package com.example.iexpens.fragments;
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -11,6 +12,9 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.example.iexpens.R;
+import com.example.iexpens.activity.AddExpenseActivity;
+import com.example.iexpens.activity.Expense;
+import com.example.iexpens.activity.ExpenseList;
 import com.github.mikephil.charting.charts.BarChart;
 import com.example.iexpens.activity.AccountList;
 import com.example.iexpens.activity.BankAccount;
@@ -25,6 +29,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -48,6 +53,8 @@ public class HomeFragment extends Fragment {
     private List<CashWallet> cashList;
     private Activity activity;
     private FirebaseAuth mAuth;
+    private DatabaseReference databaseExpenses;
+
 
 
     @Override
@@ -65,6 +72,11 @@ public class HomeFragment extends Fragment {
         // Pie chart
         pieChartView = mainview.findViewById(R.id.chart);
 
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser();
+        String user_Id = user.getUid();
+        databaseExpenses = FirebaseDatabase.getInstance().getReference(user_Id).child("expenses");
+
         List<SliceValue> pieData = new ArrayList<SliceValue>();
         pieData.add(new SliceValue(15, Color.BLUE).setLabel("Q1: $10"));
         pieData.add(new SliceValue(25, Color.GRAY).setLabel("Q2: $4"));
@@ -81,9 +93,6 @@ public class HomeFragment extends Fragment {
         listViewCash_home = (ListView) mainview.findViewById(R.id.listViewCash_home);
         accountList = new ArrayList<>();
         cashList = new ArrayList<>();
-        mAuth = FirebaseAuth.getInstance();
-        FirebaseUser user = mAuth.getCurrentUser();
-        String user_Id = user.getUid();
 
         databaseAccounts = FirebaseDatabase.getInstance().getReference().child(user_Id).child("Bank Accounts");
         databaseWallet = FirebaseDatabase.getInstance().getReference().child(user_Id).child("WALLET");
@@ -93,6 +102,45 @@ public class HomeFragment extends Fragment {
 
     public void onStart() {
         super.onStart();
+
+
+
+        databaseExpenses.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                HashMap<String,Float> expensesByCategory = new HashMap<>();
+
+                for (DataSnapshot expenseSnapshot : dataSnapshot.getChildren()){
+                    Expense expense = expenseSnapshot.getValue(Expense.class);
+                    String category = expense.getExpenseCategory();
+                    Float amount = Float.parseFloat(expense.getPrice());
+
+                    if(!expensesByCategory.containsKey(category))
+                        expensesByCategory.put(category, amount);
+                    else{
+                        amount += expensesByCategory.get(category);
+                        expensesByCategory.put(category, amount);
+                    }
+                }
+
+                //expensesByCategory.forEach(cat, value);
+                List<SliceValue> pieData = new ArrayList<>();
+                pieData.add(new SliceValue(15, Color.BLUE).setLabel("Q1: $10"));
+                pieData.add(new SliceValue(25, Color.GRAY).setLabel("Q2: $4"));
+                pieData.add(new SliceValue(10, Color.GREEN).setLabel("Q3: $18"));
+                pieData.add(new SliceValue(60, Color.LTGRAY).setLabel("Q4: $28"));
+                PieChartData pieChartData = new PieChartData(pieData);
+                pieChartView.setPieChartData(pieChartData);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+
 
         databaseWallet.addValueEventListener(new ValueEventListener() {
             @Override
