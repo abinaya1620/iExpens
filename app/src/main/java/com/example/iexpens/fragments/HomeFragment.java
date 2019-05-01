@@ -56,6 +56,7 @@ public class HomeFragment extends Fragment {
     private DatabaseReference databaseExpenses;
 
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
