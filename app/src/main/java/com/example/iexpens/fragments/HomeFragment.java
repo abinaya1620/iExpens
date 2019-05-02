@@ -31,7 +31,9 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -77,7 +79,7 @@ public class HomeFragment extends Fragment {
         String user_Id = user.getUid();
         databaseExpenses = FirebaseDatabase.getInstance().getReference(user_Id).child("expenses");
 
-        List<SliceValue> pieData = new ArrayList<SliceValue>();
+        /*List<SliceValue> pieData = new ArrayList<SliceValue>();
         pieData.add(new SliceValue(15, Color.BLUE).setLabel("Q1: $10"));
         pieData.add(new SliceValue(25, Color.GRAY).setLabel("Q2: $4"));
         pieData.add(new SliceValue(10, Color.GREEN).setLabel("Q3: $18"));
@@ -86,8 +88,8 @@ public class HomeFragment extends Fragment {
         PieChartData pieChartData = new PieChartData(pieData);
         pieChartData.setHasLabels(true).setValueLabelTextSize(14);
         pieChartData.setHasCenterCircle(true).setCenterText1("Expenses").setCenterText1FontSize(15).setCenterText1Color(Color.parseColor("#080808"));
-        pieChartView.setPieChartData(pieChartData);
-
+        pieChartView.setPieChartData(pieChartData);*/
+        fillChart();
         // Wallet and Accounts
         listViewAccounts_home = (ListView) mainview.findViewById(R.id.listViewAccounts_home);
         listViewCash_home = (ListView) mainview.findViewById(R.id.listViewCash_home);
@@ -102,43 +104,6 @@ public class HomeFragment extends Fragment {
 
     public void onStart() {
         super.onStart();
-
-
-
-        databaseExpenses.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                HashMap<String,Float> expensesByCategory = new HashMap<>();
-
-                for (DataSnapshot expenseSnapshot : dataSnapshot.getChildren()){
-                    Expense expense = expenseSnapshot.getValue(Expense.class);
-                    String category = expense.getExpenseCategory();
-                    Float amount = Float.parseFloat(expense.getPrice());
-
-                    if(!expensesByCategory.containsKey(category))
-                        expensesByCategory.put(category, amount);
-                    else{
-                        amount += expensesByCategory.get(category);
-                        expensesByCategory.put(category, amount);
-                    }
-                }
-
-                //expensesByCategory.forEach(cat, value);
-                List<SliceValue> pieData = new ArrayList<>();
-                pieData.add(new SliceValue(15, Color.BLUE).setLabel("Q1: $10"));
-                pieData.add(new SliceValue(25, Color.GRAY).setLabel("Q2: $4"));
-                pieData.add(new SliceValue(10, Color.GREEN).setLabel("Q3: $18"));
-                pieData.add(new SliceValue(60, Color.LTGRAY).setLabel("Q4: $28"));
-                PieChartData pieChartData = new PieChartData(pieData);
-                pieChartView.setPieChartData(pieChartData);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
 
 
 
@@ -181,6 +146,78 @@ public class HomeFragment extends Fragment {
             }
         });
 
+    }
+
+    private void fillChart() {
+        databaseExpenses.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                HashMap<String,Float> expensesByCategory = new HashMap<>();
+
+                for (DataSnapshot expenseSnapshot : dataSnapshot.getChildren()){
+                    Expense expense = expenseSnapshot.getValue(Expense.class);
+                    String category = expense.getExpenseCategory();
+                    Float amount = Float.parseFloat(expense.getPrice());
+
+                    if(!expensesByCategory.containsKey(category))
+                        expensesByCategory.put(category, amount);
+                    else{
+                        amount += expensesByCategory.get(category);
+                        expensesByCategory.put(category, amount);
+                    }
+                }
+
+                List<SliceValue> pieData = new ArrayList<>();
+
+                for(Map.Entry<String, Float> entry : expensesByCategory.entrySet()) {
+                    String theCategory = entry.getKey();
+                    Float theAmount = entry.getValue();
+                    Integer color = getColorForCategory(theCategory);
+                    String label = theCategory + " kr" + theAmount;
+                    pieData.add(new SliceValue(theAmount, color).setLabel(label));
+                }
+
+                PieChartData pieChartData = new PieChartData(pieData);
+                pieChartData.setHasLabels(true).setValueLabelTextSize(14);
+                pieChartData.setHasCenterCircle(true)
+                            .setCenterText1("Expenses")
+                            .setCenterText1FontSize(15)
+                            .setCenterText1Color(Color.parseColor("#080808"));
+                pieChartView.setPieChartData(pieChartData);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private Integer getColorForCategory(String theCategory) {
+        HashMap<String, Integer> categoryColor = new HashMap<>();
+
+        categoryColor.put("Child Care", Color.parseColor("#82b1ff"));
+        categoryColor.put("Dining", Color.parseColor("#80d8ff"));
+        categoryColor.put("Education", Color.parseColor("#84ffff"));
+        categoryColor.put("Entertainment", Color.parseColor("#a7ffeb"));
+        categoryColor.put("Gift", Color.parseColor("#b9f6ca"));
+        categoryColor.put("Health & Fitness", Color.parseColor("#ccff90"));
+        categoryColor.put("House Repair", Color.parseColor("#f4ff81"));
+        categoryColor.put("Insurance", Color.parseColor("#ffff8d"));
+        categoryColor.put("Loan", Color.parseColor("#ffe57f"));
+        categoryColor.put("Medical", Color.parseColor("#ffd180"));
+        categoryColor.put("Miscellaneous", Color.parseColor("#ff9e80"));
+        categoryColor.put("Rent", Color.parseColor("#ff8a80"));
+        categoryColor.put("Shopping", Color.parseColor("#ff80ab"));
+        categoryColor.put("Tax", Color.parseColor("#ea80fc"));
+        categoryColor.put("Transport", Color.parseColor("#b388ff"));
+        categoryColor.put("Utilities", Color.parseColor("#8c9eff"));
+
+        if(!categoryColor.containsKey(theCategory))
+            return Color.BLACK;
+
+        return categoryColor.get(theCategory);
     }
 
     @Override
