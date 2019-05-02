@@ -18,6 +18,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.text.Layout;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,6 +30,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -129,6 +131,8 @@ public class Bills extends Fragment {
         // Inflate the layout for this fragment
         final View BillsView = inflater.inflate(R.layout.fragment_bills, container, false);
         Button addButton = (Button) BillsView.findViewById(R.id.billAdd);
+        LinearLayout notificationLayout = (LinearLayout) BillsView.findViewById(R.id.notificationMainLayout);
+
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -320,7 +324,7 @@ public class Bills extends Fragment {
         DatabaseReference firebaseDb = FirebaseDatabase.getInstance().getReference(mUserId).child("bills");
         String id = firebaseDb.push().getKey();
         firebaseDb.child(id).setValue(Bill);
-        Toast.makeText(getActivity(), getString(R.string.BillSavedSuccessfully), Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity(), getString(R.string.BillSavedSuccesfully), Toast.LENGTH_LONG).show();
         FragmentTransaction fr = getFragmentManager().beginTransaction();
         fr.replace(R.id.fragment_container, new NotificationFragment());
         fr.commit();
