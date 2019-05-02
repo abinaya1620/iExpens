@@ -9,6 +9,7 @@
     <string name="BillAmountNotAvailable">Bill Amount is Empty. Please enter Bill Amount</string>
     <string name="BillDueDateNotAvailable">Bill Due Date is Empty. Please enter Bill Due Date</string>
     <string name="BillSavedSuccesfully">Bill Saved Succesfully to the account</string>
+    <string name="BillCategoryNotAvailable">Bill Category Not Selected. Please select a valid category</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="_0">0%</string>
@@ -25,6 +26,12 @@
         <item>Savings</item>
         <item>Current</item>
         <item>Cash</item>
+    </string-array>
+    <string-array name="RemindOptions">
+        <item>10 sec Later</item>
+        <item>1 Day Before</item>
+        <item>2 Days Before</item>
+        <item>3 Days Before</item>
     </string-array>
     <string name="create_a_new_account">CREATE A NEW ACCOUNT</string>
     <string name="login">LOGIN</string>

@@ -13,11 +13,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CalendarView;
 import android.widget.ListView;
 
 import com.example.iexpens.R;
+import com.example.iexpens.activity.BillData;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -26,6 +31,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -43,15 +49,25 @@ public class NotificationFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    String selectedDate="";
     ArrayAdapter adapter;
     ArrayList listItems = new ArrayList();
     ArrayList listKeys = new ArrayList();
-
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private FirebaseAuth mAuth;
+    private FirebaseUser mUser;
+    private String mUserId;
 
     private OnFragmentInteractionListener mListener;
+    FloatingActionButton floatingActionButton;
+    public String getSelectedDate() {
+        return selectedDate;
+    }
+
+    public void setSelectedDate(String selectedDate) {
+        this.selectedDate = selectedDate;
+    }
 
     public NotificationFragment() {
         // Required empty public constructor
@@ -79,6 +95,11 @@ public class NotificationFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+
+        mAuth = FirebaseAuth.getInstance();
+        mUser = mAuth.getCurrentUser();
+        mUserId = mUser.getUid();
+
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -90,12 +111,34 @@ public class NotificationFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_notification, container, false);
         CalendarView expenseCalendar = view.findViewById(R.id.expenseCalendar);
+        Calendar calendar = Calendar.getInstance();
+        int yy = calendar.get(Calendar.YEAR);
+        int mm = calendar.get(Calendar.MONTH);
+        int dd = calendar.get(Calendar.DAY_OF_MONTH);
+        setSelectedDate(String.valueOf(yy) +"-"+String.valueOf(mm+1)+"-"+String.valueOf(dd));
         expenseCalendar.setOnDateChangeListener( new CalendarView.OnDateChangeListener() {
             public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
                 Log.d("print","Print");
+                selectedDate = year+"-"+(month+1)+"-"+dayOfMonth;
                 showItemsByDate( year, month+1, dayOfMonth );
             }
         });
+        floatingActionButton = view.findViewById(R.id.floatingActionButton4);
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("Add","Adding new bill notification Fragment");
+                Fragment AddBills = new com.example.iexpens.fragments.Bills();
+                Log.d("Sent due date",selectedDate);
+                ((Bills) AddBills).setStrIntialDuedate(selectedDate);
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.fragment_container,AddBills);
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
+
+
         return view;
     }
 
@@ -104,12 +147,27 @@ public class NotificationFragment extends Fragment {
         Log.d("month",Integer.toString(month));
         Log.d("day",Integer.toString(dayOfMonth));
         String querydate = year+"-"+month+"-"+dayOfMonth;
+        setSelectedDate(querydate);
         ListView itemList = getView().findViewById(R.id.billListView);
-        ArrayList<String> items = new ArrayList<String>();
+        final ArrayList<String> items = new ArrayList<String>();
+        final ArrayList<BillData> bill_data = new ArrayList<BillData>();
+        itemList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+               BillData data = (BillData)bill_data.get(position);
+               String billKey = (String)listKeys.get(position);
+               Fragment BillDetailFragment = new BillDetailsFragment(data,billKey);
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.fragment_container,BillDetailFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
         //ArrayAdapter<String> itemAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,items);
         adapter = new ArrayAdapter(this.getContext(),android.R.layout.simple_list_item_1,items);
         String userid = "user1";
-        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("Bill_"+userid);
+        //DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("Bill_"+userid);
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference(mUserId).child("bills");
         Query query = dbRef.orderByChild("strDueDate").equalTo(querydate);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -118,13 +176,17 @@ public class NotificationFragment extends Fragment {
                 Iterator<DataSnapshot> iterator = snapshotIterator.iterator();
                 adapter.clear();
                 listKeys.clear();
+                bill_data.clear();
                 while (iterator.hasNext()) {
                     DataSnapshot next = (DataSnapshot) iterator.next();
-
-                    String match = (String) next.child("strBillName").getValue();
+                    String billName = (String) next.child("strBillName").getValue();
+                    String amount = (String) next.child("strAmount").getValue();
+                    BillData bill = next.getValue(BillData.class);
+                    bill_data.add(bill);
                     String key = next.getKey();
                     listKeys.add(key);
-                    adapter.add(match);
+                    //adapter.add("Bill: "+billName +" - Amount: " + amount);
+                    adapter.add(bill);
                 }
             }
             @Override
@@ -159,13 +221,73 @@ public class NotificationFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
-    public void addBill(View view) {
-        Log.d("Add","Adding new bill");
-        Fragment AddBills = new Bills();
+    /*public void addBill(View view) {
+        Log.d("Add","Adding new bill notification Fragment");
+        Fragment AddBills = new com.example.iexpens.fragments.Bills();
+        Log.d("Sent due date",selectedDate);
+        ((Bills) AddBills).setStrIntialDuedate(selectedDate);
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container,AddBills);
         transaction.addToBackStack(null);
         transaction.commit();
+    }*/
+
+    public void onStart() {
+        super.onStart();
+        String userid = "user1";
+        //DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("Bill_"+userid);
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference(mUserId).child("bills");
+        Date date = new Date(); // your date
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        ListView itemList = getView().findViewById(R.id.billListView);
+        ArrayList<String> items = new ArrayList<String>();
+        final ArrayList<BillData> bill_data = new ArrayList<BillData>();
+        adapter = new ArrayAdapter(this.getContext(),android.R.layout.simple_list_item_1,items);
+        int year = cal.get(Calendar.YEAR);
+        int month = cal.get(Calendar.MONTH)+1;
+        int day = cal.get(Calendar.DAY_OF_MONTH);
+        String querydate = year+"-"+month+"-"+day;
+        Log.d("query date", querydate);
+        Query query = dbRef.orderByChild("strDueDate").equalTo(querydate);
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Iterable<DataSnapshot> snapshotIterator = dataSnapshot.getChildren();
+                Iterator<DataSnapshot> iterator = snapshotIterator.iterator();
+                adapter.clear();
+                listKeys.clear();
+                while (iterator.hasNext()) {
+                    DataSnapshot next = (DataSnapshot) iterator.next();
+                    String billName = (String) next.child("strBillName").getValue();
+                    String amount = (String) next.child("strAmount").getValue();
+                    BillData bill = next.getValue(BillData.class);
+                    String key = next.getKey();
+                    listKeys.add(key);
+                    //adapter.add("Bill: "+billName +" - Amount: " + amount);
+                    adapter.add(bill);
+                    bill_data.add(bill);
+                    }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        itemList.setAdapter(adapter);
+        itemList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                BillData data = (BillData)bill_data.get(position);
+                String billKey = (String)listKeys.get(position);
+                Fragment BillDetailFragment = new BillDetailsFragment(data,billKey);
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.fragment_container,BillDetailFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
     }
 
     @Override

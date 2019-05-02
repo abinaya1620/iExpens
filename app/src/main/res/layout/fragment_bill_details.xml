@@ -3,13 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.Bills">
+    tools:context=".fragments.BillDetailsFragment">
+
     <!-- TODO: Update blank fragment layout -->
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="60dp"
@@ -17,27 +20,26 @@
             android:orientation="horizontal"
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="8dp">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:lineSpacingExtra="14sp"
-                android:text="Name"
-                android:textAlignment="viewStart"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <EditText
-                android:id="@+id/billName"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:ems="10"
-                android:inputType="text" />
-
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:lineSpacingExtra="14sp"
+            android:text="Name"
+            android:textAlignment="viewStart"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/BillDetails_Name"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:lineSpacingExtra="14sp"
+            android:text="NameValue"
+            android:textAlignment="viewStart"
+            android:textSize="18sp"
+            android:textStyle="bold" />
         </LinearLayout>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="60dp"
@@ -45,26 +47,27 @@
             android:orientation="horizontal"
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="8dp">
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:lineSpacingExtra="14sp"
                 android:text="Account"
+                android:textAlignment="viewStart"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
-            <Spinner
-                android:id="@+id/billAccount"
+            <TextView
+                android:id="@+id/BillDetails_Account"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:entries="@array/Account_Types"
-                android:popupBackground="@color/colorPrimaryDark"
-                android:spinnerMode="dialog" />
+                android:lineSpacingExtra="14sp"
+                android:text="AccountValue"
+                android:textAlignment="viewStart"
+                android:textSize="18sp"
+                android:textStyle="bold" />
         </LinearLayout>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="60dp"
@@ -72,33 +75,27 @@
             android:orientation="horizontal"
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="8dp">
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:lineSpacingExtra="14sp"
                 android:text="Amount"
+                android:textAlignment="viewStart"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
-            <EditText
-                android:id="@+id/billAmount"
-                style="@android:style/Widget.DeviceDefault.EditText"
+            <TextView
+                android:id="@+id/BillDetails_Amount"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_gravity="left"
                 android:layout_weight="1"
-                android:ems="10"
-                android:hint="Enter Amount Here"
-                android:inputType="numberDecimal"
-                android:paddingBottom="8pt"
-                android:singleLine="true"
-                android:textAppearance="@style/TextAppearance.AppCompat"
-                android:visibility="visible" />
-
+                android:lineSpacingExtra="14sp"
+                android:text="AmountValue"
+                android:textAlignment="viewStart"
+                android:textSize="18sp"
+                android:textStyle="bold" />
         </LinearLayout>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="60dp"
@@ -106,36 +103,27 @@
             android:orientation="horizontal"
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="8dp">
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:lineSpacingExtra="14sp"
                 android:text="Category"
+                android:textAlignment="viewStart"
                 android:textSize="18sp"
-                android:textStyle="bold"
-                android:onClick="showCategory"/>
+                android:textStyle="bold" />
 
-            <!--<Spinner
-                android:id="@+id/billCategory"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:entries="@array/Account_Types"
-                android:popupBackground="@color/colorPrimaryDark"
-                android:spinnerMode="dialog" />-->
             <TextView
-                android:id="@+id/CategoryChooser"
+                android:id="@+id/BillDetails_Category"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:textAlignment="textEnd"
-                android:text="Select Category >>"
-                android:textSize="18dp"/>
-
+                android:lineSpacingExtra="14sp"
+                android:text="CategoryValue"
+                android:textAlignment="viewStart"
+                android:textSize="18sp"
+                android:textStyle="bold" />
         </LinearLayout>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="60dp"
@@ -143,60 +131,27 @@
             android:orientation="horizontal"
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="8dp">
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:lineSpacingExtra="14sp"
                 android:text="Due Date"
+                android:textAlignment="viewStart"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
-
-            <EditText
-                android:id="@+id/billDueDate"
-                style="@style/Widget.AppCompat.EditText"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="right"
-                android:layout_weight="1"
-                android:clickable="true"
-                android:cursorVisible="true"
-                android:focusable="false"
-                android:inputType="text|textAutoComplete"
-                android:singleLine="true"
-                android:visibility="visible" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:background="@android:color/darker_gray"
-            android:orientation="horizontal"
-            tools:layout_editor_absoluteX="8dp"
-            tools:layout_editor_absoluteY="8dp">
-
             <TextView
+                android:id="@+id/BillDetails_DueDate"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:lineSpacingExtra="14sp"
-                android:text="Remind"
+                android:text="DueDateValue"
+                android:textAlignment="viewStart"
                 android:textSize="18sp"
                 android:textStyle="bold" />
-
-            <Spinner
-                android:id="@+id/billReminder"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:entries="@array/RemindOptions"
-                android:popupBackground="@color/colorPrimaryDark"
-                android:spinnerMode="dialog" />
-
         </LinearLayout>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="60dp"
@@ -204,7 +159,6 @@
             android:orientation="horizontal"
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="8dp">
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -215,16 +169,17 @@
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
-            <EditText
-                android:id="@+id/billNote"
+            <TextView
+                android:id="@+id/BillDetails_Note"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:ems="10"
-                android:inputType="text" />
-
+                android:lineSpacingExtra="14sp"
+                android:text="NoteValue"
+                android:textAlignment="viewStart"
+                android:textSize="18sp"
+                android:textStyle="bold" />
         </LinearLayout>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="60dp"
@@ -232,22 +187,19 @@
             android:orientation="horizontal"
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="8dp">
-
             <Button
-                android:id="@+id/billAdd"
+                android:id="@+id/BillDetails_DeleteButton"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="@string/add_bills" />
-
+                android:text="Delete" />
             <Button
-                android:id="@+id/billCancel"
+                android:id="@+id/BillDetails_CancelButton"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="@android:string/cancel" />
-
         </LinearLayout>
-
     </LinearLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </FrameLayout>

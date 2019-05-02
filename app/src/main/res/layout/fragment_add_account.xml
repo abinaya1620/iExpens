@@ -71,6 +71,7 @@
         android:entries="@array/Banks"
         android:spinnerMode="dropdown" />
 
+
     <EditText
         android:id="@+id/ip_acc_no"
         android:layout_width="230dp"

@@ -92,7 +92,7 @@ public class AccountScreenActivity extends AppCompatActivity {
         acc_no.setText(accno);
         String bankId = intent.getStringExtra(WalletFragment.BANK_ID);
 
-        databaseTransactions = FirebaseDatabase.getInstance().getReference().child(user_Id).child("Bank Accounts").child(bankId).child("Bank Transactions");
+        databaseTransactions = FirebaseDatabase.getInstance().getReference(user_Id).child("Bank Transactions").child("Bank Accounts").child(bankId);
         databaseReference = FirebaseDatabase.getInstance().getReference().child(user_Id).child("Bank Accounts").child(bankId);
     }
 

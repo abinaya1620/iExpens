@@ -21,7 +21,7 @@ import java.util.List;
 public class ExpenseList extends ArrayAdapter {
     private Activity context;
     private List<Expense> expenseList;
-    
+
 
    private static final String TAG = "ExpenseList";
 
