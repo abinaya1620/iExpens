@@ -320,7 +320,7 @@ public class Bills extends Fragment {
         DatabaseReference firebaseDb = FirebaseDatabase.getInstance().getReference(mUserId).child("bills");
         String id = firebaseDb.push().getKey();
         firebaseDb.child(id).setValue(Bill);
-        Toast.makeText(getActivity(), getString(R.string.BillSavedSuccesfully), Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity(), getString(R.string.BillSavedSuccessfully), Toast.LENGTH_LONG).show();
         FragmentTransaction fr = getFragmentManager().beginTransaction();
         fr.replace(R.id.fragment_container, new NotificationFragment());
         fr.commit();

@@ -8,7 +8,7 @@
     <string name="BillNameNotAvailable">Bill Name is Empty. Please enter name for the Bill</string>
     <string name="BillAmountNotAvailable">Bill Amount is Empty. Please enter Bill Amount</string>
     <string name="BillDueDateNotAvailable">Bill Due Date is Empty. Please enter Bill Due Date</string>
-    <string name="BillSavedSuccesfully">Bill Saved Succesfully to the account</string>
+    <string name="BillSavedSuccessfully">Bill Saved Successfully to the account</string>
     <string name="BillCategoryNotAvailable">Bill Category Not Selected. Please select a valid category</string>
 
     <!-- TODO: Remove or change this placeholder text -->
