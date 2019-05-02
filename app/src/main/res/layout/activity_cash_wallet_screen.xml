@@ -22,23 +22,37 @@
         android:textSize="18sp"
         android:textStyle="bold" />
 
+    <TextView
+        android:id="@+id/text_Wallet_title"
+        android:layout_width="240dp"
+        android:layout_height="41dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="239dp"
+        android:textAlignment="viewStart"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
     <Button
         android:id="@+id/button_cash_expense"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="150dp"
-        android:layout_marginTop="300dp"
+        android:layout_marginTop="200dp"
         android:text="@string/add_expense"
         android:onClick="selectCategoryForExpense"
         />
 
     <Button
         android:id="@+id/button_cash_trans"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="400dp"
-        android:layout_marginStart="130dp"
-        android:text="View Transactions" />
+        android:layout_marginTop="270dp"
+        android:text="@string/view_transactions"
+        android:onClick="cash_trans_onClick"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/update_cash_amount"

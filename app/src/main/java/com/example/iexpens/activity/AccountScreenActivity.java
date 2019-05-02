@@ -31,6 +31,7 @@ public class AccountScreenActivity extends AppCompatActivity {
 
     private TextView acc_bal;
     private TextView acc_no;
+    private TextView text_Bank_no;
     private FloatingActionButton update_acc_amount;
     private Button button_del_acc;
     private DatabaseReference databaseTransactions;
@@ -38,6 +39,13 @@ public class AccountScreenActivity extends AppCompatActivity {
     private Button button_add_accexp;
     private Button button_acc_trans;
     private FirebaseAuth mAuth;
+
+    public static final String ACCOUNT_BANK_AMOUNT = "bankamount";
+    public static final String ACCOUNT_BANK_ID = "bankid";
+    public static final String ACCOUNT_BANK_NO = "bankaccountno";
+    public static final String ACCOUNT_BANK_NAME = "bankaccountname";
+    public static final String ACCOUNT_BANK_BANKS = "bankaccounts";
+    public static final String ACCOUNT_BANK_TYPE = "bankaccounttype";
 
 
     @Override
@@ -83,6 +91,7 @@ public class AccountScreenActivity extends AppCompatActivity {
 
         acc_bal = (TextView) findViewById(R.id.acc_bal);
         acc_no = (TextView) findViewById(R.id.acc_no);
+        text_Bank_no = (TextView) findViewById(R.id.text_Bank_no);
 
         Intent intent = getIntent();
 
@@ -90,6 +99,8 @@ public class AccountScreenActivity extends AppCompatActivity {
         acc_bal.setText(amount + " Kr");
         String accno = intent.getStringExtra(WalletFragment.BANK_NO);
         acc_no.setText(accno);
+        String bank = intent.getStringExtra(WalletFragment.BANK_BANKS);
+        text_Bank_no.setText(bank);
         String bankId = intent.getStringExtra(WalletFragment.BANK_ID);
 
         databaseTransactions = FirebaseDatabase.getInstance().getReference(user_Id).child("Bank Transactions").child("Bank Accounts").child(bankId);
@@ -97,30 +108,49 @@ public class AccountScreenActivity extends AppCompatActivity {
     }
 
     private void add_accexp_onClick(View v) {
-/*        Intent intent = new Intent(AccountScreenActivity.this, AddExpenseActivity.class);
-
-        String id = intent.getStringExtra(WalletFragment.BANK_ID);
-        String accno = intent.getStringExtra(WalletFragment.BANK_NO);
-        String accname = intent.getStringExtra(WalletFragment.BANK_NAME);
-        String amount = intent.getStringExtra(WalletFragment.BANK_AMOUNT);
-        String bank = intent.getStringExtra(WalletFragment.BANK_BANKS);
-        String bank_type = intent.getStringExtra(WalletFragment.BANK_TYPE);
-
-        intent.putExtra(id, WalletFragment.BANK_ID);
-        intent.putExtra(accno, WalletFragment.BANK_NO);
-        intent.putExtra(accname, WalletFragment.BANK_NAME);
-        intent.putExtra(amount, WalletFragment.BANK_AMOUNT);
-        intent.putExtra(bank, WalletFragment.BANK_BANKS);
-        intent.putExtra(bank_type, WalletFragment.BANK_TYPE);
-
-        startActivity(intent);*/
 
         Intent intent = new Intent(AccountScreenActivity.this, AddExpenseActivity.class);
+        Intent intent1 = getIntent();
+
+        String id = intent1.getStringExtra(WalletFragment.BANK_ID);
+        String accno = intent1.getStringExtra(WalletFragment.BANK_NO);
+        String accname = intent1.getStringExtra(WalletFragment.BANK_NAME);
+        String amount = intent1.getStringExtra(WalletFragment.BANK_AMOUNT);
+        String bank = intent1.getStringExtra(WalletFragment.BANK_BANKS);
+        String bank_type = intent1.getStringExtra(WalletFragment.BANK_TYPE);
+
+        intent.putExtra(ACCOUNT_BANK_ID, id);
+        intent.putExtra(ACCOUNT_BANK_NO, accno);
+        intent.putExtra(ACCOUNT_BANK_NAME, accname);
+        intent.putExtra(ACCOUNT_BANK_AMOUNT, amount);
+        intent.putExtra(ACCOUNT_BANK_BANKS, bank);
+        intent.putExtra(ACCOUNT_BANK_TYPE, bank_type);
+
         startActivity(intent);
     }
 
 
     private void acc_trans_onClick(View v) {
+
+        Intent intent = new Intent(AccountScreenActivity.this, TransactionScreen.class);
+        Intent intent1 = getIntent();
+
+        String id = intent1.getStringExtra(WalletFragment.BANK_ID);
+        String accno = intent1.getStringExtra(WalletFragment.BANK_NO);
+        String accname = intent1.getStringExtra(WalletFragment.BANK_NAME);
+        String amount = intent1.getStringExtra(WalletFragment.BANK_AMOUNT);
+        String bank = intent1.getStringExtra(WalletFragment.BANK_BANKS);
+        String bank_type = intent1.getStringExtra(WalletFragment.BANK_TYPE);
+
+        intent.putExtra(ACCOUNT_BANK_ID, id);
+        intent.putExtra(ACCOUNT_BANK_NO, accno);
+        intent.putExtra(ACCOUNT_BANK_NAME, accname);
+        intent.putExtra(ACCOUNT_BANK_AMOUNT, amount);
+        intent.putExtra(ACCOUNT_BANK_BANKS, bank);
+        intent.putExtra(ACCOUNT_BANK_TYPE, bank_type);
+
+        startActivity(intent);
+
     }
 
     private void del_acc_onClick(View v) {

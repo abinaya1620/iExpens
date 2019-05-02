@@ -16,9 +16,6 @@ import android.widget.ListView;
 import com.example.iexpens.R;
 import com.example.iexpens.adapter.BankGridViewAdapter;
 import com.example.iexpens.adapter.BankListViewAdapter;
-import com.example.iexpens.adapter.GridViewAdapater;
-import com.example.iexpens.adapter.ListViewAdapter;
-import com.example.iexpens.fragments.AddAccountFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +44,7 @@ public class BankCategory extends AppCompatActivity {
 
         //Inflate ViewStub before get view
         stub_bankgrid.inflate();
-        stub_bankgrid.inflate();
+        stub_banklist.inflate();
 
         listView= findViewById(R.id.mylist_view);
         gridView= findViewById(R.id.gridview);
@@ -85,17 +82,14 @@ public class BankCategory extends AppCompatActivity {
             // Getting listview click value into String variable.
             String TempListViewClickedValue =banksList.get(position).getTitle();
 
-            Bundle bundle = new Bundle();
+         /*   Bundle bundle = new Bundle();
             bundle.putString("ListViewClickedValue", TempListViewClickedValue);
             AddAccountFragment fragobj = new AddAccountFragment();
-            fragobj.setArguments(bundle);
+            fragobj.setArguments(bundle);*/
 
-         /*   Intent intent = new Intent(BankCategory.this, AddAccountFragment.class);
-
-            // Sending value to another activity using intent.
+           Intent intent = new Intent(BankCategory.this, AddAccountActivity.class);
             intent.putExtra("ListViewClickedValue", TempListViewClickedValue);
-
-            startActivity(intent);*/
+            startActivity(intent);
         }
     };
 
