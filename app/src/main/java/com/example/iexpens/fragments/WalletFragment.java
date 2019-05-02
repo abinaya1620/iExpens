@@ -21,6 +21,7 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import com.example.iexpens.activity.AccountList;
+import com.example.iexpens.activity.AddAccountActivity;
 import com.example.iexpens.activity.BankAccount;
 import com.example.iexpens.activity.AccountScreenActivity;
 
@@ -168,9 +169,12 @@ public class WalletFragment extends Fragment {
     }
 
     public void button_add_account_onClick(View view) {
-        FragmentTransaction fr = getFragmentManager().beginTransaction();
+       /* FragmentTransaction fr = getFragmentManager().beginTransaction();
         fr.replace(R.id.fragment_container, new AddAccountFragment());
-        fr.commit();
+        fr.commit();*/
+        Intent intent = new Intent(getActivity(), AddAccountActivity.class);
+        startActivity(intent);
+
     }
 
     public void onStart() {
