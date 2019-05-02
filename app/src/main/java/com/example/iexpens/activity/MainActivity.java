@@ -1,11 +1,16 @@
 package com.example.iexpens.activity;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 
+import com.example.iexpens.fragments.BillReminder;
 import com.example.iexpens.fragments.Bills;
+import com.example.iexpens.fragments.CashReminder;
 import com.example.iexpens.fragments.NotificationFragment;
 import com.example.iexpens.fragments.HomeFragment;
 import com.example.iexpens.fragments.OverviewFragment;
@@ -25,6 +30,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.CalendarView;
 import android.widget.TextView;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -63,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
             }
             Log.d(TAG, "selectedFragment " + selectedFragment);
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
-            return false;
+            return true;
         }
     };
 
@@ -96,6 +105,23 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
+        Log.i("Main Activity invoked","Main Activity invoked");
+        createPeriodicCheckforCash();
+    }
+
+    public void createPeriodicCheckforCash(){
+        Intent intent = new Intent(MainActivity.this, CashReminder.class);
+        Calendar calendar = Calendar.getInstance();
+        //PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this.getApplicationContext(), 234324243, intent, 0);
+        PendingIntent pendingIntent = PendingIntent.getService(MainActivity.this.getApplicationContext(), 234324243, intent, 0);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        calendar.add(Calendar.DATE,1);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MINUTE, 00);
+        calendar.set(Calendar.HOUR, 8);
+        calendar.set(Calendar.AM_PM, Calendar.AM);
+        long reminderTime = calendar.getTimeInMillis();
+        alarmManager.set(AlarmManager.RTC_WAKEUP, reminderTime, pendingIntent);
     }
 
     private void printDate(int year, int month, int dayOfMonth) {

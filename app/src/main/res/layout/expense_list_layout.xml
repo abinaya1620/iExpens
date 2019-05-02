@@ -10,14 +10,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="8dp"
-        app:srcCompat="@drawable/ic_action_image" />
+        app:srcCompat="@drawable/ic_action_image"
+        />
 
     <TextView
         android:id="@+id/textViewCaterogy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:gravity="left"
+        android:gravity="start"
         android:text="TextView" />
 
     <TextView
@@ -26,6 +27,6 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="TextView"
-        android:gravity="right"/>
+        android:gravity="end"/>
 
 </LinearLayout>

@@ -60,7 +60,6 @@
         android:onClick="add_accexp_onClick"
         android:text="@string/add_expense" />
 
-
     <Button
         android:id="@+id/button_del_acc"
         android:layout_width="match_parent"
@@ -92,8 +91,5 @@
         android:src="@android:drawable/ic_input_add"
         android:visibility="visible"
         tools:visibility="visible" />
-
-
-
 
 </RelativeLayout>

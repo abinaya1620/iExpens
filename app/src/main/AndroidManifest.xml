@@ -54,6 +54,7 @@
         </provider>
 
         <receiver android:name=".fragments.BillReminder" />
+        <service android:name=".fragments.CashReminder"/>
     </application>
 
 </manifest>
