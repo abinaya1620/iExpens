@@ -80,6 +80,13 @@
     <string name="view_expense">View Expense</string>
     <string name="description">Description</string>
     <string name="select_category">Select Category</string>
+    <string name="bank">Bank</string>
+    <string name="account_no">Account Number</string>
+    <string name="name">Name</string>
+    <string name="account_type">Account Type</string>
+    <string name="save_account">Save</string>
+    <string name="clear">Clear</string>
+    <string name="view_transactions">View Transactions</string>
 
     <string-array name="category">
         <item>Rent</item>
