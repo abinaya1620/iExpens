@@ -33,7 +33,7 @@
                     style="@style/Widget.AppCompat.Light.ListView.DropDown"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@color/colorPrimary"
+                    android:background="#fafafa"
                     android:cacheColorHint="@color/primary_light"
                     android:divider="?attr/actionBarDivider"></ListView>
             </LinearLayout>
