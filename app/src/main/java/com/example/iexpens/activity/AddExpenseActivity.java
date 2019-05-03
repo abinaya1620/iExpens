@@ -323,12 +323,10 @@ public class AddExpenseActivity extends AppCompatActivity {
         databaseExpenses.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-               // expenseList.clear();
+                expenseList.clear();
 
                 for (DataSnapshot expenseSnapshot : dataSnapshot.getChildren()) {
                     Expense expense = expenseSnapshot.getValue(Expense.class);
-
-
                     expenseList.add(expense);
                 }
                 ExpenseList adapter = new ExpenseList(AddExpenseActivity.this, expenseList);
