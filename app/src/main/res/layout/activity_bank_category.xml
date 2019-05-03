@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity.BankCategory"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/backbar">
 
 
     <ViewStub
@@ -15,6 +16,7 @@
         android:layout_marginTop="10dp"
         android:inflatedId="@+id/showlayout"
         android:layout="@layout/my_listview"
+
         />
 
     <ViewStub
