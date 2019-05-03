@@ -95,11 +95,9 @@ public class NotificationFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
         mUserId = mUser.getUid();
-
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -148,12 +146,13 @@ public class NotificationFragment extends Fragment {
         Log.d("day",Integer.toString(dayOfMonth));
         String querydate = year+"-"+month+"-"+dayOfMonth;
         setSelectedDate(querydate);
-        ListView itemList = getView().findViewById(R.id.billListView);
+        final ListView itemList = getView().findViewById(R.id.billListView);
         final ArrayList<String> items = new ArrayList<String>();
         final ArrayList<BillData> bill_data = new ArrayList<BillData>();
         itemList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                itemList.setBackgroundResource(R.drawable.billbutton);
                BillData data = (BillData)bill_data.get(position);
                String billKey = (String)listKeys.get(position);
                Fragment BillDetailFragment = new BillDetailsFragment(data,billKey);
@@ -296,5 +295,4 @@ public class NotificationFragment extends Fragment {
         if(item!=null)
             item.setVisible(false);
     }
-
 }

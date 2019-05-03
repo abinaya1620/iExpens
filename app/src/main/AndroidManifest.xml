@@ -23,7 +23,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".activity.AddAccountActivity"></activity>
+        <activity android:name=".activity.AddAccountActivity" />
         <activity android:name=".activity.TransactionScreen" />
         <activity android:name=".activity.BankCategory" />
         <activity android:name=".activity.AddExpenseActivity" />
@@ -54,7 +54,8 @@
         </provider>
 
         <receiver android:name=".fragments.BillReminder" />
-        <service android:name=".fragments.CashReminder"/>
+
+        <service android:name=".fragments.CashReminder" />
     </application>
 
 </manifest>

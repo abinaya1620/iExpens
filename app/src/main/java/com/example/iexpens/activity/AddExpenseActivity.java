@@ -79,12 +79,11 @@ public class AddExpenseActivity extends AppCompatActivity {
     DatabaseReference databaseExpenses;
     ListView listViewExpenses;
     List<Expense> expenseList;
-
+   private String imageAddr;
     static final int REQUEST_PICTURE_CAPTURE = 1;
     private ImageView cameraImage;
     private String pictureFilePath;
     private FirebaseStorage firebaseStorage;
-    private String deviceIdentifier;
     private ImageButton captureButton;
     private StorageReference uploadeRef;
     private DatabaseReference databaseTransactions;
@@ -102,8 +101,10 @@ public class AddExpenseActivity extends AppCompatActivity {
     public static final String EXPENSE_BANK_TYPE = "bankaccounttype";
 
 
+
     private FirebaseAuth mAuth;
     private String mUserId;
+
 
 
     private static final String TAG = "AddExpense";
@@ -125,7 +126,6 @@ public class AddExpenseActivity extends AppCompatActivity {
         }
 
         firebaseStorage = FirebaseStorage.getInstance();
-        getInstallationIdentifier();
 
 
         mAuth = FirebaseAuth.getInstance();
@@ -150,7 +150,6 @@ public class AddExpenseActivity extends AppCompatActivity {
         //  databaseExpenses = FirebaseDatabase.getInstance().getReference(mUserId).child("expenses");
 
         if (cash_Id != null) {
-            // databaseReference = FirebaseDatabase.getInstance().getReference().child(user_Id).child("WALLET").child(cashId);
             databaseExpenses = FirebaseDatabase.getInstance().getReference().child(mUserId).child("Expenses").child("WALLET").child(cash_Id);
             databaseTransactions = FirebaseDatabase.getInstance().getReference(mUserId).child("Wallet Transactions").child("WALLET").child(cash_Id);
             databaseCash = FirebaseDatabase.getInstance().getReference().child(mUserId).child("WALLET").child(cash_Id);
@@ -217,6 +216,7 @@ public class AddExpenseActivity extends AppCompatActivity {
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
                 Expense expense = expenseList.get(position);
+
                 showUpdateDialog(expense.getExpenseId(), expense.getExpenseCategory());
 
                 return false;
@@ -281,11 +281,12 @@ public class AddExpenseActivity extends AppCompatActivity {
     private void addToCloudStorage() {
         File f = new File(pictureFilePath);
         Uri picUri = Uri.fromFile(f);
-        final String cloudFilePath = deviceIdentifier + picUri.getLastPathSegment();
+        final String cloudFilePath = picUri.getLastPathSegment();
 
 
         StorageReference storageRef = firebaseStorage.getReference(mUserId);
         uploadeRef = storageRef.child("iExpens").child(cloudFilePath);
+        Log.d(TAG, "cloudfilepath :" + "" + cloudFilePath);
 
         uploadeRef.putFile(picUri).addOnFailureListener(new OnFailureListener() {
             public void onFailure(@NonNull Exception exception) {
@@ -293,31 +294,26 @@ public class AddExpenseActivity extends AppCompatActivity {
             }
         }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                Toast.makeText(AddExpenseActivity.this,
-                        "Image has been uploaded to cloud storage",
-                        Toast.LENGTH_SHORT).show();
+            public void onSuccess(final UploadTask.TaskSnapshot taskSnapshot) {
+                uploadeRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        uri.toString();
+                        Log.d(TAG, "onSuccess: uri= " + uri.toString());
+                        Toast.makeText(AddExpenseActivity.this,
+                                "Image has been uploaded to cloud storage",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
-    }
 
-    protected synchronized String getInstallationIdentifier() {
-        if (deviceIdentifier == null) {
-            SharedPreferences sharedPrefs = this.getSharedPreferences(
-                    "DEVICE_ID", Context.MODE_PRIVATE);
-            deviceIdentifier = sharedPrefs.getString("DEVICE_ID", null);
-            if (deviceIdentifier == null) {
-                deviceIdentifier = UUID.randomUUID().toString();
-                SharedPreferences.Editor editor = sharedPrefs.edit();
-                editor.putString("DEVICE_ID", deviceIdentifier);
-                editor.commit();
-            }
-        }
-        return deviceIdentifier;
     }
 
     @Override
     protected void onStart() {
+
         super.onStart();
         databaseExpenses.addValueEventListener(new ValueEventListener() {
             @Override
@@ -326,6 +322,7 @@ public class AddExpenseActivity extends AppCompatActivity {
 
                 for (DataSnapshot expenseSnapshot : dataSnapshot.getChildren()) {
                     Expense expense = expenseSnapshot.getValue(Expense.class);
+
 
                     expenseList.add(expense);
                 }
@@ -489,7 +486,6 @@ public class AddExpenseActivity extends AppCompatActivity {
             Toast.makeText(this, "Category and Price are Mandatory!!", Toast.LENGTH_LONG).show();
         }
     }
-
 
     private void update_cashamount(String cashId, String title, String cashAmount) {
         CashWallet cashWallet = new CashWallet(cashId, title, cashAmount);
