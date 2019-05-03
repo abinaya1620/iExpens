@@ -10,6 +10,8 @@ public class Expense {
     String description;
     String imageAddress;
 
+
+
     public Expense() {
     }
 
@@ -60,4 +62,11 @@ public class Expense {
     public void setImageAddress(String imageAddress) {
         this.imageAddress = imageAddress;
     }
+
+
+
+
+
+
+
 }

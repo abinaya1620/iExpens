@@ -7,6 +7,7 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Point;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -18,8 +19,10 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.text.Layout;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,6 +32,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -112,11 +117,9 @@ public class Bills extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
         mUserId = mUser.getUid();
-
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -129,6 +132,14 @@ public class Bills extends Fragment {
         // Inflate the layout for this fragment
         final View BillsView = inflater.inflate(R.layout.fragment_bills, container, false);
         Button addButton = (Button) BillsView.findViewById(R.id.billAdd);
+        FrameLayout notificationLayout = (FrameLayout) BillsView.findViewById(R.id.notificationMainLayout);
+        Display disp = getActivity().getWindowManager().getDefaultDisplay();
+        Point winSize = new Point();
+        disp.getSize(winSize);
+        int screenheight = winSize.y;
+        Log.e("Screenheight" , Integer.toString(screenheight));
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,(screenheight-280));
+        notificationLayout.setLayoutParams(lp);
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -171,6 +182,7 @@ public class Bills extends Fragment {
         });
 
         accoutChooser.setAdapter(adapter);
+        accoutChooser.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_END);
         TextView categoryChooser = BillsView.findViewById(R.id.CategoryChooser);
         categoryChooser.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -320,7 +332,7 @@ public class Bills extends Fragment {
         DatabaseReference firebaseDb = FirebaseDatabase.getInstance().getReference(mUserId).child("bills");
         String id = firebaseDb.push().getKey();
         firebaseDb.child(id).setValue(Bill);
-        Toast.makeText(getActivity(), getString(R.string.BillSavedSuccesfully), Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity(), getString(R.string.BillSavedSuccessfully), Toast.LENGTH_LONG).show();
         FragmentTransaction fr = getFragmentManager().beginTransaction();
         fr.replace(R.id.fragment_container, new NotificationFragment());
         fr.commit();
@@ -412,7 +424,6 @@ public class Bills extends Fragment {
         getActivity().startActivityForResult(intent,1001);
         //startActivityForResult(intent,1001);
     }
-
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
         MenuItem item=menu.findItem(R.id.item_menu1);
