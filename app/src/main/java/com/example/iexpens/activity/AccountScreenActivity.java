@@ -36,6 +36,7 @@ public class AccountScreenActivity extends AppCompatActivity {
     private Button button_del_acc;
     private DatabaseReference databaseTransactions;
     private DatabaseReference databaseReference;
+    private DatabaseReference databaseExpenses;
     private Button button_add_accexp;
     private Button button_acc_trans;
     private FirebaseAuth mAuth;
@@ -105,6 +106,7 @@ public class AccountScreenActivity extends AppCompatActivity {
 
         databaseTransactions = FirebaseDatabase.getInstance().getReference(user_Id).child("Bank Transactions").child("Bank Accounts").child(bankId);
         databaseReference = FirebaseDatabase.getInstance().getReference().child(user_Id).child("Bank Accounts").child(bankId);
+        databaseExpenses = FirebaseDatabase.getInstance().getReference(user_Id).child("Expenses").child("Bank Accounts").child(bankId);
     }
 
     private void add_accexp_onClick(View v) {
@@ -120,6 +122,7 @@ public class AccountScreenActivity extends AppCompatActivity {
         String bank_type = intent1.getStringExtra(WalletFragment.BANK_TYPE);
 
         intent.putExtra(ACCOUNT_BANK_ID, id);
+        Log.d("Print", ACCOUNT_BANK_ID);
         intent.putExtra(ACCOUNT_BANK_NO, accno);
         intent.putExtra(ACCOUNT_BANK_NAME, accname);
         intent.putExtra(ACCOUNT_BANK_AMOUNT, amount);
@@ -169,12 +172,12 @@ public class AccountScreenActivity extends AppCompatActivity {
         FirebaseUser user = mAuth.getCurrentUser();
         String user_Id = user.getUid();
 
+       // DatabaseReference drAccount = FirebaseDatabase.getInstance().getReference().child(user_Id).child("Bank Accounts").child(bankId);
+        //DatabaseReference drtransactions = FirebaseDatabase.getInstance().getReference().child(user_Id).child("Bank Accounts").child(bankId).child("Bank Transactions");
 
-        DatabaseReference drAccount = FirebaseDatabase.getInstance().getReference().child(user_Id).child("Bank Accounts").child(bankId);
-        DatabaseReference drtransactions = FirebaseDatabase.getInstance().getReference().child(user_Id).child("Bank Accounts").child(bankId).child("Bank Transactions");
-
-        drAccount.removeValue();
-        drtransactions.removeValue();
+        databaseReference.removeValue();
+        databaseTransactions.removeValue();
+        databaseExpenses.removeValue();
 
         Toast.makeText(this, getString(R.string.acc_del_msg), Toast.LENGTH_LONG).show();
 
@@ -244,6 +247,5 @@ public class AccountScreenActivity extends AppCompatActivity {
         Transactions transactions = new Transactions(trans_id, current_date, trans_type, amt);
         databaseTransactions.child(trans_id).setValue(transactions);
     }
-
 
 }

@@ -44,10 +44,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="200dp"
         android:text="@string/add_expense"
-        android:onClick="selectCategoryForExpense"
         android:textColor="@color/cardview_light_background"
         android:background="@drawable/billbutton"
-        />
+        android:onClick="cash_expense_onClick" />
+
 
     <Button
         android:id="@+id/button_cash_trans"
