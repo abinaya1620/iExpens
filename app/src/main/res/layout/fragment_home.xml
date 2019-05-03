@@ -45,7 +45,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="#8e8e8e"
+        android:background="#fafafa"
         android:orientation="horizontal">
 
         <lecho.lib.hellocharts.view.PieChartView
@@ -59,7 +59,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="#9874a7">
+        android:background="#fafafa">
 
         <ListView
             android:id="@+id/listViewExpense"

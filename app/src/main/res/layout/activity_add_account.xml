@@ -120,6 +120,7 @@
         android:inputType="numberDecimal" />
 
     <Button
+        style="@style/mybutton"
         android:id="@+id/button_add_acc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -130,6 +131,7 @@
         android:onClick="button_add_acc_onClick"/>
 
     <Button
+        style="@style/mybutton"
         android:id="@+id/button_acc_clear"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

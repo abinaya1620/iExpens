@@ -24,9 +24,16 @@
 
     <Button
         android:id="@+id/button_add_account"
-        android:layout_width="match_parent"
+        style="@style/mybutton"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="142dp"
         android:layout_marginTop="500dp"
+        android:layout_marginEnd="133dp"
+        android:layout_marginBottom="132dp"
         android:onClick="button_add_account_onClick"
         android:text="Add New Account" />
 

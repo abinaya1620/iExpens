@@ -19,6 +19,7 @@
     </technolifestyle.com.imageslider.FlipperLayout>
 
     <Button
+        style="@style/mybutton"
         android:id="@+id/bt_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -33,8 +34,9 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
+        style="@style/mybutton"
         android:id="@+id/bt_reg"
-        android:layout_width="wrap_content"
+        android:layout_width="205dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
