@@ -1,68 +1,43 @@
-package com.example.iexpens.fragments;
+package com.example.iexpens.activity;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
-import android.content.Context;
-import android.net.Uri;
+import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.iexpens.activity.BankAccount;
 import com.example.iexpens.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * create an instance of this fragment.
- */
-public class AddAccountFragment extends Fragment {
+public class AddAccountActivity extends AppCompatActivity {
 
     private EditText ip_acc_no;
     private EditText ip_acc_name;
     private EditText ip_acc_amount;
-    private Spinner spinner_banks;
+    private TextView spinner_banks;
     private Spinner spinner_acctype;
     private Button button_add_acc;
     private Button button_acc_clear;
     private Activity activity;
     private FirebaseAuth mAuth;
-
-
     DatabaseReference databaseAccounts;
 
-
-    public AddAccountFragment() {
-        // Required empty public constructor
-    }
-
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_add_account, container, false);
+        setContentView(R.layout.activity_add_account);
 
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
@@ -70,13 +45,24 @@ public class AddAccountFragment extends Fragment {
 
         databaseAccounts = FirebaseDatabase.getInstance().getReference().child(userId).child("Bank Accounts");
 
-        ip_acc_no = (EditText)view.findViewById(R.id.ip_acc_no);
-        ip_acc_name = (EditText)view.findViewById(R.id.ip_acc_name);
-        ip_acc_amount = (EditText)view.findViewById(R.id.ip_acc_amount);
-        spinner_banks = (Spinner) view.findViewById(R.id.spinner_banks);
-        spinner_acctype = (Spinner)view.findViewById(R.id.spinner_acctype);
+        ip_acc_no = (EditText)findViewById(R.id.ip_acc_no);
+        ip_acc_name = (EditText)findViewById(R.id.ip_acc_name);
+        ip_acc_amount = (EditText)findViewById(R.id.ip_acc_amount);
+        spinner_banks = (TextView)findViewById(R.id.spinner_banks);
+        spinner_acctype = (Spinner)findViewById(R.id.spinner_acctype);
 
-        button_add_acc = (Button)view.findViewById(R.id.button_add_acc);
+        spinner_banks.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectBankForCreate(v);
+            }
+        });
+
+
+        String TempHolder = getIntent().getStringExtra("ListViewClickedValue");
+        spinner_banks.setText(TempHolder);
+
+        button_add_acc = (Button)findViewById(R.id.button_add_acc);
         button_add_acc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,14 +70,14 @@ public class AddAccountFragment extends Fragment {
             }
         });
 
-        button_acc_clear = (Button)view.findViewById(R.id.button_acc_clear);
+        button_acc_clear = (Button)findViewById(R.id.button_acc_clear);
         button_acc_clear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 button_acc_clear_onClick(v);
             }
         });
-        return view;
+
     }
 
     private void button_add_acc_onClick(View v) {
@@ -99,21 +85,21 @@ public class AddAccountFragment extends Fragment {
         String acc_no = ip_acc_no.getText().toString().trim();
         String acc_name = ip_acc_name.getText().toString().trim();
         String acc_amount = ip_acc_amount.getText().toString().trim();
-        String bank = spinner_banks.getSelectedItem().toString();
+        String bank = spinner_banks.getText().toString().trim();
         String acc_type = spinner_acctype.getSelectedItem().toString();
 
         if(TextUtils.isEmpty(acc_name)){
-            Toast.makeText(getActivity(), getString(R.string.account_name), Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getString(R.string.account_name), Toast.LENGTH_LONG).show();
             return;
         }
 
         if(TextUtils.isEmpty(acc_amount)){
-            Toast.makeText(getActivity(), getString(R.string.account_amount), Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getString(R.string.account_amount), Toast.LENGTH_LONG).show();
             return;
         }
 
         if(TextUtils.isEmpty(acc_no)){
-            Toast.makeText(getActivity(), getString(R.string.account_number), Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getString(R.string.account_number), Toast.LENGTH_LONG).show();
             return;
         }
 
@@ -122,14 +108,13 @@ public class AddAccountFragment extends Fragment {
             String id = databaseAccounts.push().getKey();
             BankAccount bankAccount = new BankAccount(id, acc_no, acc_name, acc_amount, bank, acc_type);
             databaseAccounts.child(id).setValue(bankAccount);
-            Toast.makeText(getActivity(), getString(R.string.account_added), Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getString(R.string.account_added), Toast.LENGTH_LONG).show();
 
-            FragmentTransaction fr = getFragmentManager().beginTransaction();
-            fr.replace(R.id.fragment_container, new WalletFragment());
-            fr.commit();
+            Intent intent = new Intent(AddAccountActivity.this, MainActivity.class);
+            startActivity(intent);
 
         }else{
-            Toast.makeText(getActivity(), "Account is not saved", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Account is not saved", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -140,10 +125,17 @@ public class AddAccountFragment extends Fragment {
     }
 
     @Override
-    public void onPrepareOptionsMenu(Menu menu) {
+    public boolean onPrepareOptionsMenu(Menu menu) {
         MenuItem item=menu.findItem(R.id.item_menu1);
         if(item!=null)
             item.setVisible(false);
+        return false;
+    }
+
+
+    public void selectBankForCreate(View view) {
+        Intent intent = new Intent(AddAccountActivity.this, BankCategory.class);
+        startActivity(intent);
     }
 
 }

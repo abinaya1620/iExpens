@@ -7,6 +7,20 @@
     android:orientation="vertical"
     tools:context=".activity.AccountScreenActivity">
 
+    <TextView
+        android:id="@+id/text_Bank_no"
+        android:layout_width="240dp"
+        android:layout_height="41dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="239dp"
+        android:textAlignment="viewStart"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/acc_no"
@@ -40,30 +54,27 @@
 
     <Button
         android:id="@+id/button_add_accexp"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="300dp"
+        android:layout_marginTop="200dp"
         android:onClick="add_accexp_onClick"
         android:text="@string/add_expense" />
 
-
     <Button
         android:id="@+id/button_del_acc"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="220dp"
-        android:layout_marginTop="300dp"
+        android:layout_marginTop="270dp"
         android:onClick="del_acc_onClick"
         android:text="@string/delete_account" />
 
     <Button
         android:id="@+id/button_acc_trans"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="130dp"
-        android:layout_marginTop="400dp"
-        android:text="View Transactions" />
+        android:layout_marginTop="340dp"
+        android:text="View Transactions"
+        android:onClick="acc_trans_onClick"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/update_acc_amount"
@@ -80,6 +91,5 @@
         android:src="@android:drawable/ic_input_add"
         android:visibility="visible"
         tools:visibility="visible" />
-
 
 </RelativeLayout>
