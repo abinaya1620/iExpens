@@ -44,7 +44,8 @@
         android:layout_marginStart="50dp"
         android:layout_marginTop="300dp"
         android:onClick="add_accexp_onClick"
-        android:text="@string/add_expense" />
+        android:text="@string/add_expense"
+        android:background="@drawable/button_background"/>
 
     <Button
         android:id="@+id/button_del_acc"
@@ -53,7 +54,8 @@
         android:layout_marginStart="220dp"
         android:layout_marginTop="300dp"
         android:onClick="del_acc_onClick"
-        android:text="@string/delete_account" />
+        android:text="@string/delete_account"
+        android:background="@drawable/button_background" />
 
     <Button
         android:id="@+id/button_acc_trans"
@@ -61,7 +63,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="130dp"
         android:layout_marginTop="400dp"
-        android:text="View Transactions" />
+        android:text="View Transactions"
+        android:background="@drawable/button_background"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/update_acc_amount"

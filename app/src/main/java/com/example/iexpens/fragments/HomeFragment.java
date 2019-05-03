@@ -57,8 +57,6 @@ public class HomeFragment extends Fragment {
     private FirebaseAuth mAuth;
     private DatabaseReference databaseExpenses;
 
-
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,16 +77,6 @@ public class HomeFragment extends Fragment {
         String user_Id = user.getUid();
         databaseExpenses = FirebaseDatabase.getInstance().getReference(user_Id).child("expenses");
 
-        /*List<SliceValue> pieData = new ArrayList<SliceValue>();
-        pieData.add(new SliceValue(15, Color.BLUE).setLabel("Q1: $10"));
-        pieData.add(new SliceValue(25, Color.GRAY).setLabel("Q2: $4"));
-        pieData.add(new SliceValue(10, Color.GREEN).setLabel("Q3: $18"));
-        pieData.add(new SliceValue(60, Color.LTGRAY).setLabel("Q4: $28"));
-
-        PieChartData pieChartData = new PieChartData(pieData);
-        pieChartData.setHasLabels(true).setValueLabelTextSize(14);
-        pieChartData.setHasCenterCircle(true).setCenterText1("Expenses").setCenterText1FontSize(15).setCenterText1Color(Color.parseColor("#080808"));
-        pieChartView.setPieChartData(pieChartData);*/
         fillChart();
         // Wallet and Accounts
         listViewAccounts_home = (ListView) mainview.findViewById(R.id.listViewAccounts_home);
@@ -104,8 +92,6 @@ public class HomeFragment extends Fragment {
 
     public void onStart() {
         super.onStart();
-
-
 
         databaseWallet.addValueEventListener(new ValueEventListener() {
             @Override
@@ -149,10 +135,14 @@ public class HomeFragment extends Fragment {
     }
 
     private void fillChart() {
+        //access to the database
         databaseExpenses.addValueEventListener(new ValueEventListener() {
+            //going through all the items fetch from database
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 HashMap<String,Float> expensesByCategory = new HashMap<>();
+
+                //selecting the right item
 
                 for (DataSnapshot expenseSnapshot : dataSnapshot.getChildren()){
                     Expense expense = expenseSnapshot.getValue(Expense.class);
@@ -166,7 +156,7 @@ public class HomeFragment extends Fragment {
                         expensesByCategory.put(category, amount);
                     }
                 }
-
+                //mapping the strings to the data
                 List<SliceValue> pieData = new ArrayList<>();
 
                 for(Map.Entry<String, Float> entry : expensesByCategory.entrySet()) {
@@ -177,6 +167,7 @@ public class HomeFragment extends Fragment {
                     pieData.add(new SliceValue(theAmount, color).setLabel(label));
                 }
 
+                //config
                 PieChartData pieChartData = new PieChartData(pieData);
                 pieChartData.setHasLabels(true).setValueLabelTextSize(14);
                 pieChartData.setHasCenterCircle(true)
@@ -237,6 +228,5 @@ public class HomeFragment extends Fragment {
         if(item!=null)
             item.setVisible(false);
     }
-
 
 }

@@ -59,6 +59,7 @@
             android:text="@string/pick_date_expense"
             android:textColor="#9874a7"
             android:textStyle="bold" />
+
     </LinearLayout>
 
     <LinearLayout

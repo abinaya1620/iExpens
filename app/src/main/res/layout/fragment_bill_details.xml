@@ -187,18 +187,21 @@
             android:orientation="horizontal"
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="8dp">
+
             <Button
                 android:id="@+id/BillDetails_DeleteButton"
-                android:layout_width="match_parent"
+                android:layout_width="50dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:background="@drawable/button_background"
                 android:text="Delete" />
             <Button
                 android:id="@+id/BillDetails_CancelButton"
-                android:layout_width="match_parent"
+                android:layout_width="50dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="@android:string/cancel" />
+                android:text="@android:string/cancel"
+                android:background="@drawable/button_background"/>
         </LinearLayout>
     </LinearLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

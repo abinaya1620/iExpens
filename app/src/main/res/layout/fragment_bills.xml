@@ -238,14 +238,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="@string/add_bills" />
+                android:text="@string/add_bills"
+                android:background="@drawable/button_background"/>
 
             <Button
                 android:id="@+id/billCancel"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="@android:string/cancel" />
+                android:text="@android:string/cancel"
+                android:background="@drawable/button_background"/>
 
         </LinearLayout>
 

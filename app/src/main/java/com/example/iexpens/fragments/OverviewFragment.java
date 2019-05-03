@@ -87,9 +87,6 @@ OverviewFragment extends Fragment {
         barChart.animateY(5000);
 
         //Need input for the list
-
-
-
         return mainview;
     }
 

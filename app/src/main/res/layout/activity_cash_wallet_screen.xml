@@ -30,6 +30,7 @@
         android:layout_marginTop="300dp"
         android:text="@string/add_expense"
         android:onClick="selectCategoryForExpense"
+        android:background="@drawable/button_background"
         />
 
     <Button
@@ -38,7 +39,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="400dp"
         android:layout_marginStart="130dp"
-        android:text="View Transactions" />
+        android:text="View Transactions"
+        android:background="@drawable/button_background"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/update_cash_amount"

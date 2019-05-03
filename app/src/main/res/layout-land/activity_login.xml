@@ -60,14 +60,14 @@
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
-            android:background="@android:color/transparent"
             android:text="Sign in"
             android:textAppearance="?android:textAppearanceMedium"
             android:textColor="@android:color/black"
             app:layout_constraintBottom_toTopOf="@+id/signupbtn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            android:background="@drawable/button_background"/>
 
         <Button
             android:id="@+id/signupbtn"
@@ -76,14 +76,14 @@
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
-            android:background="@android:color/transparent"
             android:text="Don't have an account?"
             android:textAppearance="?android:textAppearanceMedium"
             android:textColor="@android:color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.501"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            android:background="@drawable/button_background"/>
 
         <ImageView
             android:id="@+id/imageView"
