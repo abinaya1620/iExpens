@@ -16,174 +16,210 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:background="@android:color/darker_gray"
+            android:background="@drawable/backbar"
             android:orientation="horizontal"
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="8dp">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight="1.5"
             android:lineSpacingExtra="14sp"
             android:text="Name"
             android:textAlignment="viewStart"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textColor="@color/cardview_light_background"
+            android:gravity="center"
+            android:paddingLeft="18dp"/>
         <TextView
             android:id="@+id/BillDetails_Name"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight="0.5"
             android:lineSpacingExtra="14sp"
             android:text="NameValue"
-            android:textAlignment="viewStart"
+            android:textAlignment="textEnd"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textColor="@color/cardview_light_background"
+            android:gravity="center"
+            android:paddingRight="18dp"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:background="@android:color/darker_gray"
+            android:background="@drawable/backbar"
             android:orientation="horizontal"
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="8dp">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_weight="1.5"
                 android:lineSpacingExtra="14sp"
                 android:text="Account"
                 android:textAlignment="viewStart"
                 android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textColor="@color/cardview_light_background"
+                android:gravity="center"
+                android:paddingLeft="18dp"/>
 
             <TextView
                 android:id="@+id/BillDetails_Account"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_weight="0.5"
                 android:lineSpacingExtra="14sp"
                 android:text="AccountValue"
-                android:textAlignment="viewStart"
+                android:textAlignment="textEnd"
                 android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textColor="@color/cardview_light_background"
+                android:gravity="center"
+                android:paddingRight="18dp"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:background="@android:color/darker_gray"
+            android:background="@drawable/backbar"
             android:orientation="horizontal"
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="8dp">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_weight="1.5"
                 android:lineSpacingExtra="14sp"
                 android:text="Amount"
                 android:textAlignment="viewStart"
                 android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textColor="@color/cardview_light_background"
+                android:gravity="center"
+                android:paddingLeft="18dp"/>
 
             <TextView
                 android:id="@+id/BillDetails_Amount"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_weight="0.5"
                 android:lineSpacingExtra="14sp"
                 android:text="AmountValue"
-                android:textAlignment="viewStart"
+                android:textAlignment="textEnd"
                 android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textColor="@color/cardview_light_background"
+                android:gravity="center"
+                android:paddingRight="18dp"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:background="@android:color/darker_gray"
+            android:background="@drawable/backbar"
             android:orientation="horizontal"
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="8dp">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_weight="1.5"
                 android:lineSpacingExtra="14sp"
                 android:text="Category"
                 android:textAlignment="viewStart"
                 android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textColor="@color/cardview_light_background"
+                android:gravity="center"
+                android:paddingLeft="18dp"/>
 
             <TextView
                 android:id="@+id/BillDetails_Category"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_weight="0.5"
                 android:lineSpacingExtra="14sp"
                 android:text="CategoryValue"
-                android:textAlignment="viewStart"
+                android:textAlignment="textEnd"
                 android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textColor="@color/cardview_light_background"
+                android:gravity="center"
+                android:paddingRight="18dp"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:background="@android:color/darker_gray"
+            android:background="@drawable/backbar"
             android:orientation="horizontal"
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="8dp">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_weight="1.5"
                 android:lineSpacingExtra="14sp"
                 android:text="Due Date"
                 android:textAlignment="viewStart"
                 android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textColor="@color/cardview_light_background"
+                android:gravity="center"
+                android:paddingLeft="18dp"/>
 
             <TextView
                 android:id="@+id/BillDetails_DueDate"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_weight="0.5"
                 android:lineSpacingExtra="14sp"
                 android:text="DueDateValue"
-                android:textAlignment="viewStart"
+                android:textAlignment="textEnd"
                 android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textColor="@color/cardview_light_background"
+                android:gravity="center"
+                android:paddingRight="18dp"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:background="@android:color/darker_gray"
+            android:background="@drawable/backbar"
             android:orientation="horizontal"
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="8dp">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_weight="1.5"
                 android:lineSpacingExtra="14sp"
                 android:text="Note"
                 android:textAlignment="viewStart"
                 android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textColor="@color/cardview_light_background"
+                android:gravity="center"
+                android:paddingLeft="18dp"/>
 
             <TextView
                 android:id="@+id/BillDetails_Note"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_weight="0.5"
                 android:lineSpacingExtra="14sp"
                 android:text="NoteValue"
-                android:textAlignment="viewStart"
+                android:textAlignment="textEnd"
                 android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textColor="@color/cardview_light_background"
+                android:gravity="center"
+                android:paddingRight="18dp"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:background="@android:color/darker_gray"
+            android:background="@color/cardview_light_background"
             android:orientation="horizontal"
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="8dp">
@@ -195,6 +231,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/button_background"
                 android:text="Delete" />
+
             <Button
                 android:id="@+id/BillDetails_CancelButton"
                 android:layout_width="50dp"
@@ -202,7 +239,7 @@
                 android:layout_weight="1"
                 android:text="@android:string/cancel"
                 android:background="@drawable/button_background"/>
-        </LinearLayout>
+ </LinearLayout>
     </LinearLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </FrameLayout>

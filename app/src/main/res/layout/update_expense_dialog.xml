@@ -5,6 +5,7 @@
     android:layout_margin="8dp"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,7 +18,7 @@
         android:layout_height="20dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="16dp"
-        android:text="Select Category to Update"
+        android:text="@string/select_category_to_update"
         android:textAlignment="textStart"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textStyle="bold"
@@ -50,11 +51,13 @@
             android:inputType="textPersonName" />
 
 </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:orientation="horizontal">
+
     <EditText
         android:id="@+id/textDate_update"
         android:layout_width="339dp"
@@ -63,6 +66,7 @@
         android:textAlignment="textStart"
        />
         </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -76,21 +80,23 @@
         android:inputType="textPersonName"
          />
         </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/buttonUpdateExpense"
-        android:layout_width="wrap_content"
-        android:layout_height="45dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="32dp"
-        android:text="Update"
-        android:background="@drawable/button_background"
-        />
-        </LinearLayout>
+        <Button
+            android:id="@+id/buttonUpdateExpense"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="32dp"
+            android:background="@drawable/button_background"
+            android:text="Update" />
 
-</LinearLayout>
+        <Button
+            android:id="@+id/buttonExpenseDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="32dp"
+            android:background="@drawable/button_background"
+            android:text="Delete" />
+
+    </LinearLayout>

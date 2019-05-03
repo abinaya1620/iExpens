@@ -8,8 +8,8 @@
     <string name="BillNameNotAvailable">Bill Name is Empty. Please enter name for the Bill</string>
     <string name="BillAmountNotAvailable">Bill Amount is Empty. Please enter Bill Amount</string>
     <string name="BillDueDateNotAvailable">Bill Due Date is Empty. Please enter Bill Due Date</string>
-    <string name="BillSavedSuccesfully">Bill Saved Succesfully to the account</string>
     <string name="BillCategoryNotAvailable">Bill Category Not Selected. Please select a valid category</string>
+    <string name="BillSavedSuccessfully">Bill Saved Successfully to the account</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="_0">0%</string>
@@ -80,6 +80,14 @@
     <string name="view_expense">View Expense</string>
     <string name="description">Description</string>
     <string name="select_category">Select Category</string>
+    <string name="bank">Bank</string>
+    <string name="account_no">Account Number</string>
+    <string name="name">Name</string>
+    <string name="account_type">Account Type</string>
+    <string name="save_account">Save</string>
+    <string name="clear">Clear</string>
+    <string name="view_transactions">View Transactions</string>
+    <string name="select_category_to_update">Select Category to Update</string>
 
     <string-array name="category">
         <item>Rent</item>
