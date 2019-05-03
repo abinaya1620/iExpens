@@ -46,8 +46,8 @@
         android:layout_marginStart="142dp"
         android:layout_marginTop="200dp"
         android:gravity="center"
-        android:text="@string/add_expense"
-        android:onClick="cash_expense_onClick" />
+        android:onClick="cash_expense_onClick"
+        android:text="@string/add_expense" />
 
 
     <Button
