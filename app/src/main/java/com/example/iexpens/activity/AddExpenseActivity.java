@@ -465,7 +465,7 @@ public class AddExpenseActivity extends AppCompatActivity {
                     update_cashtransaction(price);
 
                     String id = databaseExpenses.push().getKey();
-                    Expense expense = new Expense(id, category, price, date, description);
+                    Expense expense = new Expense(id, category, price, date, description,uploadeRef.toString());
                     Log.d("Print", "print4" + id + category + price + date);
                     databaseExpenses.child(id).setValue(expense);
                     Toast.makeText(this, "Expense added", Toast.LENGTH_LONG).show();
@@ -490,7 +490,7 @@ public class AddExpenseActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, "Category and Price are Mandatory!!", Toast.LENGTH_LONG).show();
         }
-        addToCloudStorage();
+
     }
 
     private void update_cashamount(String cashId, String title, String cashAmount) {
