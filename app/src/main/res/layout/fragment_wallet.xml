@@ -24,10 +24,11 @@
 
     <Button
         android:id="@+id/button_add_account"
-        android:layout_width="match_parent"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="500dp"
-        android:onClick="button_add_account_onClick"
-        android:text="Add New Account" />
+        android:layout_marginStart="100dp"
+        android:text="Add New Account"
+        android:background="@drawable/button_background"
+        android:layout_marginTop="450dp"/>
 
 </RelativeLayout>

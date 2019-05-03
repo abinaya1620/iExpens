@@ -10,9 +10,20 @@ public class Expense {
     String description;
     String imageAddress;
 
+
+
     public Expense() {
     }
 
+
+    public Expense(String expenseId, String expenseCategory, String price,String date, String description){
+        this.expenseId = expenseId;
+        this.expenseCategory = expenseCategory;
+        this.price = price;
+        this.date = date;
+        this.description = description;
+
+    }
 
 
     public Expense(String expenseId, String expenseCategory, String price, String date, String description,String imageAddress) {
@@ -51,4 +62,11 @@ public class Expense {
     public void setImageAddress(String imageAddress) {
         this.imageAddress = imageAddress;
     }
+
+
+
+
+
+
+
 }

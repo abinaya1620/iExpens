@@ -30,22 +30,16 @@ public class CashWalletScreen extends AppCompatActivity {
     private TextView cash_bal;
     private FloatingActionButton update_cash_amount;
     private Button button_cash_expense;
+    private TextView text_Wallet_title;
     private Button button_cash_trans;
     private FirebaseAuth mAuth;
     private DatabaseReference databaseTransactions;
     private DatabaseReference databaseReference;
 
-    public static final String USER_ID = "userid";
-    public static final String BANK_AMOUNT = "bankamount";
-    public static final String BANK_ID = "bankid";
-    public static final String BANK_NO = "bankaccountno";
-    public static final String BANK_NAME = "bankaccountname";
-    public static final String BANK_BANKS = "bankaccounts";
-    public static final String BANK_TYPE = "bankaccounttype";
-
-    public static final String CASH_ID = "cashid";
-    public static final String CASH_TITLE = "cashtitle";
-    public static final String CASH_AMOUNT = "cashamount";
+    public static final String WALLET_CASH_ID = "cashid";
+    public static final String WALLET_CASH_TITLE = "cashtitle";
+    public static final String WALLET_CASH_AMOUNT = "cashamount";
+    private  String TAG = "CalletWalletScreenActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,10 +71,13 @@ public class CashWalletScreen extends AppCompatActivity {
         });
 
         cash_bal = (TextView) findViewById(R.id.cash_bal);
+        text_Wallet_title = (TextView) findViewById(R.id.text_Wallet_title);
 
         Intent intent = getIntent();
         String amount = intent.getStringExtra(WalletFragment.CASH_AMOUNT);
         cash_bal.setText(amount + " Kr");
+        String title = intent.getStringExtra(WalletFragment.CASH_TITLE);
+        text_Wallet_title.setText(title);
         String cashId = intent.getStringExtra(WalletFragment.CASH_ID);
 
         mAuth = FirebaseAuth.getInstance();
@@ -88,27 +85,39 @@ public class CashWalletScreen extends AppCompatActivity {
         String user_Id = user.getUid();
 
         databaseReference = FirebaseDatabase.getInstance().getReference().child(user_Id).child("WALLET").child(cashId);
-        databaseTransactions = FirebaseDatabase.getInstance().getReference().child(user_Id).child("WALLET").child(cashId).child("Wallet Transactions");
+        databaseTransactions = FirebaseDatabase.getInstance().getReference(user_Id).child("Wallet Transactions").child("WALLET").child(cashId);
 
     }
 
     private void cash_trans_onClick(View v) {
-/*
-        Intent intent = new Intent(CashWalletScreen.this, AddExpenseActivity.class);
 
-        String id = intent.getStringExtra(WalletFragment.CASH_ID);
-        String title = intent.getStringExtra(WalletFragment.CASH_TITLE);
-        String amount = intent.getStringExtra(WalletFragment.CASH_AMOUNT);
+        Intent intent = new Intent(CashWalletScreen.this, TransactionScreen.class);
+        Intent intent1 = getIntent();
 
-        intent.putExtra(id, WalletFragment.CASH_ID);
-        intent.putExtra(title, WalletFragment.CASH_TITLE);
-        intent.putExtra(amount, WalletFragment.CASH_TITLE);
+        String id = intent1.getStringExtra(WalletFragment.CASH_ID);
+        String title = intent1.getStringExtra(WalletFragment.CASH_TITLE);
+        String amount = intent1.getStringExtra(WalletFragment.CASH_AMOUNT);
 
-        startActivity(intent);*/
+        intent.putExtra(WALLET_CASH_ID, id);
+        intent.putExtra(WALLET_CASH_TITLE, title);
+        intent.putExtra(WALLET_CASH_AMOUNT, amount);
+
+        startActivity(intent);
     }
 
     private void cash_expense_onClick(View v) {
+        Intent intent = new Intent(CashWalletScreen.this, AddExpenseActivity.class);
+        Intent intent1 = getIntent();
 
+        String id = intent1.getStringExtra(WalletFragment.CASH_ID);
+        String title = intent1.getStringExtra(WalletFragment.CASH_TITLE);
+        String amount = intent1.getStringExtra(WalletFragment.CASH_AMOUNT);
+
+        intent.putExtra(WALLET_CASH_ID, id);
+        intent.putExtra(WALLET_CASH_TITLE, title);
+        intent.putExtra(WALLET_CASH_AMOUNT, amount);
+
+        startActivity(intent);
     }
 
     private void update_cash_amount_onClick(View v) {
@@ -175,12 +184,7 @@ public class CashWalletScreen extends AppCompatActivity {
 
     }
 
-    /**
-     * Thr method selectCategoryForExpense is used to move to category page
-     * @param view
-     */
+
     public void selectCategoryForExpense(View view) {
-        Intent intent = new Intent(CashWalletScreen.this, Category.class);
-        startActivity(intent);
     }
 }

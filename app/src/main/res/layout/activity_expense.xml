@@ -2,10 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:layout_margin="8dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="8dp"
+    android:orientation="vertical"
     tools:context=".activity.AddExpenseActivity">
 
 
@@ -23,11 +23,13 @@
             android:onClick="selectCategoryForExpense"
             android:textSize="20sp" />
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:orientation="horizontal">
+
         <EditText
             android:id="@+id/txtPrice"
             android:layout_width="match_parent"
@@ -36,18 +38,19 @@
             android:inputType="numberDecimal" />
 
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:orientation="horizontal">
+
         <TextView
             android:id="@+id/txtDate"
             android:layout_width="241dp"
             android:layout_height="39dp"
             android:hint="@string/expense_date_hint"
-            android:textSize="20sp"
-            />
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/button_date"
@@ -55,9 +58,10 @@
             android:layout_height="wrap_content"
             android:text="@string/pick_date_expense"
             android:textColor="#9874a7"
-            android:textStyle="bold"
-            />
+            android:textStyle="bold" />
+
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -89,36 +93,36 @@
             android:id="@+id/ImageButtonCamera"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="114dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="114dp"
             app:srcCompat="@drawable/ic_action_camera" />
 
         <Button
             android:id="@+id/button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
             android:text="@string/insert_expense"
             android:textAlignment="viewStart"
             android:textColor="#9874a7"
-            android:textStyle="bold"
-            android:layout_alignParentRight="true"/>
+            android:textStyle="bold" />
 
 
     </RelativeLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
-
         android:layout_height="200dp"
+        android:layout_below="@+id/button"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_marginTop="8dp"
-        android:layout_below="@+id/button"
         android:divider="#7B1FA2"
         android:dividerHeight="1dp"
         android:listSelector="#AD91BB"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="MissingConstraints">
 
         <ListView
             android:id="@+id/listViewExpense"
@@ -126,3 +130,5 @@
             android:layout_height="wrap_content" />
 
     </LinearLayout>
+
+</LinearLayout>

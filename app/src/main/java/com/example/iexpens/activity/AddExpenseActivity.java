@@ -1,3 +1,5 @@
+
+
 package com.example.iexpens.activity;
 
 import android.content.Context;
@@ -6,7 +8,6 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
-
 
 import com.example.iexpens.R;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -27,12 +28,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,6 +53,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import org.w3c.dom.Text;
+
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -59,14 +64,13 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-
 public class AddExpenseActivity extends AppCompatActivity {
 
-
+    private String[] category;
     private TextView selectCategory;
     private EditText textPrice;
-    private  EditText textDescription;
-    private  Button buttonAdd;
+    private EditText textDescription;
+    private Button buttonAdd;
     private TextView textDate;
     private Button datePicker_expense;
     Calendar calendar;
@@ -74,16 +78,13 @@ public class AddExpenseActivity extends AppCompatActivity {
     DatabaseReference databaseExpenses;
     ListView listViewExpenses;
     List<Expense> expenseList;
-
+   private String imageAddr;
     static final int REQUEST_PICTURE_CAPTURE = 1;
     private ImageView cameraImage;
     private String pictureFilePath;
     private FirebaseStorage firebaseStorage;
-    private String deviceIdentifier;
     private ImageButton captureButton;
     private StorageReference uploadeRef;
-
-
 
 
 
@@ -93,68 +94,63 @@ public class AddExpenseActivity extends AppCompatActivity {
 
 
     private static final String TAG = "AddExpense";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_expense);
 
-
-
-        if(Build.VERSION.SDK_INT >= 23)
-        {
-            requestPermissions(new String[]{Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE},2);
+        if (Build.VERSION.SDK_INT >= 23) {
+            requestPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 2);
         }
 
-        cameraImage =findViewById(R.id.cameraImage);
-        captureButton =findViewById(R.id.ImageButtonCamera);
+        cameraImage = findViewById(R.id.cameraImage);
+        captureButton = findViewById(R.id.ImageButtonCamera);
         captureButton.setOnClickListener(capture);
-        if(!getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA)){
+        if (!getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
             captureButton.setEnabled(false);
         }
 
         firebaseStorage = FirebaseStorage.getInstance();
-        getInstallationIdentifier();
 
 
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
-        mUserId= user.getUid();
+        mUserId = user.getUid();
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-
 
 
         databaseExpenses = FirebaseDatabase.getInstance().getReference(mUserId).child("expenses");
 
 
-        selectCategory=(TextView)findViewById(R.id.textView1);
+        selectCategory = (TextView) findViewById(R.id.textView1);
         // Receiving value into activity using intent.
         String TempHolder = getIntent().getStringExtra("ListViewClickedValue");
         // Setting up received value into EditText.
         selectCategory.setText(TempHolder);
 
         textPrice = (EditText) findViewById(R.id.txtPrice);
-        textDate =  findViewById(R.id.txtDate);
-        datePicker_expense=(Button)findViewById(R.id.button_date);
+        textDate = findViewById(R.id.txtDate);
+        datePicker_expense = (Button) findViewById(R.id.button_date);
         textDescription = (EditText) findViewById(R.id.txtDescription);
         buttonAdd = (Button) findViewById(R.id.button);
-
 
 
         datePicker_expense.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                calendar=Calendar.getInstance();
-                int   day= calendar.get(Calendar.DAY_OF_MONTH);
-                int month=calendar.get(Calendar.MONTH);
-                int  year=calendar.get(Calendar.YEAR);
+                calendar = Calendar.getInstance();
+                int day = calendar.get(Calendar.DAY_OF_MONTH);
+                int month = calendar.get(Calendar.MONTH);
+                int year = calendar.get(Calendar.YEAR);
                 datePickerDialog = new DatePickerDialog(AddExpenseActivity.this,
                         new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                                textDate.setText(day+"/"+(month+1)+"/"+year);
+                                textDate.setText(day + "/" + (month + 1) + "/" + year);
                             }
-                        }, year,month,day);
+                        }, year, month, day);
                 datePickerDialog.show();
 
             }
@@ -173,13 +169,15 @@ public class AddExpenseActivity extends AppCompatActivity {
             }
         });
 
+
         listViewExpenses.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
                 Expense expense = expenseList.get(position);
 
-                showUpdateDialog(expense.getExpenseId(),expense.getExpenseCategory());
+                showUpdateDialog(expense.getExpenseId(), expense.getExpenseCategory());
+
                 return false;
             }
         });
@@ -188,11 +186,10 @@ public class AddExpenseActivity extends AppCompatActivity {
     }
 
 
-
     private View.OnClickListener capture = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            if(getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA)){
+            if (getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
                 sendTakePictureIntent();
             }
         }
@@ -201,7 +198,7 @@ public class AddExpenseActivity extends AppCompatActivity {
     private void sendTakePictureIntent() {
 
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        cameraIntent.putExtra( MediaStore.EXTRA_FINISH_ON_COMPLETION, true);
+        cameraIntent.putExtra(MediaStore.EXTRA_FINISH_ON_COMPLETION, true);
         if (cameraIntent.resolveActivity(getPackageManager()) != null) {
             File pictureFile = null;
             try {
@@ -221,20 +218,22 @@ public class AddExpenseActivity extends AppCompatActivity {
             }
         }
     }
+
     private File getPictureFile() throws IOException {
         String timeStamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
         String pictureFile = "IEXPENS" + timeStamp;
         File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        File image = File.createTempFile(pictureFile,  ".jpg", storageDir);
+        File image = File.createTempFile(pictureFile, ".jpg", storageDir);
         pictureFilePath = image.getAbsolutePath();
         return image;
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_PICTURE_CAPTURE && resultCode == RESULT_OK) {
-            File imgFile = new  File(pictureFilePath);
-            if(imgFile.exists())            {
+            File imgFile = new File(pictureFilePath);
+            if (imgFile.exists()) {
                 cameraImage.setImageURI(Uri.fromFile(imgFile));
             }
         }
@@ -244,49 +243,52 @@ public class AddExpenseActivity extends AppCompatActivity {
     private void addToCloudStorage() {
         File f = new File(pictureFilePath);
         Uri picUri = Uri.fromFile(f);
-        final String cloudFilePath =  deviceIdentifier + picUri.getLastPathSegment();
+        final String cloudFilePath = picUri.getLastPathSegment();
 
 
         StorageReference storageRef = firebaseStorage.getReference(mUserId);
         uploadeRef = storageRef.child("iExpens").child(cloudFilePath);
+        Log.d(TAG, "cloudfilepath :" + "" + cloudFilePath);
 
-        uploadeRef.putFile(picUri).addOnFailureListener(new OnFailureListener(){
-            public void onFailure(@NonNull Exception exception){
-                Log.e(TAG,"Failed to upload picture to cloud storage");
+        uploadeRef.putFile(picUri).addOnFailureListener(new OnFailureListener() {
+            public void onFailure(@NonNull Exception exception) {
+                Log.e(TAG, "Failed to upload picture to cloud storage");
             }
-        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>(){
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot){
-                Toast.makeText(AddExpenseActivity.this,
-                        "Image has been uploaded to cloud storage",
-                        Toast.LENGTH_SHORT).show();
+            public void onSuccess(final UploadTask.TaskSnapshot taskSnapshot) {
+                uploadeRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        uri.toString();
+                        Log.d(TAG, "onSuccess: uri= " + uri.toString());
+                        Toast.makeText(AddExpenseActivity.this,
+                                "Image has been uploaded to cloud storage",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
+
     }
-    protected synchronized String getInstallationIdentifier() {
-        if (deviceIdentifier == null) {
-            SharedPreferences sharedPrefs = this.getSharedPreferences(
-                    "DEVICE_ID", Context.MODE_PRIVATE);
-            deviceIdentifier = sharedPrefs.getString("DEVICE_ID", null);
-            if (deviceIdentifier == null) {
-                deviceIdentifier = UUID.randomUUID().toString();
-                SharedPreferences.Editor editor = sharedPrefs.edit();
-                editor.putString("DEVICE_ID", deviceIdentifier);
-                editor.commit();
-            }
-        }
-        return deviceIdentifier;
-    }
+
+
+
+
+
     @Override
     protected void onStart() {
+
         super.onStart();
         databaseExpenses.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 expenseList.clear();
 
-                for (DataSnapshot expenseSnapshot : dataSnapshot.getChildren()){
+                for (DataSnapshot expenseSnapshot : dataSnapshot.getChildren()) {
                     Expense expense = expenseSnapshot.getValue(Expense.class);
+
 
                     expenseList.add(expense);
                 }
@@ -301,21 +303,42 @@ public class AddExpenseActivity extends AppCompatActivity {
         });
     }
 
-    private void showUpdateDialog(final String expenseId, final String expenseCategory){
-
+    private void showUpdateDialog(final String expenseId, final String expenseCategory) {
         final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-
         LayoutInflater layoutInflater = getLayoutInflater();
-
-        final View dialogView = layoutInflater.inflate(R.layout.update_expense_dialog, null);
-
+        final View dialogView = layoutInflater.inflate(R.layout.update_expense_dialog, null, true);
         dialogBuilder.setView(dialogView);
-
-        final TextView spinnerCategory1 = (TextView) dialogView.findViewById(R.id.textView1);
+        final TextView textView1 = (TextView) dialogView.findViewById(R.id.textView1_update);
+        final Spinner spinnerCategory1 = (Spinner) dialogView.findViewById(R.id.spinnerCategory1);
         final EditText editTextPrice = (EditText) dialogView.findViewById(R.id.editTextPrice);
-        final EditText editTextDate = (EditText) dialogView.findViewById(R.id.editTextDate);
+        final EditText editTextDate = dialogView.findViewById(R.id.textDate_update);
         final EditText editTextDescription = (EditText) dialogView.findViewById(R.id.editTextDescription);
         final Button buttonUpdateExpense = (Button) dialogView.findViewById(R.id.buttonUpdateExpense);
+        final Button buttonExpenseDelete = (Button) dialogView.findViewById(R.id.buttonExpenseDelete);
+
+
+        category = getResources().getStringArray(R.array.category);
+
+
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+        R.array.category, android.R.layout.simple_spinner_item);
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        spinnerCategory1.setAdapter(adapter);
+        spinnerCategory1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                Toast.makeText(getApplicationContext(), category[i], Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
 
         dialogBuilder.setTitle("Updating Expense " + expenseCategory);
 
@@ -325,12 +348,12 @@ public class AddExpenseActivity extends AppCompatActivity {
         buttonUpdateExpense.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String category = spinnerCategory1.getText().toString();
+                String category = spinnerCategory1.getSelectedItem().toString();
                 String price = editTextPrice.getText().toString();
                 String date = editTextDate.getText().toString();
                 String description = editTextDescription.getText().toString();
 
-                if(TextUtils.isEmpty(price)||TextUtils.isEmpty(category)||TextUtils.isEmpty(date)||TextUtils.isEmpty(description)){
+                if (TextUtils.isEmpty(price) || TextUtils.isEmpty(category) || TextUtils.isEmpty(description)) {
                     editTextPrice.setError("Fields are Mandatory!!");
                     return;
                 }
@@ -340,12 +363,27 @@ public class AddExpenseActivity extends AppCompatActivity {
 
             }
         });
+        buttonExpenseDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteExpense(expenseId);
+                alertDialog.dismiss();
+            }
+        });
     }
 
-    private boolean updateExpense(String id, String category, String price, String date, String description){
+    private void deleteExpense(String expenseId) {
+        DatabaseReference drExpense = FirebaseDatabase.getInstance().getReference(mUserId).child("expenses").child(expenseId);
 
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("expenses").child(id);
-        Expense expense = new Expense(id, category, price, date, description,uploadeRef.toString());
+        drExpense.removeValue();
+        Toast.makeText(this, "Expense is deleted", Toast.LENGTH_LONG).show();
+    }
+
+
+    private boolean updateExpense(String id, String category, String price, String date, String description) {
+
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference(mUserId).child("expenses").child(id);
+        Expense expense = new Expense(id, category, price, date, description);
 
         databaseReference.setValue(expense);
 
@@ -354,27 +392,28 @@ public class AddExpenseActivity extends AppCompatActivity {
         return true;
     }
 
-    private void addExpense(){
+    private void addExpense() {
         String category = selectCategory.getText().toString();
         String price = textPrice.getText().toString();
         String date = textDate.getText().toString();
         String description = textDescription.getText().toString();
 
-
-        if(!TextUtils.isEmpty(price)){
+        if (!TextUtils.isEmpty(price)) {
             String id = databaseExpenses.push().getKey();
 
-            Expense expense = new Expense(id, category, price, date, description,uploadeRef.toString());
+
+
+            Expense expense = new Expense(id, category, price, date, description,imageAddr);
             databaseExpenses.child(id).setValue(expense);
             Toast.makeText(this, "Expense added", Toast.LENGTH_LONG).show();
-        }else{
-            Toast.makeText(this,"Category and Price are Mandatory!!",Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(this, "Category and Price are Mandatory!!", Toast.LENGTH_LONG).show();
         }
     }
 
-
     /**
      * Thr method selectCategoryForExpense is used to move to category page
+     *
      * @param view
      */
     public void selectCategoryForExpense(View view) {
@@ -384,4 +423,3 @@ public class AddExpenseActivity extends AppCompatActivity {
 
 
 }
-

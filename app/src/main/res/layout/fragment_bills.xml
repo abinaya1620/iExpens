@@ -3,84 +3,108 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/notificationMainLayout"
     tools:context=".fragments.Bills">
     <!-- TODO: Update blank fragment layout -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_marginBottom="30dp">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:background="@android:color/darker_gray"
+            android:layout_height="match_parent"
+            android:background="@drawable/backbar"
             android:orientation="horizontal"
             tools:layout_editor_absoluteX="8dp"
-            tools:layout_editor_absoluteY="8dp">
+            tools:layout_editor_absoluteY="8dp"
+            android:layout_weight="1">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_weight="1.5"
                 android:lineSpacingExtra="14sp"
                 android:text="Name"
-                android:textAlignment="viewStart"
                 android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:gravity="center"
+                android:textColor="@color/cardview_light_background"/>
 
             <EditText
                 android:id="@+id/billName"
+                style="@android:style/Widget.DeviceDefault.EditText"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_weight="0.5"
                 android:ems="10"
-                android:inputType="text" />
+                android:hint="Enter Bill Name"
+                android:inputType="text"
+                android:textAlignment="textEnd"
+                android:textSize="18sp"
+                android:gravity="center"
+                android:background="@android:color/transparent"
+                android:paddingRight="18dp"
+                android:textColor="@color/cardview_light_background"
+                android:textColorHint="@color/cardview_light_background"/>
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:background="@android:color/darker_gray"
+            android:layout_height="match_parent"
+            android:background="@drawable/backbar"
             android:orientation="horizontal"
             tools:layout_editor_absoluteX="8dp"
-            tools:layout_editor_absoluteY="8dp">
+            tools:layout_editor_absoluteY="8dp"
+            android:layout_weight="1">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_weight="1.5"
                 android:lineSpacingExtra="14sp"
                 android:text="Account"
                 android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:gravity="center"
+                android:textColor="@color/cardview_light_background"/>
 
             <Spinner
                 android:id="@+id/billAccount"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_weight="0.5"
+                android:clipToPadding="false"
                 android:entries="@array/Account_Types"
                 android:popupBackground="@color/colorPrimaryDark"
-                android:spinnerMode="dialog" />
+                android:spinnerMode="dialog"
+                android:textAlignment="textEnd"
+                android:gravity="center"
+                android:paddingRight="18dp"
+                android:textColor="@color/cardview_light_background"/>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:background="@android:color/darker_gray"
+            android:layout_height="match_parent"
+            android:background="@drawable/backbar"
             android:orientation="horizontal"
             tools:layout_editor_absoluteX="8dp"
-            tools:layout_editor_absoluteY="8dp">
+            tools:layout_editor_absoluteY="8dp"
+            android:layout_weight="1">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_weight="1.5"
                 android:lineSpacingExtra="14sp"
                 android:text="Amount"
                 android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:gravity="center"
+                android:textColor="@color/cardview_light_background"/>
 
             <EditText
                 android:id="@+id/billAmount"
@@ -88,61 +112,77 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="left"
-                android:layout_weight="1"
+                android:layout_weight="0.5"
                 android:ems="10"
                 android:hint="Enter Amount Here"
                 android:inputType="numberDecimal"
-                android:paddingBottom="8pt"
                 android:singleLine="true"
+                android:textAlignment="textEnd"
                 android:textAppearance="@style/TextAppearance.AppCompat"
-                android:visibility="visible" />
+                android:textSize="18sp"
+                android:visibility="visible"
+                android:gravity="center"
+                android:background="@android:color/transparent"
+                android:paddingRight="18dp"
+                android:textColor="@color/cardview_light_background"
+                android:textColorHint="@color/cardview_light_background"/>
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:background="@android:color/darker_gray"
+            android:layout_height="match_parent"
+            android:background="@drawable/backbar"
             android:orientation="horizontal"
             tools:layout_editor_absoluteX="8dp"
-            tools:layout_editor_absoluteY="8dp">
+            tools:layout_editor_absoluteY="8dp"
+            android:layout_weight="1">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_weight="1.5"
                 android:lineSpacingExtra="14sp"
                 android:text="Category"
                 android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <Spinner
-                android:id="@+id/billCategory"
+                android:textStyle="bold"
+                android:onClick="showCategory"
+                android:gravity="center"
+                android:textColor="@color/cardview_light_background"/>
+            <TextView
+                android:id="@+id/CategoryChooser"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:entries="@array/Account_Types"
-                android:popupBackground="@color/colorPrimaryDark"
-                android:spinnerMode="dialog" />
+                android:layout_weight="0.5"
+                android:hint="@string/select_category"
+                android:textAlignment="textEnd"
+                android:textSize="18sp"
+                android:gravity="center"
+                android:paddingRight="18dp"
+                android:textColor="@color/cardview_light_background"
+                android:textColorHint="@color/cardview_light_background"/>
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:background="@android:color/darker_gray"
+            android:layout_height="match_parent"
+            android:background="@drawable/backbar"
             android:orientation="horizontal"
             tools:layout_editor_absoluteX="8dp"
-            tools:layout_editor_absoluteY="8dp">
+            tools:layout_editor_absoluteY="8dp"
+            android:layout_weight="1">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_weight="1.5"
                 android:lineSpacingExtra="14sp"
                 android:text="Due Date"
                 android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:gravity="center"
+                android:textColor="@color/cardview_light_background"/>
 
 
             <EditText
@@ -151,119 +191,118 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="right"
-                android:layout_weight="1"
+                android:layout_weight="0.5"
                 android:clickable="true"
                 android:cursorVisible="true"
                 android:focusable="false"
+                android:hint="Enter Due Date"
                 android:inputType="text|textAutoComplete"
                 android:singleLine="true"
-                android:textStyle="bold"
-                android:visibility="visible" />
+                android:textAlignment="textEnd"
+                android:visibility="visible"
+                android:gravity="center"
+                android:background="@android:color/transparent"
+                android:paddingRight="18dp"
+                android:textColor="@color/cardview_light_background"/>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:background="@android:color/darker_gray"
+            android:layout_height="match_parent"
+            android:background="@drawable/backbar"
             android:orientation="horizontal"
             tools:layout_editor_absoluteX="8dp"
-            tools:layout_editor_absoluteY="8dp">
+            tools:layout_editor_absoluteY="8dp"
+            android:layout_weight="1">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_weight="1.5"
                 android:lineSpacingExtra="14sp"
                 android:text="Remind"
                 android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:gravity="center"
+                android:textColor="@color/cardview_light_background"/>
 
             <Spinner
                 android:id="@+id/billReminder"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:entries="@array/Account_Types"
+                android:layout_weight="0.5"
+                android:entries="@array/RemindOptions"
                 android:popupBackground="@color/colorPrimaryDark"
-                android:spinnerMode="dialog" />
+                android:spinnerMode="dialog"
+                android:textAlignment="textEnd"
+                android:gravity="center"
+                android:paddingRight="18dp"
+                android:textColor="@color/cardview_light_background"/>
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:background="@android:color/darker_gray"
+            android:layout_height="match_parent"
+            android:background="@drawable/backbar"
             android:orientation="horizontal"
             tools:layout_editor_absoluteX="8dp"
-            tools:layout_editor_absoluteY="8dp">
+            tools:layout_editor_absoluteY="8dp"
+            android:layout_weight="1">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:lineSpacingExtra="14sp"
-                android:text="Auto Pay"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <Switch
-                android:id="@+id/billAutoPay"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:background="@android:color/darker_gray"
-            android:orientation="horizontal"
-            tools:layout_editor_absoluteX="8dp"
-            tools:layout_editor_absoluteY="8dp">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_weight="1.5"
                 android:lineSpacingExtra="14sp"
                 android:text="Note"
-                android:textAlignment="viewStart"
                 android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:gravity="center"
+                android:textColor="@color/cardview_light_background"/>
 
             <EditText
                 android:id="@+id/billNote"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_weight="0.5"
                 android:ems="10"
-                android:inputType="text" />
+                android:hint="Enter Bill Note"
+                android:inputType="text"
+                android:textAlignment="textEnd"
+                android:gravity="center"
+                tools:ignore="RtlCompat"
+                android:background="@android:color/transparent"
+                android:paddingRight="18dp"
+                android:textColor="@color/cardview_light_background"
+                android:textColorHint="@color/cardview_light_background"/>
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:background="@android:color/darker_gray"
+            android:layout_height="match_parent"
+            android:background="@color/cardview_light_background"
             android:orientation="horizontal"
             tools:layout_editor_absoluteX="8dp"
-            tools:layout_editor_absoluteY="8dp">
+            tools:layout_editor_absoluteY="8dp"
+            android:layout_weight="1"
+            android:gravity="center">
 
             <Button
                 android:id="@+id/billAdd"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="60dp"
                 android:layout_weight="1"
-                android:text="@string/add_bills" />
-
+                android:text="@string/add_bills"
+                android:background="@drawable/button_background"/>
             <Button
                 android:id="@+id/billCancel"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="60dp"
                 android:layout_weight="1"
-                android:text="@android:string/cancel" />
-
+                android:text="@android:string/cancel"
+                android:background="@drawable/button_background"/>
         </LinearLayout>
 
     </LinearLayout>

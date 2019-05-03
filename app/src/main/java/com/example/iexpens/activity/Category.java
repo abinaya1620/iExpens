@@ -32,6 +32,7 @@ public class Category extends AppCompatActivity {
     private GridView gridView;
     private List<Product> categoryList;
     private int currentViewMode=0;
+    private  String strCallingFunction = "";
 
     static final int VIEW_MODE_LISTVIEW =0;
     static final int VIEW_MODE_GRIDVIEW =1;
@@ -43,7 +44,11 @@ public class Category extends AppCompatActivity {
         Log.d(TAG,"Inside on create of Category");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category);
-
+        strCallingFunction = getIntent().getStringExtra("CallingFunction");
+        if(strCallingFunction==null){
+            strCallingFunction = "Others";
+        }
+        Log.d("Calling Page : ",strCallingFunction);
         stubList = findViewById(R.id.stub_list);
         stubGrid = findViewById(R.id.stub_grid);
 
@@ -56,8 +61,6 @@ public class Category extends AppCompatActivity {
 
         //get list of category
         getCategoryList();
-
-
 
         //get current view mode in shared references
         SharedPreferences sharedPreferences = getSharedPreferences("ViewMode",MODE_PRIVATE);
@@ -129,23 +132,29 @@ public class Category extends AppCompatActivity {
         return  categoryList;
     }
 
-AdapterView.OnItemClickListener onItemClick = new AdapterView.OnItemClickListener() {
+    AdapterView.OnItemClickListener onItemClick = new AdapterView.OnItemClickListener() {
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
        //Action after clicking item
         // Getting listview click value into String variable.
         String TempListViewClickedValue =categoryList.get(position).getTitle();
 
-        Intent intent = new Intent(Category.this, AddExpenseActivity.class);
+        if(!strCallingFunction.equals("AddBillPage")){
+            Intent intent = new Intent(Category.this, AddExpenseActivity.class);
+            // Sending value to another activity using intent.
+            intent.putExtra("ListViewClickedValue", TempListViewClickedValue);
+            startActivity(intent);
+            //startActivity(intent);
+            Toast.makeText(getApplicationContext(), categoryList.get(position).getTitle(), Toast.LENGTH_SHORT).show();
+        }else{
+            Intent intent = new Intent();
+            intent.putExtra("ListViewClickedValue", TempListViewClickedValue);
+            setResult(RESULT_OK,intent);
+            finish();
+        }
 
-        // Sending value to another activity using intent.
-        intent.putExtra("ListViewClickedValue", TempListViewClickedValue);
-
-        startActivity(intent);
     }
 };
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
