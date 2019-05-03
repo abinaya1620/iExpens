@@ -173,7 +173,7 @@ public class HomeFragment extends Fragment {
                     String theCategory = entry.getKey();
                     Float theAmount = entry.getValue();
                     Integer color = getColorForCategory(theCategory);
-                    String label = theCategory + " kr" + theAmount;
+                    String label = theCategory;
                     pieData.add(new SliceValue(theAmount, color).setLabel(label));
                 }
 

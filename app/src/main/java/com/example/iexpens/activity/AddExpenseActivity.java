@@ -209,9 +209,8 @@ public class AddExpenseActivity extends AppCompatActivity {
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                addToCloudStorage();
                 addExpense();
-
+               addToCloudStorage();
             }
         });
 
@@ -324,7 +323,7 @@ public class AddExpenseActivity extends AppCompatActivity {
         databaseExpenses.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                expenseList.clear();
+               // expenseList.clear();
 
                 for (DataSnapshot expenseSnapshot : dataSnapshot.getChildren()) {
                     Expense expense = expenseSnapshot.getValue(Expense.class);
@@ -491,6 +490,7 @@ public class AddExpenseActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, "Category and Price are Mandatory!!", Toast.LENGTH_LONG).show();
         }
+        addToCloudStorage();
     }
 
     private void update_cashamount(String cashId, String title, String cashAmount) {

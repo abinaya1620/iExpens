@@ -19,7 +19,8 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="start"
-        android:text="TextView" />
+        android:text="TextView"
+        android:textAlignment="center" />
 
     <TextView
         android:id="@+id/textViewPrice"
@@ -27,6 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="end"
-        android:text="TextView" />
+        android:text="TextView"
+        android:textAlignment="center" />
 
 </LinearLayout>

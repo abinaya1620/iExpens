@@ -56,23 +56,12 @@
             android:layout_gravity="center" />
     </LinearLayout>
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:background="#fafafa">
 
-        <ListView
-            android:id="@+id/listViewExpense"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_marginTop="8dp"
-            android:divider="#7B1FA2"
-            android:dividerHeight="1dp"
-            android:listSelector="#AD91BB" />
-
     </LinearLayout>
-
 </LinearLayout>
