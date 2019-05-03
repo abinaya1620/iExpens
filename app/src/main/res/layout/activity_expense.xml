@@ -1,135 +1,240 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="8dp"
-    android:orientation="vertical"
     tools:context=".activity.AddExpenseActivity">
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/textView1"
+        <!-- TODO: Update blank fragment layout -->
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/select_category"
-            android:onClick="selectCategoryForExpense"
-            android:textSize="20sp" />
-    </LinearLayout>
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@drawable/backbar"
+                android:orientation="horizontal"
+                tools:layout_editor_absoluteX="8dp"
+                tools:layout_editor_absoluteY="8dp">
 
-        <EditText
-            android:id="@+id/txtPrice"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/price_hint"
-            android:inputType="numberDecimal" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.5"
+                    android:gravity="center"
+                    android:lineSpacingExtra="14sp"
+                    android:text="Category"
+                    android:textColor="@color/cardview_light_background"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
-    </LinearLayout>
+                <EditText
+                    android:id="@+id/textView1"
+                    style="@android:style/Widget.DeviceDefault.EditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    android:background="@android:color/transparent"
+                    android:ems="10"
+                    android:gravity="center"
+                    android:hint="Select Category"
+                    android:inputType="text"
+                    android:onClick="selectCategoryForExpense"
+                    android:paddingRight="18dp"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/cardview_light_background"
+                    android:textColorHint="@color/cardview_light_background"
+                    android:textSize="18sp" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:orientation="horizontal">
+            </LinearLayout>
 
-        <TextView
-            android:id="@+id/txtDate"
-            android:layout_width="241dp"
-            android:layout_height="39dp"
-            android:hint="@string/expense_date_hint"
-            android:textSize="20sp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@drawable/backbar"
+                android:orientation="horizontal"
+                tools:layout_editor_absoluteX="8dp"
+                tools:layout_editor_absoluteY="8dp">
 
-        <Button
-            android:id="@+id/button_date"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/pick_date_expense"
-            android:textColor="#9874a7"
-            android:textStyle="bold" />
-    </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.5"
+                    android:gravity="center"
+                    android:lineSpacingExtra="14sp"
+                    android:text="Price"
+                    android:textColor="@color/cardview_light_background"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:orientation="horizontal">
-
-        <EditText
-            android:id="@+id/txtDescription"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/description_hint" />
-
-    </LinearLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:orientation="horizontal">
-
-
-        <ImageView
-            android:id="@+id/cameraImage"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            app:srcCompat="@drawable/ic_action_image" />
-
-        <ImageButton
-            android:id="@+id/ImageButtonCamera"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="114dp"
-            app:srcCompat="@drawable/ic_action_camera" />
-
-        <Button
-            android:id="@+id/button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:text="@string/insert_expense"
-            android:textAlignment="viewStart"
-            android:textColor="#9874a7"
-            android:textStyle="bold" />
+                <EditText
+                    android:id="@+id/txtPrice"
+                    style="@android:style/Widget.DeviceDefault.EditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="left"
+                    android:layout_weight="0.5"
+                    android:background="@android:color/transparent"
+                    android:ems="10"
+                    android:gravity="center"
+                    android:hint="Enter Amount Here"
+                    android:inputType="numberDecimal"
+                    android:paddingRight="18dp"
+                    android:singleLine="true"
+                    android:textAlignment="textEnd"
+                    android:textAppearance="@style/TextAppearance.AppCompat"
+                    android:textColor="@color/cardview_light_background"
+                    android:textColorHint="@color/cardview_light_background"
+                    android:textSize="18sp"
+                    android:visibility="visible" />
+            </LinearLayout>
 
 
-    </RelativeLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@drawable/backbar"
+                android:orientation="horizontal"
+                tools:layout_editor_absoluteX="8dp"
+                tools:layout_editor_absoluteY="8dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-
-        android:layout_height="200dp"
-        android:layout_below="@+id/button"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_marginTop="8dp"
-        android:divider="#7B1FA2"
-        android:dividerHeight="1dp"
-        android:listSelector="#AD91BB"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button"
-        tools:ignore="MissingConstraints">
-
-        <ListView
-            android:id="@+id/listViewExpense"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-    </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.5"
+                    android:gravity="center"
+                    android:lineSpacingExtra="14sp"
+                    android:text="Date"
+                    android:textColor="@color/cardview_light_background"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
 
-</LinearLayout>
+                <EditText
+                    android:id="@+id/txtDate"
+                    style="@style/Widget.AppCompat.EditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="right"
+                    android:layout_weight="0.5"
+                    android:background="@android:color/transparent"
+                    android:clickable="true"
+                    android:cursorVisible="true"
+                    android:focusable="false"
+                    android:gravity="center"
+                    android:hint="Pick date"
+                    android:inputType="text|textAutoComplete"
+                    android:paddingRight="18dp"
+                    android:singleLine="true"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/cardview_light_background"
+                    android:visibility="visible" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@drawable/backbar"
+                android:orientation="horizontal"
+                tools:layout_editor_absoluteX="8dp"
+                tools:layout_editor_absoluteY="8dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.5"
+                    android:gravity="center"
+                    android:lineSpacingExtra="14sp"
+                    android:text="Description"
+                    android:textColor="@color/cardview_light_background"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/txtDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    android:background="@android:color/transparent"
+                    android:ems="10"
+                    android:gravity="center"
+                    android:hint="Enter Description"
+                    android:inputType="text"
+                    android:paddingRight="18dp"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/cardview_light_background"
+                    android:textColorHint="@color/cardview_light_background"
+                    tools:ignore="RtlCompat" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@drawable/backbar"
+                android:orientation="horizontal"
+                tools:layout_editor_absoluteX="8dp"
+                tools:layout_editor_absoluteY="8dp">
+
+                <ImageView
+                    android:id="@+id/cameraImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.5"
+                    android:gravity="center"
+                    android:lineSpacingExtra="14sp"
+                    android:text="Note"
+                    android:textColor="@color/cardview_light_background"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:srcCompat="@drawable/ic_action_image" />
+
+                <ImageButton
+                    android:id="@+id/ImageButtonCamera"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.5"
+                    android:gravity="center"
+                    android:lineSpacingExtra="14sp"
+                    android:text="Note"
+                    android:textColor="@color/cardview_light_background"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:srcCompat="@drawable/ic_action_camera" />
+
+                <Button
+                    android:id="@+id/button"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/billbutton"
+                    android:gravity="center"
+                    android:text="ADD EXPENSE"
+                    android:textColor="@color/cardview_light_background" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal" >
+
+            <ListView
+                android:id="@+id/listViewExpense"
+                style="@style/Widget.AppCompat.Light.ListView.DropDown"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:cacheColorHint="#00BCD4"
+                android:divider="?attr/actionBarDivider" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+</FrameLayout>

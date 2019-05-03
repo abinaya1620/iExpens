@@ -79,23 +79,6 @@ public class ExpenseList extends ArrayAdapter {
 
 
 
-     listViewItem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d (TAG,"ImageAddress" +"" +expense.getImageAddress());
-                FirebaseStorage storage = FirebaseStorage.getInstance();
-                StorageReference storageRef = storage.getReferenceFromUrl(expense.getImageAddress());
-                Log.d(TAG,"StorageRef "+ ""+"....." +"" +storageRef);
-
-
-
-            }
-
-
-
-     });
-
-
 
         return listViewItem;
     }

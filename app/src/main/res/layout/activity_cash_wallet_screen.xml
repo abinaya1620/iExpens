@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.CashWalletScreen">
+    tools:context=".activity.CashWalletScreen"
+    android:background="@drawable/backbar">
 
 
     <TextView
@@ -18,7 +19,7 @@
         android:layout_marginTop="84dp"
         android:layout_marginEnd="5dp"
         android:textAlignment="textEnd"
-        android:textColor="@android:color/black"
+        android:textColor="@android:color/white"
         android:textSize="18sp"
         android:textStyle="bold" />
 
@@ -33,7 +34,7 @@
         android:layout_marginTop="50dp"
         android:layout_marginEnd="239dp"
         android:textAlignment="viewStart"
-        android:textColor="@android:color/black"
+        android:textColor="@android:color/white"
         android:textSize="20sp"
         android:textStyle="bold" />
 
@@ -44,6 +45,8 @@
         android:layout_marginTop="200dp"
         android:text="@string/add_expense"
         android:onClick="selectCategoryForExpense"
+        android:textColor="@color/cardview_light_background"
+        android:background="@drawable/billbutton"
         />
 
     <Button
@@ -52,7 +55,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="270dp"
         android:text="@string/view_transactions"
-        android:onClick="cash_trans_onClick"/>
+        android:onClick="cash_trans_onClick"
+        android:textColor="@color/cardview_light_background"
+        android:background="@drawable/billbutton"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/update_cash_amount"
