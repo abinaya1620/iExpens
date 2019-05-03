@@ -4,15 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimaryDark"
+    android:background="@color/colorPrimary"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:orientation="horizontal"
-        android:background="#fafafa">
+        android:background="#fafafa"
+        android:orientation="horizontal">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="250dp"
@@ -45,7 +46,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="#8e8e8e"
+        android:background="#fafafa"
         android:orientation="horizontal">
 
         <lecho.lib.hellocharts.view.PieChartView
@@ -56,5 +57,11 @@
     </LinearLayout>
 
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#fafafa">
 
+    </LinearLayout>
 </LinearLayout>

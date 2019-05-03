@@ -8,4 +8,10 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="mybutton">
+        <item name="android:fontFamily">Rubik</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:background">@drawable/billbutton</item>
+    </style>
 </resources>

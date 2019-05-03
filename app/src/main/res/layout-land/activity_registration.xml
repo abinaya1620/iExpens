@@ -18,7 +18,8 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:backgroundTint="@android:color/black"
+        android:background="@color/primary_light"
+        android:backgroundTint="@android:color/white"
         android:drawableLeft="@drawable/email"
         android:inputType="textEmailAddress"
         android:padding="10dp"
@@ -32,11 +33,11 @@
         android:id="@+id/password_reg"
         android:layout_width="390dp"
         android:layout_height="wrap_content"
-
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:backgroundTint="@android:color/black"
+        android:background="@color/primary_light"
+        android:backgroundTint="@android:color/white"
         android:drawableLeft="@drawable/password"
         android:inputType="numberPassword"
         android:padding="10dp"
@@ -47,33 +48,28 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
+        style="@style/mybutton"
         android:id="@+id/btnsignup_reg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:background="@android:color/transparent"
         android:gravity="center"
         android:text="Sign Up"
-        android:textAppearance="?android:textAppearanceMedium"
-        android:textColor="@android:color/black"
         app:layout_constraintBottom_toTopOf="@+id/btnsignin_reg"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
+        style="@style/mybutton"
         android:id="@+id/btnsignin_reg"
-        android:layout_width="wrap_content"
+        android:layout_width="220dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-
-        android:background="@android:color/transparent"
         android:text="Already have an account"
-        android:textAppearance="?android:textAppearanceMedium"
-        android:textColor="@android:color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
