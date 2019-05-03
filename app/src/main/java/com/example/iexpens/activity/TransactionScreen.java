@@ -44,7 +44,6 @@ public class TransactionScreen extends AppCompatActivity {
         String cashtitle = intent.getStringExtra(CashWalletScreen.WALLET_CASH_TITLE);
         String cashId = intent.getStringExtra(CashWalletScreen.WALLET_CASH_ID);
 
-
         String bankId = intent.getStringExtra(AccountScreenActivity.ACCOUNT_BANK_ID);
         String acc_no = intent.getStringExtra(AccountScreenActivity.ACCOUNT_BANK_NO);
 
