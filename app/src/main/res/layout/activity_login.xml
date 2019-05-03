@@ -10,8 +10,6 @@
     android:orientation="vertical"
     tools:context=".activity.LoginActivity">
 
-
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
@@ -24,7 +22,8 @@
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
-            android:backgroundTint="@android:color/black"
+            android:background="@color/primary_light"
+            android:backgroundTint="@android:color/white"
             android:drawableLeft="@drawable/email"
             android:inputType="textEmailAddress"
             android:padding="10dp"
@@ -48,36 +47,33 @@
             app:layout_constraintBottom_toTopOf="@+id/btnsiginin"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:backgroundTint="@android:color/black"
+            android:background="@color/primary_light"
+            android:backgroundTint="@android:color/white"
             android:drawableLeft="@drawable/password"/>
 
         <Button
+            style="@style/mybutton"
             android:id="@+id/btnsiginin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
-            android:background="@android:color/transparent"
             android:text="Sign in"
-            android:textAppearance="?android:textAppearanceMedium"
-            android:textColor="@android:color/black"
             app:layout_constraintBottom_toTopOf="@+id/signupbtn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent" />
 
         <Button
+            style="@style/mybutton"
             android:id="@+id/signupbtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
-            android:background="@android:color/transparent"
-            android:text="Don't have an account?"
-            android:textAppearance="?android:textAppearanceMedium"
-            android:textColor="@android:color/black"
+            android:text="Sign up"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.501"

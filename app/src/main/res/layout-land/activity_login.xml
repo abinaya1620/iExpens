@@ -10,9 +10,6 @@
     android:orientation="vertical"
     tools:context=".activity.LoginActivity">
 
-
-
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
@@ -25,7 +22,8 @@
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
-            android:backgroundTint="@android:color/black"
+            android:background="@color/primary_light"
+            android:backgroundTint="@android:color/white"
             android:drawableLeft="@drawable/email"
             android:inputType="textEmailAddress"
             android:padding="10dp"
@@ -39,11 +37,11 @@
             android:id="@+id/password_login"
             android:layout_width="390dp"
             android:layout_height="wrap_content"
-
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
-            android:backgroundTint="@android:color/black"
+            android:background="@color/primary_light"
+            android:backgroundTint="@android:color/white"
             android:drawableLeft="@drawable/password"
             android:inputType="textPassword"
             android:padding="10dp"
@@ -55,15 +53,13 @@
 
         <Button
             android:id="@+id/btnsiginin"
+            style="@style/mybutton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
-            android:background="@android:color/transparent"
             android:text="Sign in"
-            android:textAppearance="?android:textAppearanceMedium"
-            android:textColor="@android:color/black"
             app:layout_constraintBottom_toTopOf="@+id/signupbtn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
@@ -71,15 +67,13 @@
 
         <Button
             android:id="@+id/signupbtn"
+            style="@style/mybutton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
-            android:background="@android:color/transparent"
-            android:text="Don't have an account?"
-            android:textAppearance="?android:textAppearanceMedium"
-            android:textColor="@android:color/black"
+            android:text="New User"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.501"

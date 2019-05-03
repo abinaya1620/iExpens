@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/expenseListRow"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/expenseListRow">
+    android:layout_height="match_parent">
 
 
     <ImageView
@@ -11,8 +11,7 @@
         android:layout_width="38dp"
         android:layout_height="44dp"
         android:layout_marginRight="8dp"
-        app:srcCompat="@drawable/ic_action_image"
-        />
+        app:srcCompat="@drawable/ic_action_image" />
 
     <TextView
         android:id="@+id/textViewCaterogy"
@@ -20,8 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="start"
-        android:text="TextView"
-        />
+        android:text="TextView" />
 
     <TextView
         android:id="@+id/textViewPrice"

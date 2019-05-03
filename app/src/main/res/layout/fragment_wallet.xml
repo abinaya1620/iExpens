@@ -25,7 +25,7 @@
     <Button
         android:id="@+id/button_add_account"
         style="@style/mybutton"
-        android:layout_width="wrap_content"
+        android:layout_width="170dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"

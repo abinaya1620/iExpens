@@ -184,6 +184,7 @@ public class Category extends AppCompatActivity {
                 editor.putInt("currentViewMode",currentViewMode);
                 editor.commit();
 
+
                 break;
 
 

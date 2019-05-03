@@ -34,7 +34,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@color/colorPrimary"
-                    android:cacheColorHint="#00BCD4"
+                    android:cacheColorHint="@color/primary_light"
                     android:divider="?attr/actionBarDivider"></ListView>
             </LinearLayout>
         </LinearLayout>
