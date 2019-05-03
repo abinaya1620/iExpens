@@ -80,7 +80,7 @@ public class AddExpenseActivity extends AppCompatActivity {
     DatabaseReference databaseExpenses;
     ListView listViewExpenses;
     List<Expense> expenseList;
-   private String imageAddr;
+    private String imageAddr;
     static final int REQUEST_PICTURE_CAPTURE = 1;
     private ImageView cameraImage;
     private String pictureFilePath;
@@ -105,11 +105,8 @@ public class AddExpenseActivity extends AppCompatActivity {
     public static final String EXPENSE_BANK_TYPE = "bankaccounttype";
 
 
-
-
     private FirebaseAuth mAuth;
     private String mUserId;
-
 
 
     private static final String TAG = "AddExpense";
@@ -210,7 +207,7 @@ public class AddExpenseActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 addExpense();
-               addToCloudStorage();
+                addToCloudStorage();
             }
         });
 
@@ -463,7 +460,7 @@ public class AddExpenseActivity extends AppCompatActivity {
                     update_cashtransaction(price);
 
                     String id = databaseExpenses.push().getKey();
-                    Expense expense = new Expense(id, category, price, date, description,uploadeRef.toString());
+                    Expense expense = new Expense(id, category, price, date, description, uploadeRef.toString());
                     Log.d("Print", "print4" + id + category + price + date);
                     databaseExpenses.child(id).setValue(expense);
                     Toast.makeText(this, "Expense added", Toast.LENGTH_LONG).show();
