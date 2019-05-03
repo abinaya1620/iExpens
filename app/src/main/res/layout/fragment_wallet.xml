@@ -4,23 +4,32 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:weightSum="2">
+    android:weightSum="2"
+  >
 
     <ListView
         android:id="@+id/listViewCash"
+        style="@style/Widget.AppCompat.Light.ListView.DropDown"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_marginTop="30dp"
         android:layout_marginBottom="650dp"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:background="@color/colorPrimary"
+        android:cacheColorHint="#00BCD4"
+        android:divider="?attr/actionBarDivider"/>
 
     <ListView
         android:id="@+id/listViewAccounts"
+        style="@style/Widget.AppCompat.Light.ListView.DropDown"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="80dp"
         android:layout_marginBottom="240dp"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:background="@color/colorPrimary"
+        android:cacheColorHint="#00BCD4"
+        android:divider="?attr/actionBarDivider"/>
 
     <Button
         android:id="@+id/button_add_account"
@@ -35,6 +44,9 @@
         android:layout_marginEnd="133dp"
         android:layout_marginBottom="132dp"
         android:onClick="button_add_account_onClick"
-        android:text="Add New Account" />
+        android:text="Add New Account"
+        android:textColor="@color/cardview_light_background"
+        android:background="@drawable/billbutton"
+        />
 
 </RelativeLayout>

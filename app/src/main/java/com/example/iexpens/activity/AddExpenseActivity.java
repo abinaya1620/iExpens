@@ -53,6 +53,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
 
@@ -86,6 +87,9 @@ public class AddExpenseActivity extends AppCompatActivity {
     private FirebaseStorage firebaseStorage;
     private ImageButton captureButton;
     private StorageReference uploadeRef;
+
+    static String tempUrl;
+
     private DatabaseReference databaseTransactions;
     private DatabaseReference databaseCash;
     private DatabaseReference databaseWallet;
@@ -99,6 +103,7 @@ public class AddExpenseActivity extends AppCompatActivity {
     public static final String EXPENSE_BANK_NAME = "bankaccountname";
     public static final String EXPENSE_BANK_BANKS = "bankaccounts";
     public static final String EXPENSE_BANK_TYPE = "bankaccounttype";
+
 
 
 
@@ -175,12 +180,11 @@ public class AddExpenseActivity extends AppCompatActivity {
 
         textPrice = (EditText) findViewById(R.id.txtPrice);
         textDate = findViewById(R.id.txtDate);
-        datePicker_expense = (Button) findViewById(R.id.button_date);
         textDescription = (EditText) findViewById(R.id.txtDescription);
         buttonAdd = (Button) findViewById(R.id.button);
 
 
-        datePicker_expense.setOnClickListener(new View.OnClickListener() {
+        textDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 calendar = Calendar.getInstance();
@@ -278,6 +282,7 @@ public class AddExpenseActivity extends AppCompatActivity {
         }
     }
 
+
     private void addToCloudStorage() {
         File f = new File(pictureFilePath);
         Uri picUri = Uri.fromFile(f);
@@ -304,6 +309,7 @@ public class AddExpenseActivity extends AppCompatActivity {
                         Toast.makeText(AddExpenseActivity.this,
                                 "Image has been uploaded to cloud storage",
                                 Toast.LENGTH_SHORT).show();
+                        tempUrl = uri.toString();
                     }
                 });
             }

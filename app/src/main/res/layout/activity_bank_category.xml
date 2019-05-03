@@ -15,6 +15,7 @@
         android:layout_marginTop="10dp"
         android:inflatedId="@+id/showlayout"
         android:layout="@layout/my_listview"
+
         />
 
     <ViewStub

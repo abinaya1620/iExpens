@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.CashWalletScreen">
+    tools:context=".activity.CashWalletScreen"
+    android:background="@drawable/backbar">
 
 
     <TextView
@@ -18,7 +19,7 @@
         android:layout_marginTop="84dp"
         android:layout_marginEnd="5dp"
         android:textAlignment="textEnd"
-        android:textColor="@android:color/black"
+        android:textColor="@android:color/white"
         android:textSize="18sp"
         android:textStyle="bold" />
 
@@ -33,32 +34,30 @@
         android:layout_marginTop="50dp"
         android:layout_marginEnd="239dp"
         android:textAlignment="viewStart"
-        android:textColor="@android:color/black"
+        android:textColor="@android:color/white"
         android:textSize="20sp"
         android:textStyle="bold" />
 
     <Button
         android:id="@+id/button_cash_expense"
-        style="@style/mybutton"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="142dp"
         android:layout_marginTop="200dp"
-        android:gravity="center"
-        android:onClick="cash_expense_onClick"
-        android:text="@string/add_expense" />
+        android:text="@string/add_expense"
+        android:textColor="@color/cardview_light_background"
+        android:background="@drawable/billbutton"
+        android:onClick="cash_expense_onClick" />
 
 
     <Button
         android:id="@+id/button_cash_trans"
-        style="@style/mybutton"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_marginTop="270dp"
+        android:text="@string/view_transactions"
         android:onClick="cash_trans_onClick"
-        android:text="@string/view_transactions" />
+        android:textColor="@color/cardview_light_background"
+        android:background="@drawable/billbutton"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/update_cash_amount"

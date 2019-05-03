@@ -1,145 +1,248 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity.AddAccountActivity">
+    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginBottom="30dp">
 
-    <TextView
-        android:id="@+id/text_banks"
-        android:layout_width="150dp"
-        android:layout_height="41dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="30dp"
-        android:text="@string/bank"
-        android:textAlignment="viewStart"
-        android:textSize="18sp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/backbar"
+            android:orientation="horizontal"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="8dp"
+            android:layout_weight="1">
 
-    <TextView
-        android:id="@+id/text_acc_no"
-        android:layout_width="150dp"
-        android:layout_height="41dp"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="80dp"
-        android:text="@string/account_no"
-        android:textAlignment="viewStart"
-        android:textSize="18sp" />
+            <TextView
+                android:id="@+id/text_banks"
+                android:layout_width="204dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.5"
+                android:gravity="center"
+                android:lineSpacingExtra="14sp"
+                android:text="Bank"
+                android:textColor="@color/cardview_light_background"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/text_acc_name"
-        android:layout_width="150dp"
-        android:layout_height="41dp"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="130dp"
-        android:text="@string/name"
-        android:textAlignment="viewStart"
-        android:textSize="18sp" />
+            <TextView
+                android:id="@+id/spinner_banks"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1.5"
+                android:lineSpacingExtra="14sp"
+                android:textSize="18sp"
+                android:textAlignment="textEnd"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:hint="Select Bank"
+                android:textColor="@color/cardview_light_background"/>
 
-    <TextView
-        android:id="@+id/text_acc_type"
-        android:layout_width="150dp"
-        android:layout_height="41dp"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="180dp"
-        android:text="@string/account_type"
-        android:textAlignment="viewStart"
-        android:textSize="18sp" />
+        </LinearLayout>
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="150dp"
-        android:layout_height="41dp"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="230dp"
-        android:text="@string/amount"
-        android:textSize="18sp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/backbar"
+            android:orientation="horizontal"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="8dp"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/text_acc_no"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1.5"
+                android:lineSpacingExtra="14sp"
+                android:text="Account Number"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:textColor="@color/cardview_light_background"/>
+
+            <EditText
+                android:id="@+id/ip_acc_no"
+                style="@android:style/Widget.DeviceDefault.EditText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="left"
+                android:layout_weight="0.5"
+                android:background="@android:color/transparent"
+                android:ems="10"
+                android:gravity="center"
+                android:inputType="numberDecimal"
+                android:paddingRight="18dp"
+                android:singleLine="true"
+                android:textAlignment="textEnd"
+                android:textAppearance="@style/TextAppearance.AppCompat"
+                android:textColor="@color/cardview_light_background"
+                android:textColorHint="@color/cardview_light_background"
+                android:textSize="18sp"
+                android:visibility="visible" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/backbar"
+            android:orientation="horizontal"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="8dp"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/text_acc_name"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1.5"
+                android:lineSpacingExtra="14sp"
+                android:text="Name"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:textColor="@color/cardview_light_background"/>
+
+            <EditText
+                android:id="@+id/ip_acc_name"
+                style="@android:style/Widget.DeviceDefault.EditText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="left"
+                android:layout_weight="0.5"
+                android:background="@android:color/transparent"
+                android:ems="10"
+                android:gravity="center"
+                android:paddingRight="18dp"
+                android:singleLine="true"
+                android:textAlignment="textEnd"
+                android:textAppearance="@style/TextAppearance.AppCompat"
+                android:textColor="@color/cardview_light_background"
+                android:textColorHint="@color/cardview_light_background"
+                android:textSize="18sp"
+                android:visibility="visible"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/backbar"
+            android:orientation="horizontal"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="8dp"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/text_acc_type"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1.5"
+                android:lineSpacingExtra="14sp"
+                android:text="Account Type"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:textColor="@color/cardview_light_background"/>
+            <Spinner
+                android:id="@+id/spinner_acctype"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:entries="@array/Acct_type"
+                android:popupBackground="@color/colorPrimaryDark"
+                android:spinnerMode="dropdown"
+                android:textAlignment="textEnd"
+                android:gravity="center"
+                android:paddingRight="18dp"
+                android:textColor="@color/cardview_light_background"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/backbar"
+            android:orientation="horizontal"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="8dp"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1.5"
+                android:lineSpacingExtra="14sp"
+                android:text="@string/amount"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:textColor="@color/cardview_light_background"/>
 
 
-    <TextView
-        android:id="@+id/spinner_banks"
-        android:layout_width="230dp"
-        android:layout_height="39dp"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="160dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="8dp"
-        android:hint="Select Bank"
-        android:onClick="selectBankForCreate"/>
+            <EditText
+                android:id="@+id/ip_acc_amount"
+                style="@android:style/Widget.DeviceDefault.EditText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="left"
+                android:layout_weight="0.5"
+                android:background="@android:color/transparent"
+                android:ems="10"
+                android:gravity="center"
+                android:inputType="numberDecimal"
+                android:paddingRight="18dp"
+                android:singleLine="true"
+                android:textAlignment="textEnd"
+                android:textAppearance="@style/TextAppearance.AppCompat"
+                android:textColor="@color/cardview_light_background"
+                android:textColorHint="@color/cardview_light_background"
+                android:textSize="18sp"
+                android:visibility="visible"/>
+        </LinearLayout>
 
 
-    <EditText
-        android:id="@+id/ip_acc_no"
-        android:layout_width="230dp"
-        android:layout_height="39dp"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="160dp"
-        android:layout_marginTop="80dp"
-        android:layout_marginEnd="8dp"
-        android:ems="10"
-        android:inputType="number" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/cardview_light_background"
+            android:orientation="horizontal"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="8dp"
+            android:layout_weight="1"
+            android:gravity="center">
 
-    <EditText
-        android:id="@+id/ip_acc_name"
-        android:layout_width="230dp"
-        android:layout_height="39dp"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="160dp"
-        android:layout_marginTop="130dp"
-        android:layout_marginEnd="8dp"
-        android:ems="10"
-        android:inputType="textPersonName" />
+            <Button
+                android:id="@+id/button_add_acc"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:text="Save"
+                android:background="@drawable/billbutton"
+                android:gravity="center"
+                android:textColor="@color/cardview_light_background"
+                android:onClick="button_add_acc_onClick"/>
 
-    <Spinner
-        android:id="@+id/spinner_acctype"
-        android:layout_width="230dp"
-        android:layout_height="39dp"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="160dp"
-        android:layout_marginTop="180dp"
-        android:layout_marginEnd="8dp"
-        android:layout_weight="1"
-        android:entries="@array/Acct_type"
-        android:spinnerMode="dropdown" />
+            <Button
+                android:id="@+id/button_acc_clear"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:background="@drawable/billbutton"
+                android:gravity="center"
+                android:text="@string/clear"
+                android:onClick="button_acc_clear_onClick"
+                android:textColor="@color/cardview_light_background"/>
 
-    <EditText
-        android:id="@+id/ip_acc_amount"
-        android:layout_width="230dp"
-        android:layout_height="39dp"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="160dp"
-        android:layout_marginTop="230dp"
-        android:layout_marginEnd="8dp"
-        android:ems="10"
-        android:inputType="numberDecimal" />
+        </LinearLayout>
 
-    <Button
-        style="@style/mybutton"
-        android:id="@+id/button_add_acc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="330dp"
-        android:layout_marginBottom="8dp"
-        android:text="@string/save_account"
-        android:onClick="button_add_acc_onClick"/>
-
-    <Button
-        style="@style/mybutton"
-        android:id="@+id/button_acc_clear"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="250dp"
-        android:layout_marginTop="330dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="@string/clear"
-        android:onClick="button_acc_clear_onClick"/>
-
-</RelativeLayout>
+    </LinearLayout>
+</FrameLayout>
