@@ -14,7 +14,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-             android:layout_height="match_parent"
+            android:layout_height="match_parent"
             android:background="@drawable/backbar"
             android:orientation="horizontal"
             tools:layout_editor_absoluteX="8dp"
@@ -53,13 +53,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-<<<<<<< HEAD
-            android:layout_height="60dp"
-            android:background="@android:color/white"
-=======
             android:layout_height="match_parent"
             android:background="@drawable/backbar"
->>>>>>> 234eab5decaf9abd501051bbef20a3d57cffc59e
             android:orientation="horizontal"
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="8dp"
@@ -93,13 +88,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-<<<<<<< HEAD
-            android:layout_height="60dp"
-            android:background="@android:color/white"
-=======
             android:layout_height="match_parent"
             android:background="@drawable/backbar"
->>>>>>> 234eab5decaf9abd501051bbef20a3d57cffc59e
             android:orientation="horizontal"
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="8dp"
@@ -141,13 +131,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-<<<<<<< HEAD
-            android:layout_height="60dp"
-            android:background="@android:color/white"
-=======
             android:layout_height="match_parent"
             android:background="@drawable/backbar"
->>>>>>> 234eab5decaf9abd501051bbef20a3d57cffc59e
             android:orientation="horizontal"
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="8dp"
@@ -181,13 +166,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-<<<<<<< HEAD
-            android:layout_height="60dp"
-            android:background="@android:color/white"
-=======
             android:layout_height="match_parent"
             android:background="@drawable/backbar"
->>>>>>> 234eab5decaf9abd501051bbef20a3d57cffc59e
             android:orientation="horizontal"
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="8dp"
@@ -228,13 +208,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-<<<<<<< HEAD
-            android:layout_height="60dp"
-            android:background="@android:color/white"
-=======
             android:layout_height="match_parent"
             android:background="@drawable/backbar"
->>>>>>> 234eab5decaf9abd501051bbef20a3d57cffc59e
             android:orientation="horizontal"
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="8dp"
@@ -268,13 +243,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-<<<<<<< HEAD
-            android:layout_height="60dp"
-            android:background="@android:color/white"
-=======
             android:layout_height="match_parent"
             android:background="@drawable/backbar"
->>>>>>> 234eab5decaf9abd501051bbef20a3d57cffc59e
             android:orientation="horizontal"
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="8dp"
@@ -311,13 +281,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-<<<<<<< HEAD
-            android:layout_height="60dp"
-            android:background="@android:color/white"
-=======
             android:layout_height="match_parent"
             android:background="@color/cardview_light_background"
->>>>>>> 234eab5decaf9abd501051bbef20a3d57cffc59e
             android:orientation="horizontal"
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="8dp"
@@ -325,15 +290,9 @@
             android:gravity="center">
 
             <Button
-                style="@style/mybutton"
                 android:id="@+id/billAdd"
-<<<<<<< HEAD
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-=======
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
->>>>>>> 234eab5decaf9abd501051bbef20a3d57cffc59e
                 android:layout_weight="1"
                 android:text="@string/add_bills"
                 android:background="@drawable/billbutton"
@@ -341,15 +300,9 @@
                 android:textColor="@color/cardview_light_background"/>
 
             <Button
-                style="@style/mybutton"
                 android:id="@+id/billCancel"
-<<<<<<< HEAD
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-=======
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
->>>>>>> 234eab5decaf9abd501051bbef20a3d57cffc59e
                 android:layout_weight="1"
                 android:text="@android:string/cancel"
                 android:background="@drawable/billbutton"
