@@ -64,7 +64,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-
 public class AddExpenseActivity extends AppCompatActivity {
 
     private String[] category;
@@ -319,12 +318,12 @@ public class AddExpenseActivity extends AppCompatActivity {
         category = getResources().getStringArray(R.array.category);
 
 
-// Create an ArrayAdapter using the string array and a default spinner layout
+        // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.category, android.R.layout.simple_spinner_item);
-// Specify the layout to use when the list of choices appears
+        R.array.category, android.R.layout.simple_spinner_item);
+        // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-// Apply the adapter to the spinner
+        // Apply the adapter to the spinner
         spinnerCategory1.setAdapter(adapter);
         spinnerCategory1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -397,7 +396,6 @@ public class AddExpenseActivity extends AppCompatActivity {
         String date = textDate.getText().toString();
         String description = textDescription.getText().toString();
 
-
         if (!TextUtils.isEmpty(price)) {
             String id = databaseExpenses.push().getKey();
 
@@ -408,7 +406,6 @@ public class AddExpenseActivity extends AppCompatActivity {
             Toast.makeText(this, "Category and Price are Mandatory!!", Toast.LENGTH_LONG).show();
         }
     }
-
 
     /**
      * Thr method selectCategoryForExpense is used to move to category page
