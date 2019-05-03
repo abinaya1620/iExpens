@@ -232,7 +232,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/colorPrimary"
                 android:cacheColorHint="#00BCD4"
-                android:divider="?attr/actionBarDivider" />
+                />
             </LinearLayout>
 
 

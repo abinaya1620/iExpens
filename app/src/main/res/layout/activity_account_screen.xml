@@ -4,8 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activity.AccountScreenActivity"
-    android:background="@drawable/backbar">
+    tools:context=".activity.AccountScreenActivity">
 
     <TextView
         android:id="@+id/text_Bank_no"
@@ -19,7 +18,8 @@
         android:layout_marginEnd="239dp"
         android:textAlignment="viewStart"
         android:textSize="20sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        />
 
     <TextView
         android:id="@+id/acc_no"
