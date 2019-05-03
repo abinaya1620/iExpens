@@ -38,6 +38,16 @@ public class Category extends AppCompatActivity {
     static final int VIEW_MODE_GRIDVIEW =1;
 
     private static final String TAG = "Category";
+    public static final String CATEGORY_CASH_ID = "cashid";
+    public static final String CATEGORY_CASH_TITLE = "cashtitle";
+    public static final String CATEGORY_CASH_AMOUNT = "cashamount";
+
+    public static final String CATEGORY_BANK_ID = "bankid";
+    public static final String CATEGORY_BANK_AMOUNT = "bankamount";
+    public static final String CATEGORY_BANK_NO = "bankaccountno";
+    public static final String CATEGORY_BANK_NAME = "bankaccountname";
+    public static final String CATEGORY_BANK_BANKS = "bankaccounts";
+    public static final String CATEGORY_BANK_TYPE = "bankaccounttype";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -141,6 +151,32 @@ public class Category extends AppCompatActivity {
 
         if(!strCallingFunction.equals("AddBillPage")){
             Intent intent = new Intent(Category.this, AddExpenseActivity.class);
+            Intent intent1 = getIntent();
+
+            String cashid = intent1.getStringExtra(AddExpenseActivity.EXPENSE_CASH_ID);
+            String title = intent1.getStringExtra(AddExpenseActivity.EXPENSE_CASH_TITLE);
+            String camount = intent1.getStringExtra(AddExpenseActivity.EXPENSE_CASH_AMOUNT);
+
+            String bankid = intent1.getStringExtra(AddExpenseActivity.EXPENSE_BANK_ID);
+            String accno = intent1.getStringExtra(AddExpenseActivity.EXPENSE_BANK_NO);
+            String accname = intent1.getStringExtra(AddExpenseActivity.EXPENSE_BANK_NAME);
+            String bamount = intent1.getStringExtra(AddExpenseActivity.EXPENSE_BANK_AMOUNT);
+            String bank = intent1.getStringExtra(AddExpenseActivity.EXPENSE_BANK_BANKS);
+            String bank_type = intent1.getStringExtra(AddExpenseActivity.EXPENSE_BANK_TYPE);
+
+
+            if (cashid != null) {
+                intent.putExtra(CATEGORY_CASH_ID, cashid);
+                intent.putExtra(CATEGORY_CASH_TITLE, title);
+                intent.putExtra(CATEGORY_CASH_AMOUNT, camount);
+            }else{
+                intent.putExtra(CATEGORY_BANK_ID, bankid);
+                intent.putExtra(CATEGORY_BANK_NO, accno);
+                intent.putExtra(CATEGORY_BANK_NAME, accname);
+                intent.putExtra(CATEGORY_BANK_AMOUNT, bamount);
+                intent.putExtra(CATEGORY_BANK_BANKS, bank);
+                intent.putExtra(CATEGORY_BANK_TYPE, bank_type);
+            }
             // Sending value to another activity using intent.
             intent.putExtra("ListViewClickedValue", TempListViewClickedValue);
             startActivity(intent);
@@ -148,6 +184,32 @@ public class Category extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), categoryList.get(position).getTitle(), Toast.LENGTH_SHORT).show();
         }else{
             Intent intent = new Intent();
+            Intent intent1 = getIntent();
+
+            String cashid = intent1.getStringExtra(AddExpenseActivity.EXPENSE_CASH_ID);
+            String title = intent1.getStringExtra(AddExpenseActivity.EXPENSE_CASH_TITLE);
+            String camount = intent1.getStringExtra(AddExpenseActivity.EXPENSE_CASH_AMOUNT);
+
+            String bankid = intent1.getStringExtra(AddExpenseActivity.EXPENSE_BANK_ID);
+            String accno = intent1.getStringExtra(AddExpenseActivity.EXPENSE_BANK_NO);
+            String accname = intent1.getStringExtra(AddExpenseActivity.EXPENSE_BANK_NAME);
+            String bamount = intent1.getStringExtra(AddExpenseActivity.EXPENSE_BANK_AMOUNT);
+            String bank = intent1.getStringExtra(AddExpenseActivity.EXPENSE_BANK_BANKS);
+            String bank_type = intent1.getStringExtra(AddExpenseActivity.EXPENSE_BANK_TYPE);
+
+            if (cashid != null) {
+                intent.putExtra(CATEGORY_CASH_ID, cashid);
+                intent.putExtra(CATEGORY_CASH_TITLE, title);
+                intent.putExtra(CATEGORY_CASH_AMOUNT, camount);
+            }else{
+                intent.putExtra(CATEGORY_BANK_ID, bankid);
+                intent.putExtra(CATEGORY_BANK_NO, accno);
+                intent.putExtra(CATEGORY_BANK_NAME, accname);
+                intent.putExtra(CATEGORY_BANK_AMOUNT, bamount);
+                intent.putExtra(CATEGORY_BANK_BANKS, bank);
+                intent.putExtra(CATEGORY_BANK_TYPE, bank_type);
+            }
+
             intent.putExtra("ListViewClickedValue", TempListViewClickedValue);
             setResult(RESULT_OK,intent);
             finish();

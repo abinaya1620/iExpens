@@ -81,12 +81,6 @@ public class BankCategory extends AppCompatActivity {
             //Action after clicking item
             // Getting listview click value into String variable.
             String TempListViewClickedValue =banksList.get(position).getTitle();
-
-         /*   Bundle bundle = new Bundle();
-            bundle.putString("ListViewClickedValue", TempListViewClickedValue);
-            AddAccountFragment fragobj = new AddAccountFragment();
-            fragobj.setArguments(bundle);*/
-
            Intent intent = new Intent(BankCategory.this, AddAccountActivity.class);
             intent.putExtra("ListViewClickedValue", TempListViewClickedValue);
             startActivity(intent);
