@@ -43,6 +43,7 @@
                 android:textStyle="bold"
                 android:gravity="center"
                 android:hint="Select Bank"
+                android:textColorHint="#ffffff"
                 android:textColor="@color/cardview_light_background"/>
 
         </LinearLayout>
@@ -157,13 +158,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="0.5"
-                android:entries="@array/Acct_type"
-                android:popupBackground="@color/colorPrimaryDark"
-                android:spinnerMode="dropdown"
-                android:textAlignment="textEnd"
-                android:gravity="center"
+                android:gravity="right"
                 android:paddingRight="18dp"
-                android:textColor="@color/cardview_light_background"/>
+                android:textColor="#ffffff"/>
         </LinearLayout>
 
         <LinearLayout

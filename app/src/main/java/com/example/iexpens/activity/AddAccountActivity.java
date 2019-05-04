@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -50,7 +51,10 @@ public class AddAccountActivity extends AppCompatActivity {
         ip_acc_amount = (EditText)findViewById(R.id.ip_acc_amount);
         spinner_banks = (TextView)findViewById(R.id.spinner_banks);
         spinner_acctype = (Spinner)findViewById(R.id.spinner_acctype);
-
+        String[] arr = getResources().getStringArray(R.array.Acct_type);
+        ArrayAdapter adp = new ArrayAdapter(this,R.layout.spinner_layout,arr);
+        adp.setDropDownViewResource(R.layout.dropdown);
+        spinner_acctype.setAdapter(adp);
         spinner_banks.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

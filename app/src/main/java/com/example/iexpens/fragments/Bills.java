@@ -88,7 +88,7 @@ public class Bills extends Fragment {
     private FirebaseAuth mAuth;
     private FirebaseUser mUser;
     private String mUserId;
-
+    Spinner billReminder;
     private OnFragmentInteractionListener mListener;
 
     public Bills() {
@@ -140,6 +140,11 @@ public class Bills extends Fragment {
         Log.e("Screenheight" , Integer.toString(screenheight));
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,(screenheight-280));
         notificationLayout.setLayoutParams(lp);
+        billReminder = BillsView.findViewById(R.id.billReminder);
+        String[] arr = getActivity().getResources().getStringArray(R.array.RemindOptions);
+        ArrayAdapter adp = new ArrayAdapter(getActivity(),R.layout.spinner_layout,arr);
+        adp.setDropDownViewResource(R.layout.dropdown);
+        billReminder.setAdapter(adp);
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -159,7 +164,8 @@ public class Bills extends Fragment {
         final Calendar myCalendar = Calendar.getInstance();
         Spinner accoutChooser = BillsView.findViewById(R.id.billAccount);
         ArrayList<String> items = new ArrayList<String>();
-        adapter = new ArrayAdapter(this.getContext(),android.R.layout.simple_list_item_1,items);
+        adapter = new ArrayAdapter(this.getContext(),R.layout.spinner_layout,items);
+        adapter.setDropDownViewResource(R.layout.dropdown);
         DatabaseReference firebaseDb = FirebaseDatabase.getInstance().getReference(mUserId).child("Bank Accounts");
         firebaseDb.addValueEventListener(new ValueEventListener() {
             @Override
@@ -272,7 +278,6 @@ public class Bills extends Fragment {
         EditText billAmount= view.findViewById(R.id.billAmount);
         TextView billCategory = view.findViewById(R.id.CategoryChooser);
         EditText billDueDate= view.findViewById(R.id.billDueDate);
-        Spinner billReminder = view.findViewById(R.id.billReminder);
         EditText billNotes= view.findViewById(R.id.billNote);
 
         if(TextUtils.isEmpty(billName.getText())){
