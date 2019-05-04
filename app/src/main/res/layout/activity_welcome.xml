@@ -11,7 +11,7 @@
         android:id="@+id/flipper"
         android:layout_width="355dp"
         android:layout_height="268dp"
-        android:layout_marginTop="68dp"
+        android:layout_marginTop="108dp"
         android:layout_centerHorizontal="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,6 +26,7 @@
         android:padding="10dp"
         android:layout_alignParentBottom="true"
         android:layout_height="wrap_content">
+
     <Button
         style="@style/mybutton"
         android:id="@+id/bt_login"
@@ -48,6 +49,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent" />
+
     </LinearLayout>
 
 </RelativeLayout>
