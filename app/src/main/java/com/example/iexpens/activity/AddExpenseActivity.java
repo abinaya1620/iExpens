@@ -286,7 +286,7 @@ public class AddExpenseActivity extends AppCompatActivity {
 
 
         StorageReference storageRef = firebaseStorage.getReference(mUserId);
-        uploadeRef = storageRef.child("iExpens").child(cloudFilePath);
+        uploadeRef = storageRef.child("iexpens").child(cloudFilePath);
         Log.d(TAG, "cloudfilepath :" + "" + cloudFilePath);
 
         uploadeRef.putFile(picUri).addOnFailureListener(new OnFailureListener() {
