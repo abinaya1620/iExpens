@@ -78,6 +78,7 @@ public class HomeFragment extends Fragment {
         FirebaseUser user = mAuth.getCurrentUser();
         String user_Id = user.getUid();
         databaseExpenses = FirebaseDatabase.getInstance().getReference(user_Id).child("expenses");
+        //databaseExpenses = FirebaseDatabase.getInstance().getReference(user_Id).child("Expenses").child("Bank Accounts");
 
         /*List<SliceValue> pieData = new ArrayList<SliceValue>();
         pieData.add(new SliceValue(15, Color.BLUE).setLabel("Q1: $10"));
