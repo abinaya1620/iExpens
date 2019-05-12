@@ -78,6 +78,7 @@ public class AddExpenseActivity extends AppCompatActivity {
     Calendar calendar;
     DatePickerDialog datePickerDialog;
     DatabaseReference databaseExpenses;
+    DatabaseReference idatabaseExpenses;
     ListView listViewExpenses;
     List<Expense> expenseList;
     private String imageAddr;
@@ -152,11 +153,15 @@ public class AddExpenseActivity extends AppCompatActivity {
         //  databaseExpenses = FirebaseDatabase.getInstance().getReference(mUserId).child("expenses");
 
         if (cash_Id != null) {
-            databaseExpenses = FirebaseDatabase.getInstance().getReference().child(mUserId).child("Expenses").child("WALLET").child(cash_Id);
+            //databaseExpenses = FirebaseDatabase.getInstance().getReference().child(mUserId).child("Expenses").child("WALLET").child(cash_Id);
+            idatabaseExpenses = FirebaseDatabase.getInstance().getReference().child(mUserId).child("Expenses").child("WALLET").child(cash_Id);
+            databaseExpenses = FirebaseDatabase.getInstance().getReference(mUserId).child("expenses");
             databaseTransactions = FirebaseDatabase.getInstance().getReference(mUserId).child("Wallet Transactions").child("WALLET").child(cash_Id);
             databaseCash = FirebaseDatabase.getInstance().getReference().child(mUserId).child("WALLET").child(cash_Id);
         } else {
-            databaseExpenses = FirebaseDatabase.getInstance().getReference(mUserId).child("Expenses").child("Bank Accounts").child(bank_Id);
+            //databaseExpenses = FirebaseDatabase.getInstance().getReference(mUserId).child("Expenses").child("Bank Accounts").child(bank_Id);
+            idatabaseExpenses = FirebaseDatabase.getInstance().getReference(mUserId).child("Expenses").child("Bank Accounts").child(bank_Id);
+            databaseExpenses = FirebaseDatabase.getInstance().getReference(mUserId).child("expenses");
             databaseTransactions = FirebaseDatabase.getInstance().getReference(mUserId).child("Bank Transactions").child("Bank Accounts").child(bank_Id);
             databaseWallet = FirebaseDatabase.getInstance().getReference().child(mUserId).child("Bank Accounts").child(bank_Id);
         }
@@ -286,7 +291,7 @@ public class AddExpenseActivity extends AppCompatActivity {
 
 
         StorageReference storageRef = firebaseStorage.getReference(mUserId);
-        uploadeRef = storageRef.child("iExpens").child(cloudFilePath);
+        uploadeRef = storageRef.child("iexpens").child(cloudFilePath);
         Log.d(TAG, "cloudfilepath :" + "" + cloudFilePath);
 
         uploadeRef.putFile(picUri).addOnFailureListener(new OnFailureListener() {
@@ -318,6 +323,24 @@ public class AddExpenseActivity extends AppCompatActivity {
 
         super.onStart();
         databaseExpenses.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                expenseList.clear();
+
+                for (DataSnapshot expenseSnapshot : dataSnapshot.getChildren()) {
+                    Expense expense = expenseSnapshot.getValue(Expense.class);
+                    expenseList.add(expense);
+                }
+                ExpenseList adapter = new ExpenseList(AddExpenseActivity.this, expenseList);
+                listViewExpenses.setAdapter(adapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        idatabaseExpenses.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 expenseList.clear();
@@ -460,9 +483,11 @@ public class AddExpenseActivity extends AppCompatActivity {
                     update_cashtransaction(price);
 
                     String id = databaseExpenses.push().getKey();
+                    idatabaseExpenses.push().getKey();
                     Expense expense = new Expense(id, category, price, date, description, uploadeRef.toString());
                     Log.d("Print", "print4" + id + category + price + date);
                     databaseExpenses.child(id).setValue(expense);
+                    idatabaseExpenses.child(id).setValue(expense);
                     Toast.makeText(this, "Expense added", Toast.LENGTH_LONG).show();
                 }
             } else {
@@ -475,9 +500,11 @@ public class AddExpenseActivity extends AppCompatActivity {
                     update_banktransaction(price);
 
                     String id = databaseExpenses.push().getKey();
+                    idatabaseExpenses.push().getKey();
                     Expense expense = new Expense(id, category, price, date, description);
                     Log.d("Print", "print4" + id + category + price + date);
                     databaseExpenses.child(id).setValue(expense);
+                    idatabaseExpenses.child(id).setValue(expense);
                     Toast.makeText(this, "Expense added", Toast.LENGTH_LONG).show();
                 }
             }

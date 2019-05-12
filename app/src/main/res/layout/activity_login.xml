@@ -12,10 +12,22 @@
 
 
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:id="@+id/linearLayout"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:visibility="visible"
+            android:layout_gravity="center"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:src="@drawable/loginpage"/>
 
         <EditText
             android:id="@+id/email_login"
@@ -27,13 +39,10 @@
             android:background="@color/primary_light"
             android:backgroundTint="@android:color/white"
             android:drawableLeft="@drawable/email"
+            android:hint="Username"
             android:inputType="textEmailAddress"
             android:padding="10dp"
-            android:textColor="@android:color/black"
-            app:layout_constraintBottom_toTopOf="@+id/password_login"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:textColor="@android:color/black" />
 
         <EditText
             android:id="@+id/password_login"
@@ -44,23 +53,25 @@
             android:layout_marginBottom="8dp"
             android:inputType="textPassword"
             android:padding="10dp"
+            android:hint="password"
             android:textColor="@android:color/black"
-            android:textColorHint="@android:color/black"
-            app:layout_constraintBottom_toTopOf="@+id/btnsiginin"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             android:background="@color/primary_light"
             android:backgroundTint="@android:color/white"
             android:drawableLeft="@drawable/password"/>
+    </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:orientation="vertical">
         <Button
             style="@style/mybutton"
             android:id="@+id/btnsiginin"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
+            android:layout_margin="8dp"
+            android:textSize="18sp"
             android:text="Sign in"
             app:layout_constraintBottom_toTopOf="@+id/signupbtn"
             app:layout_constraintEnd_toEndOf="parent"
@@ -70,32 +81,18 @@
         <Button
             style="@style/mybutton"
             android:id="@+id/signupbtn"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
+            android:layout_margin="8dp"
             android:text="Sign up"
+            android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.501"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/email_login"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@tools:sample/avatars" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 
 
 </LinearLayout>
